@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ByeScribe
 
-## Getting Started
+**The easier way to unsubscribe.**
 
-First, run the development server:
+ByeScribe hjälper svenska konsumenter att hitta verifierade instruktioner, mallar och kontaktvägar för att säga upp abonnemang och spara pengar. Webbplatsen utför aldrig uppsägningar automatiskt.
 
+## Teknisk Stack
+- **Framework**: Next.js 16 (App Router med React Server Components)
+- **UI & Styling**: Tailwind CSS 4 med semantiska design tokens (`Guided Clarity`)
+- **Internationalisering**: `next-intl` (svenska `/sv` aktiv)
+- **Databas & ORM**: PostgreSQL via Drizzle ORM och `postgres.js`
+- **Validering**: Zod
+- **Tester**: Vitest (jsdom + Testing Library) och Playwright (E2E)
+
+---
+
+## Snabbstart
+
+### 1. Installera beroenden
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Miljövariabler
+Kopiera `.env.example` till `.env.local`:
+```bash
+cp .env.example .env.local
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+I lokal utveckling används `BYESCRIBE_DATA_SOURCE=fixtures` som standard, vilket innebär att ingen lokal PostgreSQL-databas krävs för att köra eller bygga appen.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Starta utvecklingsservern
+```bash
+pnpm dev
+```
+Öppna [http://localhost:3000](http://localhost:3000) (omdirigeras automatiskt till `/sv`).
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Skript & Kommandon
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Kommando | Beskrivning |
+| :--- | :--- |
+| `pnpm dev` | Startar utvecklingsservern |
+| `pnpm build` | Bygger produktionspaketet (Next.js Turbopack) |
+| `pnpm lint` | Kör ESLint |
+| `pnpm typecheck` | Kör TypeScript-typkontroll (`tsc --noEmit`) |
+| `pnpm test` | Kör enhetstester med Vitest |
+| `pnpm test:watch` | Kör Vitest i interaktivt watch-läge |
+| `pnpm test:e2e` | Kör Playwright E2E-tester |
+| `pnpm test:smoke` | Kör produktions-smoke test mot `next start` |
+| `pnpm db:generate` | Genererar SQL-migrationer från Drizzle-schemat |
+| `pnpm db:migrate` | Applicerar migrationer mot ansluten PostgreSQL-databas |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Databas & Datakällor
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Applikationen använder ett repository-mönster (`ServiceRepository`) med två adaptrar:
+1. **Fixture-adapter** (`BYESCRIBE_DATA_SOURCE=fixtures`): In-memory fiktiva tjänster för lokal utveckling och CI.
+2. **PostgreSQL-adapter** (`BYESCRIBE_DATA_SOURCE=postgres`): Drizzle ORM mot PostgreSQL/Supabase.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+För detaljerad arkitekturbeskrivning och designsystem, se:
+- [docs/architecture.md](docs/architecture.md)
+- [docs/design-system.md](docs/design-system.md)
+- [docs/release-readiness.md](docs/release-readiness.md)
+- [docs/adr/](docs/adr/)

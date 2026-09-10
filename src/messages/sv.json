@@ -1,0 +1,58 @@
+{
+  "common": {
+    "brand": "ByeScribe",
+    "tagline": "The easier way to unsubscribe.",
+    "skipToContent": "Hoppa till innehåll",
+    "disclaimer": "ByeScribe hjälper konsumenter att hitta instruktioner för att säga upp abonnemang. Vi säger aldrig upp tjänster automatiskt."
+  },
+  "nav": {
+    "home": "Start",
+    "search": "Sök guide",
+    "calculator": "Besparingskalkylator",
+    "messageGenerator": "Uppsägningsmeddelande",
+    "openMenu": "Öppna meny",
+    "closeMenu": "Stäng meny"
+  },
+  "home": {
+    "heroH1": "Säg upp abonnemang utan onödigt krångel.",
+    "heroSubtitle": "Sök efter tjänsten du vill avsluta. ByeScribe visar tydliga steg, villkor, källor och rätt kontaktvägar.",
+    "heroDisclaimer": "ByeScribe vägleder dig genom processen men genomför aldrig uppsägningen åt dig.",
+    "searchPlaceholder": "Sök efter en tjänst",
+    "searchPrivacyHint": "Sök endast efter tjänstens namn. Skriv inte personnummer, medlemsnummer eller andra personuppgifter.",
+    "searchButton": "Sök",
+    "valueStep1Title": "Tydliga steg",
+    "valueStep1Desc": "Konkreta instruktioner anpassade för varje tjänsts specifika uppsägningsflöde.",
+    "valueStep2Title": "Villkor och uppsägningstid",
+    "valueStep2Desc": "Håll koll på bindningstider, uppsägningstider och vad du behöver ha till hands.",
+    "valueStep3Title": "Källor och kontaktvägar",
+    "valueStep3Desc": "Hitta tillgängliga källor, officiella kontaktvägar och relevanta villkor på ett ställe.",
+    "howBadge": "Så fungerar det",
+    "howHeading": "Från osäkerhet till genomförd uppsägning",
+    "howStep1Title": "Sök efter tjänsten",
+    "howStep1Desc": "Hitta guiden för din leverantör och se vilka uppgifter som krävs.",
+    "howStep2Title": "Följ uppsägningsguiden",
+    "howStep2Desc": "Följ de tydliga stegen och använd kalkylatorn om du vill räkna på besparingen.",
+    "howStep3Title": "Genomför hos leverantören",
+    "howStep3Desc": "Avsluta tjänsten via leverantörens officiella kanal eller med ett färdigt textutkast.",
+    "guidesHeading": "Hitta en uppsägningsguide",
+    "guidesEmpty": "Det finns inga publicerade guider att visa här just nu.",
+    "toolsHeading": "Verktyg för abonnemang & sparande",
+    "calcTitle": "Besparingskalkylator",
+    "calcDesc": "Uppskatta hur mycket du kan spara på ett år och fem år genom att avsluta ett återkommande abonnemang.",
+    "calcCta": "Räkna på din besparing",
+    "msgTitle": "Uppsägningsmeddelande",
+    "msgDesc": "Skapa ett redigerbart textutkast för e-post eller brev. Det du skriver och utkastet du skapar stannar i din webbläsare.",
+    "msgCta": "Skapa ett uppsägningsutkast",
+    "summaCardTitle": "Få full koll på dina fasta utgifter med Summa",
+    "summaCardDescription": "Upptäck onödiga prenumerationer och spåra dina kostnader direkt i mobilen.",
+    "summaCardCta": "Ladda ner Summa"
+  },
+  "notFound": {
+    "title": "Sidan kunde inte hittas",
+    "description": "Sidan du söker finns inte eller har flyttats.",
+    "backHome": "Gå till startsidan"
+  },
+  "footer": {
+    "copyright": "Alla rättigheter förbehållna."
+  }
+}

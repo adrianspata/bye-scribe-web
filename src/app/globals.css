@@ -1,26 +1,100 @@
 @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import "../styles/tokens.css";
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-page: var(--color-page);
+  --color-page-subtle: var(--color-page-subtle);
+  --color-surface: var(--color-surface);
+  --color-surface-raised: var(--color-surface-raised);
+  --color-surface-interactive: var(--color-surface-interactive);
+  --color-surface-interactive-hover: var(--color-surface-interactive-hover);
+  --color-surface-selected: var(--color-surface-selected);
+
+  --color-text: var(--color-text);
+  --color-text-muted: var(--color-text-muted);
+  --color-text-subtle: var(--color-text-subtle);
+
+  --color-border: var(--color-border);
+  --color-border-strong: var(--color-border-strong);
+  --color-border-subtle: var(--color-border-subtle);
+
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+  --color-accent-soft: var(--color-accent-soft);
+  --color-accent-contrast: var(--color-accent-contrast);
+
+  --color-positive: var(--color-positive);
+  --color-positive-surface: var(--color-positive-surface);
+  --color-positive-border: var(--color-positive-border);
+
+  --color-warning: var(--color-warning);
+  --color-warning-surface: var(--color-warning-surface);
+  --color-warning-border: var(--color-warning-border);
+
+  --color-critical: var(--color-critical);
+  --color-critical-surface: var(--color-critical-surface);
+  --color-critical-border: var(--color-critical-border);
+
+  --color-information: var(--color-information);
+  --color-information-surface: var(--color-information-surface);
+  --color-information-border: var(--color-information-border);
+
+  --color-focus: var(--color-focus);
+
+  /* Radii */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-pill: var(--radius-pill);
+
+  /* Fonts */
+  --font-sans: var(--font-family-sans);
+  --font-mono: var(--font-family-mono);
+
+  /* Backward Compatibility Aliases */
+  --color-canvas: var(--color-page);
+  --color-text-primary: var(--color-text);
+  --color-surface-elevated: var(--color-surface-raised);
+  --color-success: var(--color-positive);
+  --color-success-surface: var(--color-positive-surface);
+  --color-danger: var(--color-critical);
+  --color-danger-surface: var(--color-critical-surface);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Base Document Styling */
+html {
+  font-family: var(--font-family-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-page);
+  color: var(--color-text);
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Tabular Numbers Utility */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Accessible focus ring on all interactive elements when using keyboard navigation */
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Reduced Motion Respect */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
