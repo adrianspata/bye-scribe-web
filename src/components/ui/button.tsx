@@ -32,13 +32,13 @@ export function Button({
 
   const variantStyles = {
     primary:
-      'bg-[var(--color-accent)] text-[var(--color-accent-contrast)] hover:bg-[var(--color-accent-hover)] shadow-sm font-semibold',
+      'bg-[var(--color-btn-primary-bg)] text-[var(--color-btn-primary-text)] hover:bg-[var(--color-btn-primary-hover)] border border-transparent shadow-subtle font-semibold',
     secondary:
-      'bg-[var(--color-surface)] text-[var(--color-text)] hover:bg-[var(--color-surface-interactive-hover)] border border-[var(--color-border-strong)] shadow-xs',
+      'bg-[var(--color-btn-secondary-bg)] text-[var(--color-btn-secondary-text)] hover:bg-[var(--color-btn-secondary-hover)] border border-[var(--color-btn-secondary-border)] shadow-xs font-medium',
     quiet:
-      'bg-transparent text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface-interactive)] border border-transparent',
+      'bg-transparent text-[var(--color-btn-quiet-text)] hover:text-[var(--color-text)] hover:bg-[var(--color-btn-quiet-hover-bg)] border border-transparent',
     destructive:
-      'bg-[var(--color-critical)] text-white hover:opacity-90 shadow-sm font-semibold',
+      'bg-[var(--color-btn-destructive-bg)] text-[var(--color-btn-destructive-text)] hover:bg-[var(--color-btn-destructive-hover)] border border-transparent shadow-subtle font-semibold',
   };
 
   const isDisabled = disabled || isLoading;
