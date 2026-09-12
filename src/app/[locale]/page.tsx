@@ -42,7 +42,7 @@ export default async function HomePage() {
             <span>{BRAND.tagline}</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[var(--color-text)] leading-[1.12]">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-[-0.03em] text-[var(--color-text)] leading-[1.05]">
             {t('heroH1')}
           </h1>
 
@@ -78,8 +78,8 @@ export default async function HomePage() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--color-border)] gap-6 md:gap-0">
           <div className="flex flex-col gap-2 md:px-6 first:md:pl-0">
-            <div className="flex items-center gap-2 text-[var(--color-accent)]">
-              <ListOrdered className="w-4 h-4 shrink-0" aria-hidden="true" />
+            <div className="flex items-center gap-2 text-[var(--color-text)]">
+              <ListOrdered className="w-4 h-4 shrink-0 text-[var(--color-text-muted)]" aria-hidden="true" />
               <h3 className="font-bold text-sm text-[var(--color-text)] tracking-tight">
                 {t('valueStep1Title')}
               </h3>
@@ -90,8 +90,8 @@ export default async function HomePage() {
           </div>
 
           <div className="flex flex-col gap-2 pt-4 md:pt-0 md:px-6">
-            <div className="flex items-center gap-2 text-[var(--color-accent)]">
-              <CalendarClock className="w-4 h-4 shrink-0" aria-hidden="true" />
+            <div className="flex items-center gap-2 text-[var(--color-text)]">
+              <CalendarClock className="w-4 h-4 shrink-0 text-[var(--color-text-muted)]" aria-hidden="true" />
               <h3 className="font-bold text-sm text-[var(--color-text)] tracking-tight">
                 {t('valueStep2Title')}
               </h3>
@@ -102,8 +102,8 @@ export default async function HomePage() {
           </div>
 
           <div className="flex flex-col gap-2 pt-4 md:pt-0 md:px-6 last:md:pr-0">
-            <div className="flex items-center gap-2 text-[var(--color-accent)]">
-              <ExternalLinkIcon className="w-4 h-4 shrink-0" aria-hidden="true" />
+            <div className="flex items-center gap-2 text-[var(--color-text)]">
+              <ExternalLinkIcon className="w-4 h-4 shrink-0 text-[var(--color-text-muted)]" aria-hidden="true" />
               <h3 className="font-bold text-sm text-[var(--color-text)] tracking-tight">
                 {t('valueStep3Title')}
               </h3>
@@ -118,7 +118,7 @@ export default async function HomePage() {
       {/* 3. Guided Clarity: How It Works */}
       <section aria-labelledby="how-it-works-heading" className="w-full flex flex-col gap-4 sm:gap-6">
         <div className="flex flex-col gap-1">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-accent)]">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-subtle)]">
             {t('howBadge')}
           </span>
           <h2
@@ -141,11 +141,11 @@ export default async function HomePage() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Tool 1: Savings Calculator */}
-          <div className="p-6 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] shadow-subtle flex flex-col justify-between gap-4">
-            <div className="flex flex-col gap-2">
+          <div className="p-6 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] shadow-subtle flex flex-col justify-between gap-5 transition-all hover:border-[var(--color-border-strong)] hover:shadow-raised">
+            <div className="flex flex-col gap-2.5">
               <div className="flex items-center gap-2.5">
-                <div className="p-2 rounded-[var(--radius-sm)] bg-[var(--color-page-subtle)] text-[var(--color-accent)]">
-                  <Calculator className="w-5 h-5" aria-hidden="true" />
+                <div className="p-2 rounded-[var(--radius-sm)] bg-[var(--color-page-subtle)] text-[var(--color-text)] border border-[var(--color-border)]">
+                  <Calculator className="w-4 h-4" aria-hidden="true" />
                 </div>
                 <h3 className="font-bold text-base text-[var(--color-text)]">
                   {t('calcTitle')}
@@ -158,7 +158,7 @@ export default async function HomePage() {
             <div>
               <Link
                 href="/verktyg/besparingskalkylator"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-accent)] hover:text-[var(--color-accent-hover)] transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] rounded-sm"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] rounded-sm"
               >
                 <span>{t('calcCta')}</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
@@ -167,11 +167,11 @@ export default async function HomePage() {
           </div>
 
           {/* Tool 2: Cancellation Message Draft */}
-          <div className="p-6 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] shadow-subtle flex flex-col justify-between gap-4">
-            <div className="flex flex-col gap-2">
+          <div className="p-6 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] shadow-subtle flex flex-col justify-between gap-5 transition-all hover:border-[var(--color-border-strong)] hover:shadow-raised">
+            <div className="flex flex-col gap-2.5">
               <div className="flex items-center gap-2.5">
-                <div className="p-2 rounded-[var(--radius-sm)] bg-[var(--color-page-subtle)] text-[var(--color-accent)]">
-                  <FileText className="w-5 h-5" aria-hidden="true" />
+                <div className="p-2 rounded-[var(--radius-sm)] bg-[var(--color-page-subtle)] text-[var(--color-text)] border border-[var(--color-border)]">
+                  <FileText className="w-4 h-4" aria-hidden="true" />
                 </div>
                 <h3 className="font-bold text-base text-[var(--color-text)]">
                   {t('msgTitle')}
@@ -184,7 +184,7 @@ export default async function HomePage() {
             <div>
               <Link
                 href="/verktyg/uppsagningsmeddelande"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-accent)] hover:text-[var(--color-accent-hover)] transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] rounded-sm"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] rounded-sm"
               >
                 <span>{t('msgCta')}</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
