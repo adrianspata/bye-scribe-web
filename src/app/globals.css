@@ -23,6 +23,30 @@
   --color-accent-soft: var(--color-accent-soft);
   --color-accent-contrast: var(--color-accent-contrast);
 
+  /* Signal Color System */
+  --signal-blue: var(--signal-blue);
+  --signal-cyan: var(--signal-cyan);
+  --signal-violet: var(--signal-violet);
+  --signal-surface: var(--signal-surface);
+  --signal-surface-subtle: var(--signal-surface-subtle);
+  --signal-grain-opacity: var(--signal-grain-opacity);
+  --signal-overlay: var(--signal-overlay);
+  --signal-text-contrast: var(--signal-text-contrast);
+
+  /* Button Tokens */
+  --color-btn-primary-bg: var(--color-btn-primary-bg);
+  --color-btn-primary-text: var(--color-btn-primary-text);
+  --color-btn-primary-hover: var(--color-btn-primary-hover);
+  --color-btn-secondary-bg: var(--color-btn-secondary-bg);
+  --color-btn-secondary-text: var(--color-btn-secondary-text);
+  --color-btn-secondary-border: var(--color-btn-secondary-border);
+  --color-btn-secondary-hover: var(--color-btn-secondary-hover);
+  --color-btn-quiet-text: var(--color-btn-quiet-text);
+  --color-btn-quiet-hover-bg: var(--color-btn-quiet-hover-bg);
+  --color-btn-destructive-bg: var(--color-btn-destructive-bg);
+  --color-btn-destructive-text: var(--color-btn-destructive-text);
+  --color-btn-destructive-hover: var(--color-btn-destructive-hover);
+
   --color-positive: var(--color-positive);
   --color-positive-surface: var(--color-positive-surface);
   --color-positive-border: var(--color-positive-border);
@@ -87,6 +111,27 @@ body {
   outline-offset: var(--focus-ring-offset);
 }
 
+/* Ambient Motion Keyframes (Lightweight transform & opacity loop on oversized layer) */
+@keyframes ambient-signal-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate3d(-1.5%, 1.5%, 0) scale(1.03);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.9;
+  }
+}
+
+.animate-ambient-signal {
+  animation: ambient-signal-drift 18s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
 /* Reduced Motion Respect */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -96,5 +141,10 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .animate-ambient-signal {
+    animation: none !important;
+    transform: none !important;
   }
 }

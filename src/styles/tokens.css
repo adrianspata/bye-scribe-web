@@ -1,6 +1,6 @@
 /**
  * BYESCRIBE SEMANTIC DESIGN TOKENS
- * Guided Clarity Design System — Pure System Theme Architecture
+ * Guided Clarity with Signal Color — Pure System Theme Architecture
  *
  * Theme is controlled exclusively via native CSS prefers-color-scheme.
  * Light tokens are active by default on :root;
@@ -13,32 +13,57 @@
 :root {
   color-scheme: light dark;
 
-  /* Surfaces & Canvas */
-  --color-page: #f8fafc;
-  --color-page-subtle: #f1f5f9;
+  /* Surfaces & Canvas (Warm refined neutrals) */
+  --color-page: #fafaf9;
+  --color-page-subtle: #f4f3f0;
   --color-surface: #ffffff;
   --color-surface-raised: #ffffff;
-  --color-surface-interactive: #f8fafc;
-  --color-surface-interactive-hover: #f1f5f9;
-  --color-surface-selected: #e8f0fe;
+  --color-surface-interactive: #f4f3f0;
+  --color-surface-interactive-hover: #ecebe6;
+  --color-surface-selected: #e9effd;
 
-  /* Typography Colors (High contrast WCAG AAA) */
-  --color-text: #09131f;
-  --color-text-muted: #334155;
-  --color-text-subtle: #475569;
+  /* Typography Colors (Measured WCAG AAA/AA compliant) */
+  --color-text: #0c1117;
+  --color-text-muted: #404854;
+  --color-text-subtle: #5c6573;
 
-  /* Borders */
-  --color-border: #e2e8f0;
-  --color-border-strong: #cbd5e1;
-  --color-border-subtle: #f1f5f9;
+  /* Borders (Warm low-contrast) */
+  --color-border: #e5e4e0;
+  --color-border-strong: #cfceca;
+  --color-border-subtle: #eeede9;
 
-  /* Semantic Accent & Action (Guided Clarity Sapphire Blue, AAA contrast) */
-  --color-accent: #0f62fe;
-  --color-accent-hover: #0043ce;
-  --color-accent-soft: #edf5ff;
+  /* Semantic Accent & Action (Guided Clarity Cobalt, AAA contrast) */
+  --color-accent: #1d4ed8;
+  --color-accent-hover: #1e40af;
+  --color-accent-soft: #eff6ff;
   --color-accent-contrast: #ffffff;
 
-  /* Status Indicators (All >= 4.5:1 against respective surfaces) */
+  /* Signal Color System (Cobalt, Cyan, Violet — Strictly disciplined 10-15%) */
+  --signal-blue: #1d4ed8;
+  --signal-cyan: #0284c7;
+  --signal-violet: #7c3aed;
+  --signal-surface: linear-gradient(135deg, rgba(29, 78, 216, 0.08) 0%, rgba(2, 132, 199, 0.06) 50%, rgba(124, 58, 237, 0.05) 100%);
+  --signal-surface-subtle: rgba(29, 78, 216, 0.035);
+  --signal-grain-opacity: 0.08;
+  --signal-grain-url: url('/textures/signal-noise.svg');
+  --signal-overlay: rgba(250, 250, 249, 0.70);
+  --signal-text-contrast: #0c1117;
+
+  /* Semantic Button Tokens */
+  --color-btn-primary-bg: #0c1117;
+  --color-btn-primary-text: #ffffff;
+  --color-btn-primary-hover: #263040;
+  --color-btn-secondary-bg: #ffffff;
+  --color-btn-secondary-text: #0c1117;
+  --color-btn-secondary-border: #cfceca;
+  --color-btn-secondary-hover: #f4f3f0;
+  --color-btn-quiet-text: #404854;
+  --color-btn-quiet-hover-bg: #f4f3f0;
+  --color-btn-destructive-bg: #b91c1c;
+  --color-btn-destructive-text: #ffffff;
+  --color-btn-destructive-hover: #991b1b;
+
+  /* Status Indicators (Functional status only, never mixed with Signal Color) */
   --color-positive: #15803d;
   --color-positive-surface: #f0fdf4;
   --color-positive-border: #bbf7d0;
@@ -56,20 +81,20 @@
   --color-information-border: #bae6fd;
 
   /* Focus Ring */
-  --color-focus: #0f62fe;
+  --color-focus: #1d4ed8;
   --focus-ring-width: 2px;
   --focus-ring-offset: 2px;
 
   /* Shadows */
-  --shadow-subtle: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
-  --shadow-raised: 0 4px 6px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
-  --shadow-dropdown: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.03);
+  --shadow-subtle: 0 1px 2px 0 rgba(12, 17, 23, 0.04);
+  --shadow-raised: 0 4px 6px -1px rgba(12, 17, 23, 0.06), 0 2px 4px -2px rgba(12, 17, 23, 0.04);
+  --shadow-dropdown: 0 10px 15px -3px rgba(12, 17, 23, 0.08), 0 4px 6px -4px rgba(12, 17, 23, 0.03);
   --inset-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.8);
 
   /* Path Motif Accents */
-  --path-node-active: #0f62fe;
-  --path-line: #cbd5e1;
-  --path-line-active: #0f62fe;
+  --path-node-active: #1d4ed8;
+  --path-line: #cfceca;
+  --path-line-active: #1d4ed8;
 
   /* Radii */
   --radius-sm: 0.375rem;   /* 6px */
@@ -107,15 +132,15 @@
 @media (prefers-color-scheme: dark) {
   :root {
     /* Surfaces & Canvas */
-    --color-page: #090d16;
-    --color-page-subtle: #0d131f;
-    --color-surface: #111827;
-    --color-surface-raised: #182234;
+    --color-page: #0b0f17;
+    --color-page-subtle: #101622;
+    --color-surface: #141c2a;
+    --color-surface-raised: #1a2436;
     --color-surface-interactive: #1a263a;
     --color-surface-interactive-hover: #213048;
     --color-surface-selected: #1e293b;
 
-    /* Typography Colors (WCAG AA/AAA compliant against dark surfaces) */
+    /* Typography Colors (Measured WCAG AAA/AA compliant) */
     --color-text: #f8fafc;
     --color-text-muted: #cbd5e1;
     --color-text-subtle: #94a3b8;
@@ -125,11 +150,35 @@
     --color-border-strong: #334155;
     --color-border-subtle: #162032;
 
-    /* Semantic Accent & Action (Guided Clarity Cyan/Bright Blue) */
+    /* Semantic Accent & Action (Guided Clarity Cyan/Light Cobalt) */
     --color-accent: #38bdf8;
     --color-accent-hover: #7dd3fc;
     --color-accent-soft: #082f49;
-    --color-accent-contrast: #090d16;
+    --color-accent-contrast: #0b0f17;
+
+    /* Signal Color System (Cobalt, Cyan, Violet) */
+    --signal-blue: #38bdf8;
+    --signal-cyan: #06b6d4;
+    --signal-violet: #a78bfa;
+    --signal-surface: linear-gradient(135deg, rgba(56, 189, 248, 0.12) 0%, rgba(6, 182, 212, 0.09) 50%, rgba(167, 139, 250, 0.07) 100%);
+    --signal-surface-subtle: rgba(56, 189, 248, 0.05);
+    --signal-grain-opacity: 0.06;
+    --signal-overlay: rgba(11, 15, 23, 0.75);
+    --signal-text-contrast: #f8fafc;
+
+    /* Semantic Button Tokens */
+    --color-btn-primary-bg: #f8fafc;
+    --color-btn-primary-text: #0b0f17;
+    --color-btn-primary-hover: #e2e8f0;
+    --color-btn-secondary-bg: #141c2a;
+    --color-btn-secondary-text: #f8fafc;
+    --color-btn-secondary-border: #334155;
+    --color-btn-secondary-hover: #1e293b;
+    --color-btn-quiet-text: #cbd5e1;
+    --color-btn-quiet-hover-bg: #1a263a;
+    --color-btn-destructive-bg: #dc2626;
+    --color-btn-destructive-text: #ffffff;
+    --color-btn-destructive-hover: #b91c1c;
 
     /* Status Indicators */
     --color-positive: #4ade80;
