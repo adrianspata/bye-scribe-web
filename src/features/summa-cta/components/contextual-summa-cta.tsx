@@ -1,5 +1,6 @@
 import React from 'react';
 import { clientEnv } from '@/lib/env';
+import { SignalField } from '@/components/visual/signal-field';
 
 export type SummaCtaContext =
   | 'homepage'
@@ -65,33 +66,35 @@ export function ContextualSummaCta({
   return (
     <aside
       aria-labelledby={`summa-heading-${context}`}
-      className={`w-full bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-subtle ${className}`.trim()}
+      className={`relative w-full bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] shadow-subtle overflow-hidden ${className}`.trim()}
     >
-      <div className="flex flex-col gap-2 max-w-xl">
-        <h2
-          id={`summa-heading-${context}`}
-          className="text-base sm:text-lg font-semibold text-[var(--color-text)]"
-        >
-          {content.title}
-        </h2>
-        <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
-          {content.description}
-        </p>
-      </div>
-      {validUrl ? (
-        <a
-          href={validUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 text-sm font-semibold rounded-[var(--radius-md)] bg-[var(--color-accent)] text-[var(--color-accent-contrast)] hover:bg-[var(--color-accent-hover)] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] focus-visible:ring-offset-2 shrink-0"
-        >
-          {content.ctaText}
-        </a>
-      ) : (
-        <div className="text-xs text-[var(--color-text-muted)] border border-[var(--color-border)] bg-[var(--color-surface-interactive)] px-3.5 py-2 rounded-[var(--radius-md)] shrink-0">
-          Summa finns i App Store
+      <SignalField variant="summa" className="p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <div className="flex flex-col gap-2 max-w-xl">
+          <h2
+            id={`summa-heading-${context}`}
+            className="text-base sm:text-lg font-semibold text-[var(--color-text)]"
+          >
+            {content.title}
+          </h2>
+          <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
+            {content.description}
+          </p>
         </div>
-      )}
+        {validUrl ? (
+          <a
+            href={validUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 text-sm font-semibold rounded-[var(--radius-md)] bg-[var(--color-btn-primary-bg)] text-[var(--color-btn-primary-text)] hover:bg-[var(--color-btn-primary-hover)] border border-transparent shadow-subtle transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] focus-visible:ring-offset-2 shrink-0"
+          >
+            {content.ctaText}
+          </a>
+        ) : (
+          <div className="text-xs text-[var(--color-text-muted)] border border-[var(--color-border)] bg-[var(--color-surface-interactive)] px-3.5 py-2 rounded-[var(--radius-md)] shrink-0">
+            Summa finns i App Store
+          </div>
+        )}
+      </SignalField>
     </aside>
   );
 }
