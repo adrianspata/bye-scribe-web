@@ -41,7 +41,7 @@ export function GuidedPathFlow() {
             {/* Node and Step indicator */}
             <div className="flex items-center gap-3 mb-3">
               <div
-                className="w-7 h-7 rounded-full bg-[var(--color-accent-soft)] border border-[var(--color-accent)] text-[var(--color-accent)] flex items-center justify-center text-xs font-bold shrink-0"
+                className="w-7 h-7 rounded-full bg-[var(--color-page-subtle)] border border-[var(--color-border-strong)] text-[var(--color-text)] flex items-center justify-center text-xs font-bold shrink-0"
                 aria-hidden="true"
               >
                 {step.num}
