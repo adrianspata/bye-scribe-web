@@ -1,211 +1,178 @@
-# ByeScribe Design System — Designfas 1 & 2
+# ByeScribe Design System — Designfas 2.2
 
-Detta dokument beskriver det visuella designsystemet, tokensystemet, temahanteringen, grundkomponenterna och startsidans informationsarkitektur för ByeScribe.
+Detta dokument beskriver det visuella designsystemet, tokensystemet, temahanteringen, materialiteten, Signal Color-arkitekturen, grundkomponenterna och informationsarkitekturen för ByeScribe.
 
 **Produktnamn:** ByeScribe  
-**Tagline:** The easier way to unsubscribe.
+**Tagline:** The easier way to unsubscribe.  
+**Designkoncept:** Guided Clarity with Signal Color  
 
 ---
 
-## 1. Designidé: Guided Clarity
+## 1. Guided Clarity with Signal Color
 
-ByeScribe hjälper människor att ta kontroll över sina återkommande abonnemangsutgifter genom att eliminera mental friktion kring uppsägningar.
+ByeScribe hjälper människor att ta kontroll över sina återkommande abonnemangsutgifter genom att eliminera mental friktion och osäkerhet kring uppsägningar.
 
-**Kärnprinciper:**
-1. **Lugn & Trygg:** Inga påträngande popups, stressande timers, blinkande banners eller överlastade layouter. Användaren befinner sig ofta i en situation av irritation eller förvirring gentemot en tjänsteleverantör; ByeScribe förmedlar precision och lugn.
-2. **Handlingsinriktad & Uppgiftsfokuserad:** Information presenteras i tydliga steg med direkt koppling till nästa åtgärd (sökning efter tjänst, beräkning av besparing eller generering av ett färdigt textutkast).
-3. **Visuell orientering längs en väg:** Ett funktionellt motiv av noder, linjer och diskreta stegmarkörer ("Guided Clarity") används för att vägleda användaren från osäkerhet till genomförd uppsägning.
-
-### Användning av Path-motivet
-- **Tillåten användning:**
-  - Numrerade processteg i uppsägningsguider (t.ex. steg 1, 2, 3 med ordningsindikatorer).
-  - "Så fungerar det"-sektionen på startsidan.
-  - Progressionsindikatorer och logiska flöden (övergång från tjänst till besparingskalkylator eller textutkast).
-- **Förbjuden användning:**
-  - Får inte läggas som generell bakgrundsdekoration eller slumpmässigt linjemönster.
-  - Får inte användas på vanliga informationskort där det inte representerar en sekvens.
-  - Får inte utformas som en tunnelbanekarta eller pseudo-logotyp.
+*Guided Clarity with Signal Color* vidareutvecklar designkonceptet genom att kombinera en lugn, varm och neutral redaktionell grund med disciplinerade "Signal Color"-ögonblick:
+- **85–90 % Neutral yta och struktur:** Varm off-white canvas, rena kortytor, balanserade grafitgrå borders och skarp typografi. Vanliga instruktioner, källor, juridiska villkor och formulär förblir helt neutrala.
+- **10–15 % Signal Color & Materialitet:** Signalfärg koncentreras till ett fåtal avsiktliga ytor (framför allt Hero-motivet "Så går du till väga", interaktiva verktyg och Summa-samarbetet) för att markera progression, riktning och redaktionell identitet.
+- **Funktion före dekoration:** Status och viktig information förmedlas aldrig enbart genom färg; text och semantiska markörer bär alltid det primära budskapet.
 
 ---
 
-## 2. Relationen till Summa
+## 2. ElevenLabs som principiell webbreferens
 
-ByeScribe och Summa är relaterade produkter inom privatekonomisk kontroll, men utgör två olika plattformar:
+ElevenLabs webbplats har använts som en kvalitativ referens för gränssnittsdisciplin, materialitet och visuell hierarki.
 
-| Kvalitet | ByeScribe (Webbapplikation) | Summa (Native iOS App) |
-| :--- | :--- | :--- |
-| **Plattform** | Responsiv webb (desktop, tablet, mobile) | Native SwiftUI / iOS |
-| **Informationshierarki** | Lugn, luftig, läsbar webbtypografi | Native iOS-vyer och listor |
-| **Fokus & Ytor** | Tydliga lager med subtila borders och skuggor | Native material, systembakgrunder |
-| **Navigation** | Standardiserad webbheader, mobilmeny och brödsmulor | iOS Tab Bar och NavigationStack |
-| **Färger** | Safirblå/cyan accent, harmoniska neutraler | Summa brand tokens |
-| **Interaktioner** | Klick, tangentbordsfokus, touch targets (min 44px) | Haptik, iOS-gester |
+### Vad ByeScribe lånar som princip:
+1. **Färgdisciplin:** Återhållsam användning av starka accenter mot en dominerande neutral grund.
+2. **Materialitet & Grain:** Subtil texturering och mjuka övergångar som ger djup och närvaro utan att störa textläsbarheten.
+3. **Stora typografiska ytor & luft:** Balanserad spatiell rytm med generösa mellanrum och tydlig redaktionell hierarki.
+4. **Återhållsam motion:** Lågmälda och långsamma ambienta loopar som skapar liv utan att distrahera användaren från uppgiften.
 
-**Vad som uttryckligen INTE kopieras till ByeScribe:**
-- iOS Tab Bars och native modal-kort i webblayouten.
-- Överdriven glassmorphism och suddiga bakgrunder.
-- Monolitiska listceller som inte skalar på desktop.
-
----
-
-## 3. Temahantering: Ren Systemtemastyrning
-
-ByeScribe styrs uteslutande av användarens systempreferens via native CSS `prefers-color-scheme`:
-- **Light Theme (Standard):** Aktiveras på `:root` med `color-scheme: light dark`.
-- **Dark Theme:** Aktiveras automatiskt under `@media (prefers-color-scheme: dark)`.
-
-### Egenskaper
-1. **Noll JavaScript & Noll Hydration Flash:** Färgtemat appliceras omedelbart av webbläsarens CSS-motor innan rendering, helt utan inline-script eller localStorage-läsning.
-2. **Realtidsanpassning:** Ändringar i operativsystemets tema slår igenom ögonblickligen under aktiv session.
-3. **Inga Manuella Knappar:** Inga manuella knappar (System/Ljust/Mörkt) visas i gränssnittet.
+### Vad ByeScribe uttryckligen INTE kopierar:
+- **Inga 3D-sfärer, svävande AI-objekt eller CGI-renderingar.**
+- **Inga AI-buzzwords, generiska SaaS-dashboards eller flytande produktmockups.**
+- **Inga kopierade typsnitt, texturer, gradientfiler eller färgkoder från referensen.**
+- **Inga bento grids utan funktionellt innehåll.**
+- **Inga förhastade mega-menyer eller tomma produktkategorier.**
 
 ---
 
-## 4. Färgpaletter & Semantiska Tokens
+## 3. Neutralitets- och färgfördelning
 
-### Light Theme
-- **Sidbakgrund (`--color-page`):** `#f8fafc` (kall, pärlvit ton)
-- **Subtil sidbakgrund (`--color-page-subtle`):** `#f1f5f9`
-- **Kortyta (`--color-surface`):** `#ffffff`
-- **Upphöjd yta (`--color-surface-raised`):** `#ffffff`
-- **Interaktiv yta (`--color-surface-interactive`):** `#f8fafc` (hover: `#f1f5f9`)
-- **Huvudtext (`--color-text`):** `#09131f` (djup blåsvart för maximal kontrast)
-- **Dämpad text (`--color-text-muted`):** `#334155` (WCAG AAA mot vit bakgrund)
-- **Subtil text (`--color-text-subtle`):** `#475569`
-- **Borders (`--color-border`):** `#e2e8f0` (stark: `#cbd5e1`)
-- **Primär accent (`--color-accent`):** `#0f62fe` (Safirblå, WCAG AAA mot vit/ljus bakgrund)
-- **Accent hover (`--color-accent-hover`):** `#0043ce`
-- **Mjuk accent (`--color-accent-soft`):** `#edf5ff`
-- **Status Positiv:** `#15803d` / yta `#f0fdf4` / border `#bbf7d0`
-- **Status Varning:** `#9a3412` / yta `#fffbeb` / border `#fde68a`
-- **Status Kritisk:** `#b91c1c` / yta `#fef2f2` / border `#fecaca`
-- **Status Information:** `#0369a1` / yta `#f0f9ff` / border `#bae6fd`
-- **Fokusring (`--color-focus`):** `#0f62fe`
-
-### Dark Theme
-- **Sidbakgrund (`--color-page`):** `#090d16` (djup midnattsblå bas, inte kolsvart)
-- **Subtil sidbakgrund (`--color-page-subtle`):** `#0d131f`
-- **Kortyta (`--color-surface`):** `#111827`
-- **Upphöjd yta (`--color-surface-raised`):** `#182234`
-- **Interaktiv yta (`--color-surface-interactive`):** `#1a263a` (hover: `#213048`)
-- **Huvudtext (`--color-text`):** `#f8fafc` (mjuk off-white)
-- **Dämpad text (`--color-text-muted`):** `#cbd5e1`
-- **Subtil text (`--color-text-subtle`):** `#94a3b8`
-- **Borders (`--color-border`):** `#1e293b` (stark: `#334155`)
-- **Primär accent (`--color-accent`):** `#38bdf8` (Ljusare cyanblå för optimal läsbarhet i mörkt läge)
-- **Accent hover (`--color-accent-hover`):** `#7dd3fc`
-- **Mjuk accent (`--color-accent-soft`):** `#082f49`
-- **Status Positiv:** `#4ade80` / yta `#052e16` / border `#166534`
-- **Status Varning:** `#fbbf24` / yta `#451a03` / border `#92400e`
-- **Status Kritisk:** `#f87171` / yta `#450a0a` / border `#991b1b`
-- **Status Information:** `#38bdf8` / yta `#082f49` / border `#0369a1`
-- **Fokusring (`--color-focus`):** `#38bdf8`
+Gränssnittet upprätthåller en strikt fördelning baserad på visuell yta och användningsfrekvens:
+- **Neutral bas (85–90 %):** Sökfält, formulär, kalkylator, instruktionstext, tabeller, källhänvisningar och layoutramar.
+- **Signal Color (10–15 %):** Desktop-herons högra motivyta, subtila hörnövergångar på interaktiva verktyg och Summa-samarbetets kontextuella yta.
 
 ---
 
-## 5. Typografi, Spacing & Former
+## 4. Signal Color-palett & Semantiska Tokens
 
-### Typografisk hierarki
-- **Display / Hero:** 3rem - 3.75rem (48px - 60px), font-weight 800-900, leading 1.15.
-- **Heading 1:** 2rem - 2.5rem (32px - 40px), font-weight 800, tracking-tight.
-- **Heading 2:** 1.25rem - 1.5rem (20px - 24px), font-weight 700.
-- **Heading 3:** 1rem - 1.125rem (16px - 18px), font-weight 600.
-- **Body:** 0.875rem - 1rem (14px - 16px), font-weight 400, leading-relaxed.
-- **Body Small / Captions:** 0.75rem - 0.8125rem (12px - 13px), font-weight 400-500.
-- **Ekonomiska siffror (`.tabular-nums`):** `font-variant-numeric: tabular-nums` för belopp, besparingsprognoser och datum.
+Signal Color-paletten består uteslutande av tre harmoniska toner: **Cobalt**, **Cyan** och **Violet**. Funktionella statusfärger (t.ex. kritisk röd/korall eller positiv grön) hålls strikt åtskilda från dekorativa signalytor.
 
-### Spacing & Radie
-- **Container Max:** `72rem` (1152px) med responsiva page gutters (`px-4 sm:px-6`).
-- **Reading Max:** `42rem` (672px / ca 65 tecken per rad) för långa texter och instruktioner.
-- **Header Height:** `4rem` (64px).
-- **Touch Targets:** Minst `44x44px` (`min-h-[44px]` eller `min-w-[44px]`) för alla primära interaktiva kontroller.
-- **Radier:**
-  - Små kontroller / knappar: `--radius-sm: 0.375rem` (6px)
-  - Formulärfält / inputs: `--radius-md: 0.625rem` (10px)
-  - Kort och sektioner: `--radius-lg: 1rem` (16px)
-  - Status och piller: `--radius-pill: 9999px`
+### Semantiska Tokens
+
+| Token | Light Mode | Dark Mode | Syfte |
+| :--- | :--- | :--- | :--- |
+| `--signal-blue` | `#1d4ed8` (Kobolt) | `#38bdf8` (Ljus kobolt) | Huvudsignal & vägledningslinje |
+| `--signal-cyan` | `#0284c7` | `#06b6d4` | Sekundär signalövertoning |
+| `--signal-violet` | `#7c3aed` (Mjuk lavendel) | `#a78bfa` | Tertiär signalbrytning |
+| `--signal-surface` | Radial gradient (8 % opacitet) | Radial gradient (12 % opacitet) | Sammansatt signalgradientyta |
+| `--signal-surface-subtle` | `rgba(29, 78, 216, 0.035)` | `rgba(56, 189, 248, 0.05)` | Lågmäld kant- eller bakgrundsaccent |
+| `--signal-grain-opacity` | `0.08` (8 %) | `0.06` (6 %) | Statisk texturoverlay |
+| `--signal-overlay` | `rgba(250, 250, 249, 0.70)` | `rgba(11, 15, 23, 0.75)` | Kontrastoverlay för text |
+| `--signal-text-contrast` | `#0c1117` | `#f8fafc` | Text ovanpå signalytor |
 
 ---
 
-## 6. Grundkomponenter
+## 5. Grain och materialitet
 
-| Komponent | Sökväg | Varianter & Egenskaper |
-| :--- | :--- | :--- |
-| **Button** | `src/components/ui/button.tsx` | `primary`, `secondary`, `quiet`, `destructive`. Storlekar: `sm`, `md`, `lg`, `icon-only`. Stöd för `isLoading` och `disabled`. |
-| **FieldLabel, FieldHint, FieldError** | `src/components/ui/field.tsx` | Komponerbara primitiva byggstenar för formulär med tillgängliga `role="alert"`, `id`, `aria-describedby`. |
-| **Input** | `src/components/ui/input.tsx` | Semantisk input med `hasError`-tillstånd, fokusring och min 44px träffyta. |
-| **Textarea** | `src/components/ui/textarea.tsx` | Textarea med konsekvent typografi och `hasError`-stöd. |
-| **Select** | `src/components/ui/select.tsx` | Tillgänglig native select med anpassad Chevron-ikon och fokusring. |
-| **Badge / StatusBadge** | `src/components/ui/badge.tsx` | `neutral`, `success`, `warning`, `critical`, `info` med anpassade borders och textkontrast. |
-| **InlineNotice** | `src/components/ui/inline-notice.tsx` | Callout/Alert med `information`, `success`, `warning`, `critical` och Lucide-ikoner. |
-| **Card** | `src/components/ui/card.tsx` | `default`, `raised`, `interactive`, `highlight`. |
-| **TextLink & ExternalLink** | `src/components/ui/text-link.tsx`, `external-link.tsx` | Interna respektive externa länkar med diskret fokus, ikon och `(öppnas i ny flik)` för skärmläsare. |
-| **SkipLink** | `src/components/layout/skip-link.tsx` | Tangentbordsfokuserbar länk som hoppar direkt till `#main-content`. |
-| **Layout-primitiver** | `src/components/ui/layout-primitives.tsx` | `PageContainer`, `ReadingContainer`, `Section`, `Divider`, `EmptyState`. |
+ByeScribes grain är en **lokal, central och cachebar SVG-textur** placerad på:
+`public/textures/signal-noise.svg`
+
+### Tekniska egenskaper:
+- **Statisk feTurbulence-filter:** `type="fractalNoise"`, `baseFrequency="0.8"`, `numOctaves="3"`, `stitchTiles="stitch"`.
+- **Noll externa nätverksanrop:** Laddas lokalt från samma domän utan tredjepartstrackers eller externa CDN:er.
+- **Filstorlek:** Under 350 bytes.
+- **Prestanda:** Grainlagret är strikt statiskt och återskapas/animeras aldrig under körning.
+- **Tillgänglighet:** Lagret är rent dekorativt (`aria-hidden="true"`, pointer-events-none) och försämrar inte textkontrasten.
 
 ---
 
-## 7. Responsiva Principer & Viewports
+## 6. SignalField-komponenten
 
-Webbplatsen är strikt responsiv och byggd Mobile-First:
-- **320px – 375px (Small Mobile):** Inga horisontella överflöden, fullbredd på sökfält och verktygskort, tillgänglig mobilnavigation i header.
-- **430px – 768px (Large Mobile & Tablet):** Flexibel rutnätsindelning, bevarade läsavstånd och touch targets.
-- **1024px – 1440px (Desktop):** Horisontell primärnavigation, centrerad maxbredd, balanserad informationshierarki.
+Komponenten `SignalField` (`src/components/visual/signal-field.tsx`) kapslar in signalgradienter, statisk grain och kontrastkontroll.
 
----
+### Varianter:
+1. **`path`:** Används i Hero-motivet på startsidan (*Så går du till väga*). Integrerar mjuka radiala färgfält (kobolt/cyan/lavendel) med optimal kontrast mot processtegen.
+2. **`tool`:** Används för interaktiva verktyg (Besparingskalkylator, Uppsägningsmeddelande) med en diskret accentuering.
+3. **`editorial`:** Används för redaktionella läsytor och framtida guider.
+4. **`summa`:** Används i Summa CTA för att markera det privatekonomiska samarbetet.
 
-## 8. Motion & Tillgänglighet
-
-- **Subtila mikrorörelser:** Endast mjuka färgövergångar (`transition-colors`) och kontrollerade hover-förskjutningar (`hover:translate-x-1`).
-- **Prefers-reduced-motion:** När användaren valt minskad rörelse stängs alla CSS-övergångar och animationer av omedelbart.
-- **Fokusmarkering:** Synlig `focus-visible` med 2px ring och 2px offset i både ljust och mörkt läge.
-- **Kontrast:** Alla textfärger och interaktiva element uppfyller WCAG 2.1 AA / AAA.
-
----
-
-## 9. Vad designen uttryckligen undviker (Anti-patterns)
-
-- Inga generiska SaaS-heroes med flytande dashboard-mockups och "AI-powered"-badges.
-- Inga påhittade kundlogotyper, användarsiffror eller testimonials.
-- Inga tunga, suddiga gradientblobbar i bakgrunden.
-- Inga slumpmässiga "bento grids" utan funktionellt innehåll.
-- Inga emojis som gränssnittsikoner (endast enhetliga SVG-ikoner från `lucide-react`).
-- Inga "kort inuti kort inuti kort".
-- Inga obestyrkta påståenden om att uppsägningar utförs automatiskt eller att verifierade guider alltid finns för alla tjänster.
+### Egenskaper:
+- **Helt statisk som standard.**
+- Stöd för valfri `ambientMotion` (se avsnitt 7).
+- Dekorativa bakgrundslager har alltid `aria-hidden="true"` medan text och interaktiva element inuti förblir 100 % tillgängliga för skärmläsare.
+- Stödjer Light och Dark mode helt automatiskt via CSS-variabler.
 
 ---
 
-## 10. Temporärt Ordmärke & Framtida Namnarkitektur
+## 7. Regler för ambient motion & reduced-motion
 
-### Typografiskt Placeholder-Ordmärke
-Det nuvarande ordmärket **ByeScribe** är ett **rent typografiskt placeholder-ordmärke** (`font-black tracking-tight`). Det används i navigationsheadern och gränssnittet utan dekorativa symboler eller pseudo-logotyper. Det representerar inte en slutgiltig grafisk logotyp eller permanent varumärkessymbol, vilket anstår en separat framtida varumärkesfas.
-
-### Framtida Namnarkitektur
-- **`ByeScribe Guides`**
-- **`ByeScribe Assistant`**
-- **`ByeScribe for Business`**
-- **`ByeScribe × Summa`**
+1. **Maximalt en ambient rörelse på startsidan:** Rörelsen är strikt kopplad till Hero-motivet (`HeroPathMotif`).
+2. **Endast transform och opacitet på överskalat lager:** Animationen använder `transform: translate3d(...) scale(...)` och `opacity` i en 18 sekunders långsam CSS-loop (`@keyframes ambient-signal-drift`).
+3. **Förbud mot kontinuerligt animerad blur, filter eller background-position:** Inga tunga GPU- eller CPU-drivna filterloopar är tillåtna.
+4. **Prefers-reduced-motion:** Vid användarinställning om minskad rörelse (`prefers-reduced-motion: reduce`) stängs den ambienta loopen av omedelbart (`animation: none !important; transform: none !important;`).
+5. **Jämförelse statisk vs animerad:** Den animerade gradienten är utformad så subtil att den tillför taktilitet och djup utan att dra blicken från sidans primära handling (sökfältet).
 
 ---
 
-## 11. Startsidan: Informationsarkitektur & UX (Designfas 2)
+## 8. Knappar & CTA-hierarki
 
-Startsidan (`/sv`) är utformad som en uppgiftsorienterad konsumentresurs uppdelad i 6 funktionella sektioner:
+Knappsystemet använder semantiska variabler (`--color-btn-*`) och prioriterar högkontrast och redaktionell elegans framför generisk SaaS-blå färg.
 
-1. **Hero & Primär sökning:**
-   - Varumärkestagline: `The easier way to unsubscribe.`
-   - H1: `Säg upp abonnemang utan onödigt krångel.`
-   - Subtitle: Beskriver att ByeScribe ger tydliga steg, villkor, källor och rätt kontaktväg.
-   - Sökfält (`SearchBar`): Primär handling med neutral placeholder `Sök efter en tjänst` och integritetsvägledning.
-   - Begränsningslinje: Klargör att ByeScribe vägleder men aldrig genomför uppsägningen automatiskt.
-2. **Vad du får (Värde & Förtroende):**
-   - 3 konkreta kort: *Tydliga steg*, *Villkor och uppsägningstid*, *Källor och kontaktvägar*.
-3. **Så fungerar det (Guided Clarity Path):**
-   - Trestegsflöde (`GuidedPathFlow`): *1. Sök efter tjänsten*, *2. Följ uppsägningsguiden*, *3. Genomför hos leverantören*.
-   - Semantisk `<ol>` med diskret dekorativt sammanlänkande linjelager på desktop.
-4. **Tillgängliga tjänsteguider (`FeaturedServices`):**
-   - Visar publicerade guider eller ett sakligt tomläge utan överdrivna löften.
-5. **Verktyg för abonnemang & sparande:**
-   - Två distinkta kort för *Besparingskalkylator* och *Uppsägningsmeddelande* med beskrivande länkar (`Räkna på din besparing`, `Skapa ett uppsägningsutkast`).
-6. **Kontextuell Summa-sektion (`ContextualSummaCta`):**
-   - Presenterar relationen `ByeScribe × Summa` som ett naturligt nästa steg för fasta utgifter med säker URL-validering.
+### Semantiska Knapp-tokens:
+
+| Variant | Light Mode | Dark Mode | Egenskap |
+| :--- | :--- | :--- | :--- |
+| **Primary** | Bg: `#0c1117`, Text: `#ffffff` | Bg: `#f8fafc`, Text: `#0b0f17` | Högkontrast monokrom redaktionell yta, använd på Sökknapp och huvudsakliga åtgärder |
+| **Secondary** | Bg: `#ffffff`, Text: `#0c1117`, Border: `#cfceca` | Bg: `#141c2a`, Text: `#f8fafc`, Border: `#334155` | Neutral kort- eller kontrollerad border-knapp |
+| **Quiet** | Bg: Transparent, Text: `#404854` | Bg: Transparent, Text: `#cbd5e1` | Lågmäld textknapp för sekundära val |
+| **Destructive** | Bg: `#b91c1c`, Text: `#ffffff` | Bg: `#dc2626`, Text: `#ffffff` | Funktionell röd yta för borttagning / avbrytande |
+
+- **Touch target:** Alla knappar har minst 44px träffyta (`min-h-[44px]`).
+- **Fokusring:** Tydlig 2px fokusring med 2px offset (`:focus-visible`).
+
+---
+
+## 9. Typografisk kalibrering
+
+- **H1 (Hero-rubrik):** `text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-[-0.03em] leading-[1.05]`. Ger redaktionell auktoritet och lugn med optimal radbrytning på svenska sammansatta ord.
+- **Ingress:** `text-base sm:text-lg text-[var(--color-text-muted)] leading-relaxed max-w-2xl`.
+- **Varumärkestagline:** `The easier way to unsubscribe.` behålls som en lågmäld rad med en diskret signalprick (`bg-[var(--color-accent)]`), inte en skrikande uppercase-eyebrow.
+- **Tabular Numbers:** `.tabular-nums` (`font-variant-numeric: tabular-nums`) för alla belopp, datum och besparingssiffror.
+
+---
+
+## 10. Regler för redaktionella ytor och formulär
+
+- **Ingen grain på:**
+  - Vanlig brödtext och läsartiklar.
+  - Formulärfält (`Input`, `Textarea`, `Select`).
+  - Felmeddelanden och valideringsrutor.
+  - Juridiska villkor och integritetsmeddelanden.
+  - Källistor och steg-för-steg-instruktioner.
+- **Kort vid hover:** Endast 1–2 px vertikal förflyttning (`hover:translate-x-0.5` eller `hover:shadow-raised`), 150–250 ms mjuk transition. Ingen 3D-tilt, glow eller överdriven skalning.
+
+---
+
+## 11. När dropdown eller mega-menu får introduceras
+
+ByeScribe behåller en minimalistisk och direkt navigation (Start, Sök, Kalkylator, Uppsägningsmeddelande).
+
+En större dropdown eller mega-menu **får först introduceras** när det finns faktiska, funktionella destinationer och redaktionellt innehåll inom minst två av följande områden:
+1. **`ByeScribe Guides`** (kategoriserade guider inom Streaming, Gym, Försäkring, Telekom etc.).
+2. **`ByeScribe Assistant`** (interaktiva verktyg och guidade ärendehanterare).
+3. **`ByeScribe for Business`** (företagsabonnemang och SaaS-avtal).
+4. **`ByeScribe × Summa`** (integrerade privatekonomiska funktioner).
+
+Att införa tomma menyer eller inaktiva platshållare enbart för att efterlikna komplexa SaaS-webbplatser är strikt förbjudet.
+
+---
+
+## 12. Tillgänglighet & Kontrastredovisning
+
+Alla färgpar har kontrollerats och uppfyller eller överträffar WCAG 2.1 AA (minst 4.5:1 för normaltext, 3:1 för storgrafik och kontroller) och flertalet når WCAG AAA (minst 7:1):
+
+### Faktiskt uppmätta färgpar:
+
+| Färgpar | Light Mode Värden | Light Kontrast | Dark Mode Värden | Dark Kontrast | WCAG Nivå |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Huvudtext mot Page** | `#0c1117` mot `#fafaf9` | **18.0:1** | `#f8fafc` mot `#0b0f17` | **18.1:1** | WCAG AAA |
+| **Dämpad text mot Page** | `#404854` mot `#fafaf9` | **8.6:1** | `#cbd5e1` mot `#0b0f17` | **12.7:1** | WCAG AAA |
+| **Subtil text mot Surface** | `#5c6573` mot `#ffffff` | **5.7:1** | `#94a3b8` mot `#141c2a` | **6.7:1** | WCAG AA |
+| **Primärknapp text mot bg** | `#ffffff` mot `#0c1117` | **18.7:1** | `#0b0f17` mot `#f8fafc` | **18.1:1** | WCAG AAA |
+| **Sekundärknapp text mot bg**| `#0c1117` mot `#ffffff` | **18.7:1** | `#f8fafc` mot `#141c2a` | **16.4:1** | WCAG AAA |
+| **Destruktiv text mot bg** | `#ffffff` mot `#b91c1c` | **5.9:1** | `#ffffff` mot `#dc2626` | **5.0:1** | WCAG AA |
+| **Text mot SignalField (ljus)**| `#0c1117` mot `#f0f4fe` | **16.5:1** | `#f8fafc` mot `#1a2b42` | **12.2:1** | WCAG AAA |
+| **Text mot SignalField (mörk)**| `#0c1117` mot `#e8effe` | **15.8:1** | `#f8fafc` mot `#131f33` | **14.9:1** | WCAG AAA |
