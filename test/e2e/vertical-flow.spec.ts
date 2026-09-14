@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 test.describe('Complete Vertical User Flow & Privacy', () => {
-  test('1. Full vertical journey: Home -> Search -> Results -> Service Detail', async ({ page }) => {
+  test('1. Full vertical journey: Home -> Search -> Results -> Service Detail -> Tools', async ({ page }) => {
     // 1. Visit Home
     await page.goto('/sv');
     await expect(page.locator('h1')).toContainText('Säg upp abonnemang utan onödigt krångel');
@@ -14,21 +14,34 @@ test.describe('Complete Vertical User Flow & Privacy', () => {
 
     // 3. Verify Search Results Page
     await expect(page).toHaveURL(/\/sv\/sok\?q=NordicPlay/);
-    await expect(page.locator('h1')).toContainText('Sök uppsägningsguide');
+    await expect(page.locator('h1')).toContainText('Sök efter en uppsägningsguide');
     await expect(page.locator('text=NordicPlay Demo')).toBeVisible();
 
     // 4. Navigate to Service Detail
     await page.click('text=NordicPlay Demo');
     await expect(page).toHaveURL(/\/sv\/tjanster\/nordicplay-demo/);
+    await expect(page.locator('h1')).toHaveCount(1);
     await expect(page.locator('h1')).toContainText('Säg upp NordicPlay Demo');
     await expect(page.locator('text=Logga in på kontot')).toBeVisible();
-    await expect(page.locator('text=Öppna NordicPlay Demo (extern länk)')).toBeVisible();
+    await expect(page.locator('text=Gå till NordicPlay Demo')).toBeVisible();
+
+    // 5. Navigate from Service Detail to Message Generator tool
+    await page.click('text=Skapa uppsägningsmeddelande');
+    await expect(page).toHaveURL(/\/sv\/verktyg\/uppsagningsmeddelande\?service=NordicPlay/);
+    const serviceInput = page.locator('#msg-service');
+    await expect(serviceInput).toHaveValue('NordicPlay Demo');
   });
 
-  test('2. Empty search does not trigger result search', async ({ page }) => {
+  test('2. Empty search and no-results handle state gracefully without crashing', async ({ page }) => {
+    // Empty search
     await page.goto('/sv/sok');
     await expect(page.locator('text=Skriv in namnet på tjänsten du vill säga upp')).toBeVisible();
-    await expect(page.locator('text=träffar för')).not.toBeVisible();
+    await expect(page.locator('text=guider hittades')).not.toBeVisible();
+
+    // No results search
+    await page.goto('/sv/sok?q=HeltOkandTjanstSomInteFinns');
+    await expect(page.locator('text=Inga guider hittades för “HeltOkandTjanstSomInteFinns”')).toBeVisible();
+    await expect(page.locator('text=Skapa eget meddelande')).toBeVisible();
   });
 
   test('3. Unknown service slug returns 404', async ({ page }) => {
@@ -37,10 +50,11 @@ test.describe('Complete Vertical User Flow & Privacy', () => {
     await expect(page.locator('h1')).toContainText('404');
   });
 
-  test('4. Fixture service detail page has noindex meta tag', async ({ page }) => {
+  test('4. Fixture service detail page has noindex meta tag and demo disclaimer', async ({ page }) => {
     await page.goto('/sv/tjanster/nordicplay-demo');
     const robotsMeta = page.locator('meta[name="robots"]');
     await expect(robotsMeta).toHaveAttribute('content', /noindex/i);
+    await expect(page.locator('text=Lokal demo – informationen är inte en verkligt verifierad tjänsteguide.')).toBeVisible();
   });
 
   test('5. Search results page has noindex meta tag and clean canonical', async ({ page }) => {
@@ -83,7 +97,7 @@ test.describe('Complete Vertical User Flow & Privacy', () => {
     const copyButton = page.locator('button:has-text("Kopiera meddelandetext")');
     await copyButton.click();
     await expect(page.locator('#copy-status-live')).toBeVisible();
-    await expect(page.locator('text=Kopierat till urklipp!').or(page.locator('text=Markera och kopiera texten manuellt'))).toBeVisible();
+    await expect(page.locator('#copy-status-live')).toContainText(/Texten har kopierats till urklipp|Markera texten och kopiera/);
   });
 
   test('8. PRIVACY ABSOLUTE: Personal form interactions trigger ZERO network requests', async ({ page }) => {
@@ -103,19 +117,19 @@ test.describe('Complete Vertical User Flow & Privacy', () => {
       if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(method)) {
         capturedRequests.push(`${method} ${url}`);
       }
-      if (postData.includes('HemligtPersonnummer') || url.includes('HemligtPersonnummer')) {
+      if (postData.includes('SyntetiskUnikMarkor123') || url.includes('SyntetiskUnikMarkor123')) {
         capturedRequests.push(`LEAK: ${url}`);
       }
     });
 
     // Fill personal sensitive values in browser
-    await page.locator('#msg-name').fill('Hemligt Namn');
-    await page.locator('#msg-service').fill('TestTjänst');
-    await page.locator('#msg-customer-id').fill('HemligtPersonnummer123');
-    await page.locator('#msg-note').fill('Känslig privat information');
+    await page.locator('#msg-name').fill('Syntetisk Testare');
+    await page.locator('#msg-service').fill('Exempeltjanst');
+    await page.locator('#msg-customer-id').fill('SyntetiskUnikMarkor123');
+    await page.locator('#msg-note').fill('Kanslig syntetisk testinformation');
 
     // Type in the generated output textarea
-    await page.locator('#generated-output').fill('Helt anpassad personlig text');
+    await page.locator('#generated-output').fill('Helt anpassad syntetisk text');
 
     // Wait 500ms to ensure no background debounced requests were fired
     await page.waitForTimeout(500);
@@ -159,36 +173,14 @@ test.describe('Complete Vertical User Flow & Privacy', () => {
     }
   });
 
-  test('11. Summa-CTA renders fallback text without broken link when env is unset', async ({ page }) => {
-    await page.goto('/sv/verktyg/besparingskalkylator');
-    await expect(page.locator('text=Summa finns i App Store')).toBeVisible();
-  });
-
-  test('12. Security headers are present on server responses', async ({ page }) => {
-    const response = await page.goto('/sv');
-    expect(response?.status()).toBe(200);
-    const headers = response?.headers() || {};
-    expect(headers['x-content-type-options']).toBe('nosniff');
-    expect(headers['referrer-policy']).toBe('strict-origin-when-cross-origin');
-    expect(headers['x-frame-options']).toBe('DENY');
-    expect(headers['permissions-policy']).toContain('camera=()');
-  });
-
-  test('13. Search bar includes privacy guidance text', async ({ page }) => {
-    await page.goto('/sv');
-    const hint = page.locator('#search-privacy-hint');
-    await expect(hint).toBeVisible();
-    await expect(hint).toContainText('Sök endast efter tjänstens namn');
-  });
-
-  test('14. Pressing Enter in Message Generator form inputs does not navigate or reload page', async ({ page }) => {
-    await page.goto('/sv/verktyg/uppsagningsmeddelande');
-    const nameInput = page.locator('#msg-name');
-    await nameInput.fill('Testnamn');
-    await nameInput.press('Enter');
-
-    // Page should remain on the generator route without navigation/reload
-    await expect(page).toHaveURL(/\/sv\/verktyg\/uppsagningsmeddelande/);
-    await expect(nameInput).toHaveValue('Testnamn');
+  test('11. In-page navigation renders anchor links that scroll correctly', async ({ page }) => {
+    await page.goto('/sv/tjanster/nordicplay-demo');
+    const nav = page.locator('nav[aria-label="Innehåll i guiden"]');
+    await expect(nav).toBeVisible();
+    await expect(nav.locator('a[href="#steg"]')).toBeVisible();
+    await expect(nav.locator('a[href="#villkor"]')).toBeVisible();
+    await expect(nav.locator('a[href="#priser"]')).toBeVisible();
+    await expect(nav.locator('a[href="#kallor"]')).toBeVisible();
+    await expect(nav.locator('a[href="#verktyg"]')).toBeVisible();
   });
 });

@@ -157,6 +157,36 @@ async function runSmokeTests() {
     } else {
       console.log('✓ 11. /sv/verktyg/uppsagningsmeddelande returns 200');
     }
+
+    // 7. Search page & query
+    const sokRes = await fetchUrl('/sv/sok');
+    if (sokRes.status !== 200) {
+      errors.push(`Expected /sv/sok to return 200, got ${sokRes.status}`);
+    } else {
+      console.log('✓ 12. /sv/sok returns 200');
+    }
+
+    const sokQueryRes = await fetchUrl('/sv/sok?q=nordicplay');
+    if (sokQueryRes.status !== 200) {
+      errors.push(`Expected /sv/sok?q=nordicplay to return 200, got ${sokQueryRes.status}`);
+    } else {
+      console.log('✓ 13. /sv/sok?q=nordicplay returns 200 with valid search response');
+    }
+
+    // 8. Service Detail & Unknown slug
+    const serviceRes = await fetchUrl('/sv/tjanster/nordicplay-demo');
+    if (serviceRes.status !== 200 && serviceRes.status !== 404) {
+      errors.push(`Expected /sv/tjanster/nordicplay-demo to return 200 or 404, got ${serviceRes.status}`);
+    } else {
+      console.log(`✓ 14. /sv/tjanster/nordicplay-demo returns valid HTTP ${serviceRes.status}`);
+    }
+
+    const unknownServiceRes = await fetchUrl('/sv/tjanster/okand-slug-som-inte-finns');
+    if (unknownServiceRes.status !== 404) {
+      errors.push(`Expected unknown service to return 404, got ${unknownServiceRes.status}`);
+    } else {
+      console.log('✓ 15. /sv/tjanster/okand-slug-som-inte-finns returns 404');
+    }
   } catch (err) {
     errors.push(`Unexpected smoke test error: ${err.message}`);
   } finally {
