@@ -1,17 +1,17 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { Link } from '@/i18n/navigation';
 import { SearchBar } from '@/features/search/components/search-bar';
+import { SearchResultItem } from '@/features/search/components/search-result-item';
+import { SearchEmptyState } from '@/features/search/components/search-empty-state';
 import { getServiceRepository } from '@/features/services/repository';
 import { searchQuerySchema, SearchResult } from '@/features/search/types';
 import { Badge } from '@/components/ui/badge';
-import { ContextualSummaCta } from '@/features/summa-cta/components/contextual-summa-cta';
 import { getDataSourceMode } from '@/lib/env';
-import { ChevronRight } from 'lucide-react';
+import { DatabaseUnconfiguredError } from '@/lib/errors';
 
 export const metadata: Metadata = {
-  title: 'Sökresultat',
-  description: 'Sök efter verifierade instruktioner för att avsluta dina abonnemang.',
+  title: 'Sök uppsägningsguide',
+  description: 'Sök efter sakliga uppsägningsguider för abonnemang och prenumerationer.',
   robots: {
     index: false,
     follow: true,
@@ -28,33 +28,64 @@ interface SearchPageProps {
 export default async function SearchPage({ searchParams }: SearchPageProps) {
   const { q } = await searchParams;
   const isFixtureMode = getDataSourceMode() === 'fixtures';
+  const hasRawQuery = typeof q === 'string' && q.length > 0;
 
-  const parseResult = searchQuerySchema.safeParse({ query: q || '' });
+  let validatedQuery: string | null = null;
+  let isInvalidQuery = false;
+
+  if (hasRawQuery) {
+    const parseResult = searchQuerySchema.safeParse({ query: q });
+    if (parseResult.success) {
+      validatedQuery = parseResult.data.query;
+    } else {
+      isInvalidQuery = true;
+    }
+  }
 
   let results: SearchResult[] = [];
-  const validatedQuery = parseResult.success ? parseResult.data.query : null;
+  let isServiceUnavailable = false;
 
   if (validatedQuery) {
-    const repo = getServiceRepository();
-    results = await repo.searchServices({ query: validatedQuery });
+    try {
+      const repo = getServiceRepository();
+      results = await repo.searchServices({ query: validatedQuery });
+    } catch (err) {
+      if (err instanceof DatabaseUnconfiguredError) {
+        isServiceUnavailable = true;
+      } else {
+        // Unexpected repository/SQL/schema errors bubble up to Next.js error boundary
+        throw err;
+      }
+    }
   }
 
   return (
     <div className="flex flex-col gap-8 max-w-3xl">
-      <div className="flex flex-col gap-4">
+      <header className="flex flex-col gap-2">
         <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[var(--color-text)]">
-          Sök uppsägningsguide
+          Sök efter en uppsägningsguide
         </h1>
-        <SearchBar initialQuery={q || ''} autoFocus={!q} />
-      </div>
+        <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
+          Hitta uppsägningssteg, villkor och rätt kontaktvägar för dina abonnemang.
+        </p>
+        <div className="mt-2">
+          <SearchBar initialQuery={q || ''} autoFocus={!q} />
+        </div>
+      </header>
 
-      {validatedQuery ? (
+      {isInvalidQuery ? (
+        <SearchEmptyState type="invalid_query" />
+      ) : isServiceUnavailable ? (
+        <SearchEmptyState type="unavailable" />
+      ) : validatedQuery ? (
         <section aria-labelledby="results-heading" className="flex flex-col gap-4">
           <div className="flex items-center justify-between border-b border-[var(--color-border)] pb-3">
             <h2 id="results-heading" className="text-sm font-semibold text-[var(--color-text-muted)]">
               {results.length === 1
-                ? `1 träff för "${validatedQuery}"`
-                : `${results.length} träffar för "${validatedQuery}"`}
+                ? `1 guide hittades för “${validatedQuery}”`
+                : results.length > 1
+                ? `${results.length} guider hittades för “${validatedQuery}”`
+                : `Inga guider hittades`}
             </h2>
             {isFixtureMode && (
               <Badge variant="warning">Lokal demo</Badge>
@@ -64,55 +95,16 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           {results.length > 0 ? (
             <div className="flex flex-col gap-3">
               {results.map((result) => (
-                <Link
-                  key={result.serviceId}
-                  href={`/tjanster/${result.slug}`}
-                  className="group p-4 sm:p-5 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] hover:border-[var(--color-border-strong)] hover:shadow-raised transition-all flex flex-col gap-2 focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] outline-none"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="font-semibold text-base text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
-                      {result.name}
-                    </span>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs text-[var(--color-text-muted)]">
-                        {result.categoryName}
-                      </span>
-                      <ChevronRight className="w-4 h-4 text-[var(--color-text-subtle)] group-hover:text-[var(--color-accent)] group-hover:translate-x-0.5 transition-all" aria-hidden="true" />
-                    </div>
-                  </div>
-
-                  {result.summary && (
-                    <p className="text-sm text-[var(--color-text-muted)] line-clamp-2 leading-relaxed">
-                      {result.summary}
-                    </p>
-                  )}
-
-                  {result.matchedAlias && (
-                    <div className="text-xs text-[var(--color-text-subtle)]">
-                      Matchade alias: <span className="italic">{result.matchedAlias}</span>
-                    </div>
-                  )}
-                </Link>
+                <SearchResultItem key={result.serviceId} result={result} />
               ))}
             </div>
           ) : (
-            <div className="p-8 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] text-center flex flex-col items-center gap-2 shadow-subtle">
-              <p className="font-semibold text-sm text-[var(--color-text)]">
-                Inga resultat hittades för &ldquo;{validatedQuery}&rdquo;
-              </p>
-              <p className="text-xs text-[var(--color-text-muted)] max-w-md leading-relaxed">
-                Kontrollera stavningen eller prova att söka på tjänstens officiella namn eller bransch (t.ex. &ldquo;streaming&rdquo;).
-              </p>
-            </div>
+            <SearchEmptyState type="no_results" query={validatedQuery} />
           )}
         </section>
       ) : (
-        <div className="p-6 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] text-sm text-[var(--color-text-muted)] shadow-subtle">
-          Skriv in namnet på tjänsten du vill säga upp i sökfältet ovan.
-        </div>
+        <SearchEmptyState type="empty" />
       )}
-
-      <ContextualSummaCta context="homepage" className="mt-4" />
     </div>
   );
 }
