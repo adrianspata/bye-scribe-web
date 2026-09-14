@@ -1,34 +1,72 @@
-import { describe, it, expect } from 'vitest';
+import React from 'react';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { SavingsCalculator } from './savings-calculator';
 
+vi.mock('@/i18n/navigation', () => ({
+  Link: ({ children, href, className }: { children: React.ReactNode; href: string; className?: string }) => (
+    <a href={href} className={className}>
+      {children}
+    </a>
+  ),
+}));
+
 describe('SavingsCalculator Component', () => {
-  it('renders and computes default savings projection', () => {
+  it('renders and computes default savings projection with assumption notice', () => {
     render(<SavingsCalculator />);
 
-    expect(screen.getByLabelText(/Kostnad för abonnemanget/i)).toBeInTheDocument();
+    expect(screen.getByText(/Beräkningen är en uppskattning baserad på beloppet du anger/i)).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: /Kostnad för abonnemanget/i })).toBeInTheDocument();
     // Default 149 kr/month: 1 year = 1 788 kr, 5 year = 8 940 kr
     expect(screen.getByText('1 788 kr')).toBeInTheDocument();
     expect(screen.getByText('8 940 kr')).toBeInTheDocument();
   });
 
-  it('updates calculation dynamically on valid input with comma decimal', () => {
+  it('updates calculation dynamically on valid input with comma and dot decimals', () => {
     render(<SavingsCalculator />);
 
-    const input = screen.getByLabelText(/Kostnad för abonnemanget/i);
-    fireEvent.change(input, { target: { value: '200' } });
+    const input = screen.getByRole('textbox', { name: /Kostnad för abonnemanget/i });
+    fireEvent.change(input, { target: { value: '299,50' } });
 
-    // 200 kr/month: 1 year = 2 400 kr, 5 year = 12 000 kr
-    expect(screen.getByText('2 400 kr')).toBeInTheDocument();
-    expect(screen.getByText('12 000 kr')).toBeInTheDocument();
+    // 299,50 kr/month: 1 year = 3 594 kr, 5 year = 17 970 kr
+    expect(screen.getByText('3 594 kr')).toBeInTheDocument();
+    expect(screen.getByText('17 970 kr')).toBeInTheDocument();
   });
 
-  it('displays error message on invalid negative input', () => {
+  it('handles yearly billing interval correctly', () => {
     render(<SavingsCalculator />);
 
-    const input = screen.getByLabelText(/Kostnad för abonnemanget/i);
+    const intervalSelect = screen.getByRole('combobox', { name: /Faktureringsintervall/i });
+    fireEvent.change(intervalSelect, { target: { value: 'year' } });
+
+    const input = screen.getByRole('textbox', { name: /Kostnad för abonnemanget/i });
+    fireEvent.change(input, { target: { value: '1200' } });
+
+    // 1200 kr/year: monthly ~100 kr/mån, 1 year = 1 200 kr, 5 year = 6 000 kr
+    expect(screen.getByText('100 kr/mån')).toBeInTheDocument();
+    expect(screen.getByText('1 200 kr')).toBeInTheDocument();
+    expect(screen.getByText('6 000 kr')).toBeInTheDocument();
+  });
+
+  it('displays error message on invalid negative or non-numeric input', () => {
+    render(<SavingsCalculator />);
+
+    const input = screen.getByRole('textbox', { name: /Kostnad för abonnemanget/i });
     fireEvent.change(input, { target: { value: '-50' } });
 
-    expect(screen.getByText(/Vänligen ange ett giltigt positivt belopp/i)).toBeInTheDocument();
+    expect(screen.getByText(/Ange ett giltigt positivt belopp i kronor/i)).toBeInTheDocument();
+  });
+
+  it('form submit runs local calculation without reload', () => {
+    render(<SavingsCalculator />);
+
+    const input = screen.getByRole('textbox', { name: /Kostnad för abonnemanget/i });
+    fireEvent.change(input, { target: { value: '500' } });
+
+    const submitBtn = screen.getByRole('button', { name: /Beräkna besparing/i });
+    fireEvent.click(submitBtn);
+
+    expect(screen.getByText('6 000 kr')).toBeInTheDocument();
+    expect(screen.getByText('30 000 kr')).toBeInTheDocument();
   });
 });
