@@ -148,3 +148,26 @@ body {
     transform: none !important;
   }
 }
+
+/* ElevenLabs-inspired ByeScribe Grainy Gradient Surfaces */
+.gradient-surface-release {
+  background: radial-gradient(ellipse 95% 85% at 85% 15%, var(--gradient-release-3) 0%, transparent 60%),
+              radial-gradient(ellipse 85% 75% at 15% 85%, var(--gradient-release-1) 0%, transparent 60%),
+              radial-gradient(ellipse 70% 65% at 55% 55%, var(--gradient-release-2) 0%, transparent 55%),
+              var(--gradient-release-4);
+}
+
+.gradient-surface-guidance {
+  background: radial-gradient(ellipse 95% 85% at 20% 20%, var(--gradient-guidance-1) 0%, transparent 60%),
+              radial-gradient(ellipse 85% 75% at 85% 85%, var(--gradient-guidance-3) 0%, transparent 60%),
+              radial-gradient(ellipse 70% 65% at 65% 35%, var(--gradient-guidance-2) 0%, transparent 55%),
+              var(--gradient-guidance-4);
+}
+
+.gradient-surface-completion {
+  background: radial-gradient(ellipse 95% 85% at 75% 20%, var(--gradient-completion-2) 0%, transparent 60%),
+              radial-gradient(ellipse 85% 75% at 20% 75%, var(--gradient-completion-1) 0%, transparent 60%),
+              radial-gradient(ellipse 70% 65% at 80% 85%, var(--gradient-completion-3) 0%, transparent 55%),
+              var(--gradient-completion-4);
+}
+
