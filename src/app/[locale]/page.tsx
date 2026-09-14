@@ -8,6 +8,7 @@ import { GuidedPathFlow } from '@/features/home/components/guided-path-flow';
 import { HeroPathMotif } from '@/features/home/components/hero-path-motif';
 import { ContextualSummaCta } from '@/features/summa-cta/components/contextual-summa-cta';
 import { BRAND } from '@/config/brand';
+import { SignalField } from '@/components/visual/signal-field';
 import {
   Info,
   ArrowRight,
@@ -118,7 +119,7 @@ export default async function HomePage() {
       {/* 3. Guided Clarity: How It Works */}
       <section aria-labelledby="how-it-works-heading" className="w-full flex flex-col gap-4 sm:gap-6">
         <div className="flex flex-col gap-1">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-subtle)]">
+          <span className="text-xs font-semibold text-[var(--color-text-subtle)]">
             {t('howBadge')}
           </span>
           <h2
@@ -141,56 +142,62 @@ export default async function HomePage() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Tool 1: Savings Calculator */}
-          <div className="p-6 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] shadow-subtle flex flex-col justify-between gap-5 transition-all hover:border-[var(--color-border-strong)] hover:shadow-raised">
-            <div className="flex flex-col gap-2.5">
-              <div className="flex items-center gap-2.5">
-                <div className="p-2 rounded-[var(--radius-sm)] bg-[var(--color-page-subtle)] text-[var(--color-text)] border border-[var(--color-border)]">
-                  <Calculator className="w-4 h-4" aria-hidden="true" />
-                </div>
-                <h3 className="font-bold text-base text-[var(--color-text)]">
+          <Link
+            href="/verktyg/besparingskalkylator"
+            className="group bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] overflow-hidden shadow-subtle hover:border-[var(--color-border-strong)] hover:shadow-raised transition-all flex flex-col focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] outline-none"
+          >
+            {/* Grainy Gradient Visual Surface (Guidance Palette) */}
+            <SignalField variant="guidance" className="h-32 sm:h-36 w-full p-5 flex items-end justify-between border-b border-[var(--color-border-subtle)]">
+              <div className="w-11 h-11 rounded-full bg-[var(--color-text)] text-[var(--color-page)] flex items-center justify-center font-bold text-sm shadow-sm shrink-0 select-none" aria-hidden="true">
+                <Calculator className="w-5 h-5" />
+              </div>
+            </SignalField>
+
+            <div className="p-5 sm:p-6 bg-[var(--color-surface)] flex flex-col justify-between gap-4 flex-1">
+              <div className="flex flex-col gap-2">
+                <h3 className="font-bold text-base text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
                   {t('calcTitle')}
                 </h3>
+                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
+                  {t('calcDesc')}
+                </p>
               </div>
-              <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
-                {t('calcDesc')}
-              </p>
-            </div>
-            <div>
-              <Link
-                href="/verktyg/besparingskalkylator"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] rounded-sm"
-              >
+
+              <div className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors pt-1">
                 <span>{t('calcCta')}</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
-              </Link>
+              </div>
             </div>
-          </div>
+          </Link>
 
           {/* Tool 2: Cancellation Message Draft */}
-          <div className="p-6 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] shadow-subtle flex flex-col justify-between gap-5 transition-all hover:border-[var(--color-border-strong)] hover:shadow-raised">
-            <div className="flex flex-col gap-2.5">
-              <div className="flex items-center gap-2.5">
-                <div className="p-2 rounded-[var(--radius-sm)] bg-[var(--color-page-subtle)] text-[var(--color-text)] border border-[var(--color-border)]">
-                  <FileText className="w-4 h-4" aria-hidden="true" />
-                </div>
-                <h3 className="font-bold text-base text-[var(--color-text)]">
+          <Link
+            href="/verktyg/uppsagningsmeddelande"
+            className="group bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] overflow-hidden shadow-subtle hover:border-[var(--color-border-strong)] hover:shadow-raised transition-all flex flex-col focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] outline-none"
+          >
+            {/* Grainy Gradient Visual Surface (Release Palette) */}
+            <SignalField variant="release" className="h-32 sm:h-36 w-full p-5 flex items-end justify-between border-b border-[var(--color-border-subtle)]">
+              <div className="w-11 h-11 rounded-full bg-[var(--color-text)] text-[var(--color-page)] flex items-center justify-center font-bold text-sm shadow-sm shrink-0 select-none" aria-hidden="true">
+                <FileText className="w-5 h-5" />
+              </div>
+            </SignalField>
+
+            <div className="p-5 sm:p-6 bg-[var(--color-surface)] flex flex-col justify-between gap-4 flex-1">
+              <div className="flex flex-col gap-2">
+                <h3 className="font-bold text-base text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
                   {t('msgTitle')}
                 </h3>
+                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
+                  {t('msgDesc')}
+                </p>
               </div>
-              <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
-                {t('msgDesc')}
-              </p>
-            </div>
-            <div>
-              <Link
-                href="/verktyg/uppsagningsmeddelande"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] rounded-sm"
-              >
+
+              <div className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors pt-1">
                 <span>{t('msgCta')}</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
-              </Link>
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
       </section>
 

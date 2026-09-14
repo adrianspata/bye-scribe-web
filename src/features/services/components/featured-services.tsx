@@ -1,7 +1,6 @@
 import React from 'react';
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
-import { Badge } from '@/components/ui/badge';
 import { getServiceRepository } from '../repository';
 import { ServiceSummary } from '../types';
 import { DatabaseUnconfiguredError } from '@/lib/errors';
@@ -29,18 +28,18 @@ export async function FeaturedServices() {
       aria-labelledby="featured-services-heading"
       className="w-full flex flex-col gap-4"
     >
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <h2
-            id="featured-services-heading"
-            className="text-lg sm:text-xl font-bold tracking-tight text-[var(--color-text)]"
-          >
-            {t('guidesHeading')}
-          </h2>
-          {isFixtureMode && (
-            <Badge variant="warning">Lokal demo</Badge>
-          )}
-        </div>
+      <div className="flex flex-col gap-1">
+        <h2
+          id="featured-services-heading"
+          className="text-lg sm:text-xl font-bold tracking-tight text-[var(--color-text)]"
+        >
+          {t('guidesHeading')}
+        </h2>
+        {isFixtureMode && (
+          <p className="text-xs text-[var(--color-text-muted)]">
+            Tjänsterna nedan är exempeldata i den lokala utvecklingsmiljön.
+          </p>
+        )}
       </div>
 
       {services.length > 0 ? (
@@ -55,16 +54,11 @@ export async function FeaturedServices() {
                 <span className="font-bold text-sm text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
                   {service.name}
                 </span>
-                <Badge variant={isFixtureMode ? 'neutral' : 'success'}>
-                  {isFixtureMode ? 'Demo' : 'Verifierad'}
-                </Badge>
-              </div>
-              <div className="flex items-center justify-between mt-1">
-                <span className="text-xs text-[var(--color-text-muted)]">
-                  {service.category.name}
-                </span>
                 <ChevronRight className="w-3.5 h-3.5 text-[var(--color-text-subtle)] group-hover:text-[var(--color-accent)] group-hover:translate-x-0.5 transition-all" aria-hidden="true" />
               </div>
+              <span className="text-xs text-[var(--color-text-muted)]">
+                {service.category.name}
+              </span>
             </Link>
           ))}
         </div>

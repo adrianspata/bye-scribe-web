@@ -14,7 +14,7 @@ export function SummaCard() {
     >
       <div className="flex flex-col gap-2 max-w-xl">
         <div className="flex items-center gap-2">
-          <span className="text-xs font-bold text-[var(--color-accent)] tracking-wide uppercase">
+          <span className="text-xs font-semibold text-[var(--color-accent)]">
             Relaterat verktyg
           </span>
         </div>
