@@ -49,6 +49,25 @@
   --signal-overlay: rgba(250, 250, 249, 0.70);
   --signal-text-contrast: #0c1117;
 
+  /* ElevenLabs-inspired ByeScribe Palettes */
+  /* Palette A — Release */
+  --gradient-release-1: #7d72df;
+  --gradient-release-2: #d68ca8;
+  --gradient-release-3: #f39a63;
+  --gradient-release-4: #35263d;
+
+  /* Palette B — Guidance */
+  --gradient-guidance-1: #9bbfd1;
+  --gradient-guidance-2: #c5b7e8;
+  --gradient-guidance-3: #5f76c8;
+  --gradient-guidance-4: #253551;
+
+  /* Palette C — Completion */
+  --gradient-completion-1: #b9cad2;
+  --gradient-completion-2: #7f9f6e;
+  --gradient-completion-3: #31583a;
+  --gradient-completion-4: #13291b;
+
   /* Semantic Button Tokens */
   --color-btn-primary-bg: #0c1117;
   --color-btn-primary-text: #ffffff;
