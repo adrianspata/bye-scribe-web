@@ -8,7 +8,7 @@ export function Footer() {
   const tFooter = useTranslations('footer');
 
   return (
-    <footer className="w-full border-t border-[var(--color-border)] bg-[var(--color-surface-interactive)] mt-auto py-10 transition-colors">
+    <footer className="w-full border-t border-[var(--color-border)] bg-[var(--color-page-subtle)] mt-auto py-10 transition-colors">
       <div className="max-w-[var(--spacing-container-max)] mx-auto px-4 sm:px-6 flex flex-col gap-6 text-xs text-[var(--color-text-muted)]">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex flex-col gap-1 max-w-xl">
@@ -21,17 +21,14 @@ export function Footer() {
           </div>
 
           <nav aria-label="Sidfotsnavigation" className="flex flex-wrap gap-4 text-xs font-medium text-[var(--color-text-muted)]">
-            <Link href="/" className="hover:text-[var(--color-text)] transition-colors">
-              {tNav('home')}
-            </Link>
             <Link href="/sok" className="hover:text-[var(--color-text)] transition-colors">
               {tNav('search')}
             </Link>
-            <Link href="/verktyg/besparingskalkylator" className="hover:text-[var(--color-text)] transition-colors">
-              {tNav('calculator')}
-            </Link>
             <Link href="/verktyg/uppsagningsmeddelande" className="hover:text-[var(--color-text)] transition-colors">
               {tNav('messageGenerator')}
+            </Link>
+            <Link href="/verktyg/besparingskalkylator" className="hover:text-[var(--color-text)] transition-colors">
+              {tNav('calculator')}
             </Link>
           </nav>
         </div>
