@@ -27,7 +27,7 @@ export function HeroPathMotif() {
       aria-hidden="true"
     >
       <SignalField variant="path" ambientMotion={true} className="p-6 lg:p-7">
-        <div className="text-xs font-bold tracking-tight text-[var(--color-text-muted)] mb-5 flex items-center gap-2">
+        <div className="text-xs font-semibold tracking-tight text-[var(--color-text-muted)] mb-5 flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]" />
           <span>Så går du till väga</span>
         </div>
