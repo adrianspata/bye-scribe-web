@@ -15,11 +15,11 @@ export const metadata: Metadata = {
 
 export default function SavingsCalculatorPage() {
   return (
-    <div className="flex flex-col gap-10 max-w-3xl">
+    <div className="flex flex-col gap-10 max-w-3xl mx-auto w-full">
       <ToolPageHeader
-        category="Verktyg & kalkylatorer"
+        category="Verktyg och kalkylator"
         title="Besparingskalkylator för abonnemang"
-        description="Många bäckar små blir snabbt tusentals kronor varje år. Fyll i vad ditt abonnemang kostar för att se din beräknade besparing om du avslutar det idag."
+        description="Fyll i vad ditt abonnemang kostar för att se en uppskattning av din potentiella besparing på ett år och fem år."
       />
 
       <SavingsCalculator />

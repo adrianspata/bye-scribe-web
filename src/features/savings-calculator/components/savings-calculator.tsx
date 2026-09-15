@@ -38,7 +38,7 @@ export function SavingsCalculator() {
       </InlineNotice>
 
       <Card variant="raised" as="section" aria-labelledby="calc-form-heading" className="flex flex-col gap-6">
-        <h2 id="calc-form-heading" className="text-base font-semibold text-[var(--color-text)]">
+        <h2 id="calc-form-heading" className="text-base font-normal text-[var(--color-text)]">
           1. Ange kostnad för abonnemanget
         </h2>
 
@@ -119,7 +119,7 @@ export function SavingsCalculator() {
       {/* Next Steps Guidance */}
       <section aria-labelledby="calc-next-steps" className="border-t border-[var(--color-border)] pt-8 flex flex-col gap-4">
         <div className="flex flex-col gap-1">
-          <h2 id="calc-next-steps" className="text-base font-semibold text-[var(--color-text)]">
+          <h2 id="calc-next-steps" className="text-base font-normal text-[var(--color-text)]">
             Vad gör du nu?
           </h2>
           <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
@@ -130,11 +130,11 @@ export function SavingsCalculator() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Link
             href="/sok"
-            className="group p-5 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] hover:border-[var(--color-border-strong)] hover:shadow-raised transition-all flex flex-col gap-2 focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] outline-none"
+            className="group p-5 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-card-visual)] hover:border-[var(--color-border-strong)] hover:shadow-subtle transition-all flex flex-col gap-2 focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] outline-none text-left"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <div className="p-2 rounded-[var(--radius-sm)] bg-[var(--color-page-subtle)] text-[var(--color-accent)] group-hover:bg-[var(--color-accent)] group-hover:text-[var(--color-accent-contrast)] transition-colors">
+                <div className="p-2 rounded-[var(--radius-md)] bg-[var(--color-page-subtle)] text-[#0284c7] dark:text-[#38bdf8]">
                   <Search className="w-4 h-4" aria-hidden="true" />
                 </div>
                 <span className="font-semibold text-sm text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
@@ -150,11 +150,11 @@ export function SavingsCalculator() {
 
           <Link
             href="/verktyg/uppsagningsmeddelande"
-            className="group p-5 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] hover:border-[var(--color-border-strong)] hover:shadow-raised transition-all flex flex-col gap-2 focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] outline-none"
+            className="group p-5 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-card-visual)] hover:border-[var(--color-border-strong)] hover:shadow-subtle transition-all flex flex-col gap-2 focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] outline-none text-left"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <div className="p-2 rounded-[var(--radius-sm)] bg-[var(--color-page-subtle)] text-[var(--color-accent)] group-hover:bg-[var(--color-accent)] group-hover:text-[var(--color-accent-contrast)] transition-colors">
+                <div className="p-2 rounded-[var(--radius-md)] bg-[var(--color-page-subtle)] text-[#7c3aed] dark:text-[#a78bfa]">
                   <FileText className="w-4 h-4" aria-hidden="true" />
                 </div>
                 <span className="font-semibold text-sm text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">

@@ -16,7 +16,7 @@ export function SavingsResult({ projection }: SavingsResultProps) {
       <SignalField variant="tool" className="rounded-[var(--radius-lg)] opacity-70" />
 
       <div className="relative z-10 flex flex-col gap-4">
-        <h3 className="text-sm font-semibold text-[var(--color-text)]">
+        <h3 className="text-sm font-normal text-[var(--color-text)]">
           Beräknad uppskattning
         </h3>
 
