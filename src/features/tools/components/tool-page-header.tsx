@@ -33,7 +33,7 @@ export function ToolPageHeader({
         <span className="text-xs font-medium text-[var(--color-text-subtle)]">
           {category}
         </span>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[var(--color-text)]">
+        <h1 className="text-3xl sm:text-4xl font-normal tracking-tight text-[var(--color-text)]">
           {title}
         </h1>
         <p className="text-base text-[var(--color-text-muted)] leading-relaxed max-w-2xl">
