@@ -5,7 +5,6 @@ import { Link } from '@/i18n/navigation';
 import { SearchBar } from '@/features/search/components/search-bar';
 import { FeaturedServices } from '@/features/services/components/featured-services';
 import { GuidedPathFlow } from '@/features/home/components/guided-path-flow';
-import { HeroPathMotif } from '@/features/home/components/hero-path-motif';
 import { ContextualSummaCta } from '@/features/summa-cta/components/contextual-summa-cta';
 import { BRAND } from '@/config/brand';
 import { SignalField } from '@/components/visual/signal-field';
@@ -14,9 +13,6 @@ import {
   ArrowRight,
   Calculator,
   FileText,
-  ListOrdered,
-  CalendarClock,
-  ExternalLink as ExternalLinkIcon,
 } from 'lucide-react';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -33,139 +29,94 @@ export default async function HomePage() {
   const t = await getTranslations('home');
 
   return (
-    <div className="flex flex-col gap-10 sm:gap-14 lg:gap-18">
-      {/* 1. Hero & Primary Search Section (Asymmetric Desktop Layout) */}
-      <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center pt-2 sm:pt-4">
-        {/* Left Column: Heading, Tagline, Search & Boundary Info */}
-        <div className="lg:col-span-7 xl:col-span-8 flex flex-col items-start gap-4">
-          <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-[var(--color-text-muted)] select-none">
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] shrink-0" aria-hidden="true" />
-            <span>{BRAND.tagline}</span>
-          </div>
-
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-[-0.03em] text-[var(--color-text)] leading-[1.05]">
-            {t('heroH1')}
-          </h1>
-
-          <p className="text-base sm:text-lg text-[var(--color-text-muted)] leading-relaxed max-w-2xl">
-            {t('heroSubtitle')}
-          </p>
-
-          {/* Primary Search Bar */}
-          <div className="w-full mt-1">
-            <SearchBar />
-          </div>
-
-          {/* Neutral Boundary Information Line */}
-          <div className="flex items-start gap-2.5 text-xs text-[var(--color-text-muted)] py-1.5 border-l-2 border-[var(--color-border-strong)] pl-3 mt-1">
-            <Info className="w-3.5 h-3.5 text-[var(--color-text-subtle)] shrink-0 mt-0.5" aria-hidden="true" />
-            <span className="leading-relaxed">{t('heroDisclaimer')}</span>
-          </div>
+    <div className="flex flex-col gap-12 sm:gap-16 lg:gap-20">
+      {/* 1. Centered Hero & Primary Search Section */}
+      <section className="flex flex-col items-center text-center gap-4 sm:gap-5 pt-4 sm:pt-8 max-w-3xl mx-auto w-full">
+        {/* Low-key Brand Tagline (hidden on smallest screens to prioritize task) */}
+        <div className="hidden sm:inline-flex items-center gap-2 text-xs font-medium text-[var(--color-text-muted)] select-none">
+          <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] shrink-0" aria-hidden="true" />
+          <span>{BRAND.tagline}</span>
         </div>
 
-        {/* Right Column: Functional Desktop Guided Clarity Motif */}
-        <div className="hidden lg:block lg:col-span-5 xl:col-span-4">
-          <HeroPathMotif />
+        {/* H1 Heading */}
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-[-0.02em] text-[var(--color-text)] leading-[1.1] max-w-2xl">
+          {t('heroH1')}
+        </h1>
+
+        {/* Ingress */}
+        <p className="text-base sm:text-lg text-[var(--color-text-muted)] leading-relaxed max-w-xl">
+          {t('heroSubtitle')}
+        </p>
+
+        {/* Primary Search Bar */}
+        <div className="w-full mt-2 flex justify-center">
+          <SearchBar />
         </div>
-      </section>
 
-      {/* 2. Value & Trust: Open Structural Strip */}
-      <section
-        aria-labelledby="value-heading"
-        className="w-full border-y border-[var(--color-border)] py-6 sm:py-8"
-      >
-        <h2 id="value-heading" className="sr-only">
-          Vad ByeScribe innehåller
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--color-border)] gap-6 md:gap-0">
-          <div className="flex flex-col gap-2 md:px-6 first:md:pl-0">
-            <div className="flex items-center gap-2 text-[var(--color-text)]">
-              <ListOrdered className="w-4 h-4 shrink-0 text-[var(--color-text-muted)]" aria-hidden="true" />
-              <h3 className="font-bold text-sm text-[var(--color-text)] tracking-tight">
-                {t('valueStep1Title')}
-              </h3>
-            </div>
-            <p className="text-xs sm:text-sm text-[var(--color-text-muted)] leading-relaxed">
-              {t('valueStep1Desc')}
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-2 pt-4 md:pt-0 md:px-6">
-            <div className="flex items-center gap-2 text-[var(--color-text)]">
-              <CalendarClock className="w-4 h-4 shrink-0 text-[var(--color-text-muted)]" aria-hidden="true" />
-              <h3 className="font-bold text-sm text-[var(--color-text)] tracking-tight">
-                {t('valueStep2Title')}
-              </h3>
-            </div>
-            <p className="text-xs sm:text-sm text-[var(--color-text-muted)] leading-relaxed">
-              {t('valueStep2Desc')}
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-2 pt-4 md:pt-0 md:px-6 last:md:pr-0">
-            <div className="flex items-center gap-2 text-[var(--color-text)]">
-              <ExternalLinkIcon className="w-4 h-4 shrink-0 text-[var(--color-text-muted)]" aria-hidden="true" />
-              <h3 className="font-bold text-sm text-[var(--color-text)] tracking-tight">
-                {t('valueStep3Title')}
-              </h3>
-            </div>
-            <p className="text-xs sm:text-sm text-[var(--color-text-muted)] leading-relaxed">
-              {t('valueStep3Desc')}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Guided Clarity: How It Works */}
-      <section aria-labelledby="how-it-works-heading" className="w-full flex flex-col gap-4 sm:gap-6">
-        <div className="flex flex-col gap-1">
-          <span className="text-xs font-semibold text-[var(--color-text-subtle)]">
-            {t('howBadge')}
-          </span>
-          <h2
-            id="how-it-works-heading"
-            className="text-xl sm:text-2xl font-bold tracking-tight text-[var(--color-text)]"
+        {/* Two Discrete Internal Tool Links */}
+        <div className="flex items-center justify-center gap-4 sm:gap-6 flex-wrap text-xs sm:text-sm font-medium text-[var(--color-text-muted)] mt-1">
+          <Link
+            href="/verktyg/uppsagningsmeddelande"
+            className="inline-flex items-center gap-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] rounded-sm py-0.5"
           >
-            {t('howHeading')}
-          </h2>
+            <FileText className="w-3.5 h-3.5 text-[#7c3aed] dark:text-[#a78bfa] shrink-0" aria-hidden="true" />
+            <span>{t('heroToolDraftLink')}</span>
+          </Link>
+          <span className="text-[var(--color-border-strong)] hidden sm:inline" aria-hidden="true">
+            •
+          </span>
+          <Link
+            href="/verktyg/besparingskalkylator"
+            className="inline-flex items-center gap-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] rounded-sm py-0.5"
+          >
+            <Calculator className="w-3.5 h-3.5 text-[#0d9488] dark:text-[#2dd4bf] shrink-0" aria-hidden="true" />
+            <span>{t('heroToolCalcLink')}</span>
+          </Link>
         </div>
-        <GuidedPathFlow />
+
+        {/* Neutral Limitation Line */}
+        <div className="flex items-center justify-center gap-1.5 text-xs text-[var(--color-text-subtle)] mt-1">
+          <Info className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+          <span>{t('heroDisclaimer')}</span>
+        </div>
       </section>
 
-      {/* 4. Featured & Available Service Guides */}
+      {/* 2. Available Service Guides */}
       <FeaturedServices />
 
-      {/* 5. Quick Tools Section */}
+      {/* 3. Quick Tools Section */}
       <section aria-labelledby="tools-heading" className="w-full flex flex-col gap-4 sm:gap-6">
-        <h2 id="tools-heading" className="text-xl sm:text-2xl font-bold tracking-tight text-[var(--color-text)]">
-          {t('toolsHeading')}
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="flex flex-col gap-1">
+          <h2 id="tools-heading" className="text-lg sm:text-xl font-normal tracking-tight text-[var(--color-text)]">
+            {t('toolsHeading')}
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
           {/* Tool 1: Savings Calculator */}
           <Link
             href="/verktyg/besparingskalkylator"
-            className="group bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] overflow-hidden shadow-subtle hover:border-[var(--color-border-strong)] hover:shadow-raised transition-all flex flex-col focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] outline-none"
+            className="group bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-card-visual)] overflow-hidden shadow-subtle hover:border-[var(--color-border-strong)] transition-all flex flex-col focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] outline-none"
           >
-            {/* Grainy Gradient Visual Surface (Guidance Palette) */}
+            {/* Grainy Gradient Visual Surface (Guidance / Teal Palette) */}
             <SignalField variant="guidance" className="h-32 sm:h-36 w-full p-5 flex items-end justify-between border-b border-[var(--color-border-subtle)]">
-              <div className="w-11 h-11 rounded-full bg-[var(--color-text)] text-[var(--color-page)] flex items-center justify-center font-bold text-sm shadow-sm shrink-0 select-none" aria-hidden="true">
-                <Calculator className="w-5 h-5" />
+              <div className="w-10 h-10 rounded-full bg-[var(--color-text)] text-[var(--color-page)] flex items-center justify-center font-bold text-sm shadow-xs shrink-0 select-none" aria-hidden="true">
+                <Calculator className="w-5 h-5 text-[#2dd4bf] dark:text-[#0d9488]" />
               </div>
             </SignalField>
 
-            <div className="p-5 sm:p-6 bg-[var(--color-surface)] flex flex-col justify-between gap-4 flex-1">
-              <div className="flex flex-col gap-2">
-                <h3 className="font-bold text-base text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
+            <div className="p-5 sm:p-6 bg-[var(--color-surface)] flex flex-col justify-between gap-4 flex-1 text-left">
+              <div className="flex flex-col gap-1.5">
+                <h3 className="font-normal text-base text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
                   {t('calcTitle')}
                 </h3>
-                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
+                <p className="text-xs sm:text-sm text-[var(--color-text-muted)] leading-relaxed">
                   {t('calcDesc')}
                 </p>
               </div>
 
-              <div className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors pt-1">
+              <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors pt-1">
                 <span>{t('calcCta')}</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
               </div>
             </div>
           </Link>
@@ -173,35 +124,51 @@ export default async function HomePage() {
           {/* Tool 2: Cancellation Message Draft */}
           <Link
             href="/verktyg/uppsagningsmeddelande"
-            className="group bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] overflow-hidden shadow-subtle hover:border-[var(--color-border-strong)] hover:shadow-raised transition-all flex flex-col focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] outline-none"
+            className="group bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-card-visual)] overflow-hidden shadow-subtle hover:border-[var(--color-border-strong)] transition-all flex flex-col focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] outline-none"
           >
-            {/* Grainy Gradient Visual Surface (Release Palette) */}
+            {/* Grainy Gradient Visual Surface (Release / Violet Palette) */}
             <SignalField variant="release" className="h-32 sm:h-36 w-full p-5 flex items-end justify-between border-b border-[var(--color-border-subtle)]">
-              <div className="w-11 h-11 rounded-full bg-[var(--color-text)] text-[var(--color-page)] flex items-center justify-center font-bold text-sm shadow-sm shrink-0 select-none" aria-hidden="true">
-                <FileText className="w-5 h-5" />
+              <div className="w-10 h-10 rounded-full bg-[var(--color-text)] text-[var(--color-page)] flex items-center justify-center font-bold text-sm shadow-xs shrink-0 select-none" aria-hidden="true">
+                <FileText className="w-5 h-5 text-[#a78bfa] dark:text-[#7c3aed]" />
               </div>
             </SignalField>
 
-            <div className="p-5 sm:p-6 bg-[var(--color-surface)] flex flex-col justify-between gap-4 flex-1">
-              <div className="flex flex-col gap-2">
-                <h3 className="font-bold text-base text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
+            <div className="p-5 sm:p-6 bg-[var(--color-surface)] flex flex-col justify-between gap-4 flex-1 text-left">
+              <div className="flex flex-col gap-1.5">
+                <h3 className="font-normal text-base text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
                   {t('msgTitle')}
                 </h3>
-                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
+                <p className="text-xs sm:text-sm text-[var(--color-text-muted)] leading-relaxed">
                   {t('msgDesc')}
                 </p>
               </div>
 
-              <div className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors pt-1">
+              <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors pt-1">
                 <span>{t('msgCta')}</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
               </div>
             </div>
           </Link>
         </div>
       </section>
 
-      {/* 6. Contextual Summa Section */}
+      {/* 4. Guided Clarity: 3-Step Flow */}
+      <section aria-labelledby="how-it-works-heading" className="w-full flex flex-col gap-4 sm:gap-6">
+        <div className="flex flex-col gap-1">
+          <span className="text-xs font-semibold text-[var(--color-text-subtle)]">
+            {t('howBadge')}
+          </span>
+          <h2
+            id="how-it-works-heading"
+            className="text-lg sm:text-xl font-normal tracking-tight text-[var(--color-text)]"
+          >
+            {t('howHeading')}
+          </h2>
+        </div>
+        <GuidedPathFlow />
+      </section>
+
+      {/* 5. Contextual Summa Section */}
       <ContextualSummaCta context="homepage" />
     </div>
   );
