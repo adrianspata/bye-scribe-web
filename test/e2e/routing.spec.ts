@@ -11,7 +11,7 @@ test.describe('Locale Routing and Navigation', () => {
   test('serves "/sv" successfully with 200 status and brand heading', async ({ page }) => {
     const response = await page.goto('/sv');
     expect(response?.status()).toBe(200);
-    await expect(page.locator('h1')).toContainText('Säg upp abonnemang utan onödigt krångel');
+    await expect(page.locator('h1')).toContainText('Säg upp abonnemang. Enklare.');
   });
 
   test('unknown locale "/de" returns 404 without redirect loop', async ({ page }) => {

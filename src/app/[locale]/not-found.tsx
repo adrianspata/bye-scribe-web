@@ -7,10 +7,10 @@ export default function NotFound() {
 
   return (
     <div className="flex flex-col items-center justify-center text-center py-16 px-4">
-      <h1 className="text-5xl sm:text-6xl font-black tracking-tight text-[var(--color-text)] mb-3 tabular-nums">
+      <h1 className="text-5xl sm:text-6xl font-normal tracking-tight text-[var(--color-text)] mb-3 tabular-nums">
         404
       </h1>
-      <h2 className="text-xl sm:text-2xl font-bold text-[var(--color-text)] mb-3">
+      <h2 className="text-xl sm:text-2xl font-normal text-[var(--color-text)] mb-3">
         {t('title')}
       </h2>
       <p className="text-sm text-[var(--color-text-muted)] max-w-md mb-8 leading-relaxed">

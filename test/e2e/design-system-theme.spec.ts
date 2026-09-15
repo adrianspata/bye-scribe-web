@@ -56,6 +56,11 @@ test.describe('Design System: Pure System Theme, Navigation & Accessibility', ()
     await page.setViewportSize({ width: 375, height: 667 });
     await page.goto('/sv');
 
+    // 1. Verify brand wordmark navigates to home
+    const brandLink = page.locator('header a:has-text("ByeScribe")');
+    await expect(brandLink).toBeVisible();
+    await expect(brandLink).toHaveAttribute('href', '/sv');
+
     const menuButton = page.locator('button[aria-controls="mobile-navigation"]');
     await expect(menuButton).toBeVisible();
     await expect(menuButton).toHaveAttribute('aria-expanded', 'false');
@@ -67,20 +72,26 @@ test.describe('Design System: Pure System Theme, Navigation & Accessibility', ()
     const mobileNav = page.locator('#mobile-navigation');
     await expect(mobileNav).toBeVisible();
 
-    // Verify first link receives focus
-    const startLink = mobileNav.locator('a:has-text("Start")');
-    await expect(startLink).toBeFocused();
+    // Verify first link ("Guider") receives focus
+    const guidesLink = mobileNav.locator('a:has-text("Guider")');
+    await expect(guidesLink).toBeVisible();
+    await expect(guidesLink).toBeFocused();
+
+    // Verify message generator link exists
+    const msgLink = mobileNav.locator('a:has-text("Skriv uppsägning")');
+    await expect(msgLink).toBeVisible();
 
     // Press Escape to close
     await page.keyboard.press('Escape');
     await expect(mobileNav).not.toBeVisible();
     await expect(menuButton).toBeFocused();
 
-    // Open again and click a link
+    // Open again and click "Räkna besparing"
     await menuButton.click();
     await expect(mobileNav).toBeVisible();
 
-    const calcLink = mobileNav.locator('a:has-text("Besparingskalkylator")');
+    const calcLink = mobileNav.locator('a:has-text("Räkna besparing")');
+    await expect(calcLink).toBeVisible();
     await calcLink.click();
 
     await expect(page).toHaveURL(/\/sv\/verktyg\/besparingskalkylator/);

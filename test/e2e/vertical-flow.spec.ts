@@ -5,7 +5,7 @@ test.describe('Complete Vertical User Flow & Privacy', () => {
   test('1. Full vertical journey: Home -> Search -> Results -> Service Detail -> Tools', async ({ page }) => {
     // 1. Visit Home
     await page.goto('/sv');
-    await expect(page.locator('h1')).toContainText('Säg upp abonnemang utan onödigt krångel');
+    await expect(page.locator('h1')).toContainText('Säg upp abonnemang. Enklare.');
 
     // 2. Perform search for "NordicPlay"
     const searchInput = page.locator('input[type="search"]');
