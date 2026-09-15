@@ -5,7 +5,6 @@ import { SearchResultItem } from '@/features/search/components/search-result-ite
 import { SearchEmptyState } from '@/features/search/components/search-empty-state';
 import { getServiceRepository } from '@/features/services/repository';
 import { searchQuerySchema, SearchResult } from '@/features/search/types';
-import { Badge } from '@/components/ui/badge';
 import { getDataSourceMode } from '@/lib/env';
 import { DatabaseUnconfiguredError } from '@/lib/errors';
 
@@ -60,9 +59,9 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   }
 
   return (
-    <div className="flex flex-col gap-8 max-w-3xl">
+    <div className="flex flex-col gap-8 max-w-3xl mx-auto w-full">
       <header className="flex flex-col gap-2">
-        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[var(--color-text)]">
+        <h1 className="text-2xl sm:text-3xl font-normal tracking-tight text-[var(--color-text)]">
           Sök efter en uppsägningsguide
         </h1>
         <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
@@ -80,7 +79,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
       ) : validatedQuery ? (
         <section aria-labelledby="results-heading" className="flex flex-col gap-4">
           <div className="flex items-center justify-between border-b border-[var(--color-border)] pb-3">
-            <h2 id="results-heading" className="text-sm font-semibold text-[var(--color-text-muted)]">
+            <h2 id="results-heading" className="text-sm font-normal text-[var(--color-text-muted)]">
               {results.length === 1
                 ? `1 guide hittades för “${validatedQuery}”`
                 : results.length > 1
@@ -88,7 +87,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                 : `Inga guider hittades`}
             </h2>
             {isFixtureMode && (
-              <Badge variant="warning">Lokal demo</Badge>
+              <span className="text-xs text-[var(--color-text-muted)]">Exempeldata</span>
             )}
           </div>
 
