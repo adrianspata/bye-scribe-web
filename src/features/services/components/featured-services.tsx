@@ -31,7 +31,7 @@ export async function FeaturedServices() {
       <div className="flex flex-col gap-1">
         <h2
           id="featured-services-heading"
-          className="text-lg sm:text-xl font-bold tracking-tight text-[var(--color-text)]"
+          className="text-lg sm:text-xl font-normal tracking-tight text-[var(--color-text)]"
         >
           {t('guidesHeading')}
         </h2>
@@ -43,18 +43,18 @@ export async function FeaturedServices() {
       </div>
 
       {services.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           {services.map((service) => (
             <Link
               key={service.id}
               href={`/tjanster/${service.slug}`}
-              className="group bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] p-4 flex flex-col gap-2 transition-all hover:border-[var(--color-border-strong)] hover:shadow-raised focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] outline-none"
+              className="group bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-xl)] p-4 sm:p-5 flex flex-col justify-between gap-3 transition-all hover:border-[var(--color-border-strong)] hover:shadow-subtle focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] outline-none"
             >
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-sm text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
+              <div className="flex items-start justify-between gap-2">
+                <span className="font-semibold text-sm text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
                   {service.name}
                 </span>
-                <ChevronRight className="w-3.5 h-3.5 text-[var(--color-text-subtle)] group-hover:text-[var(--color-accent)] group-hover:translate-x-0.5 transition-all" aria-hidden="true" />
+                <ChevronRight className="w-4 h-4 text-[var(--color-text-subtle)] group-hover:text-[var(--color-accent)] group-hover:translate-x-0.5 transition-transform shrink-0 mt-0.5" aria-hidden="true" />
               </div>
               <span className="text-xs text-[var(--color-text-muted)]">
                 {service.category.name}
@@ -63,7 +63,7 @@ export async function FeaturedServices() {
           ))}
         </div>
       ) : (
-        <div className="w-full p-8 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] text-center text-sm text-[var(--color-text-muted)]">
+        <div className="w-full p-6 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-xl)] text-center text-xs text-[var(--color-text-muted)]">
           {t('guidesEmpty')}
         </div>
       )}
