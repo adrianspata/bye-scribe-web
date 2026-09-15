@@ -18,7 +18,7 @@ export function SummaCard() {
             Relaterat verktyg
           </span>
         </div>
-        <h2 id="summa-heading" className="text-base sm:text-lg font-semibold text-[var(--color-text)]">
+        <h2 id="summa-heading" className="text-base sm:text-lg font-normal text-[var(--color-text)]">
           {t('summaCardTitle')}
         </h2>
         <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">

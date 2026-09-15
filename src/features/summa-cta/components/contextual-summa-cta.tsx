@@ -66,17 +66,17 @@ export function ContextualSummaCta({
   return (
     <aside
       aria-labelledby={`summa-heading-${context}`}
-      className={`relative w-full bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] shadow-subtle overflow-hidden ${className}`.trim()}
+      className={`relative w-full bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-card-visual)] shadow-subtle overflow-hidden ${className}`.trim()}
     >
       <SignalField variant="summa" className="p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-        <div className="flex flex-col gap-2 max-w-xl">
+        <div className="flex flex-col gap-1.5 max-w-xl text-left">
           <h2
             id={`summa-heading-${context}`}
-            className="text-base sm:text-lg font-semibold text-[var(--color-text)]"
+            className="text-base sm:text-lg font-normal text-[var(--color-text)]"
           >
             {content.title}
           </h2>
-          <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[var(--color-text-muted)] leading-relaxed">
             {content.description}
           </p>
         </div>
@@ -85,7 +85,7 @@ export function ContextualSummaCta({
             href={validUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 text-sm font-semibold rounded-[var(--radius-md)] bg-[var(--color-btn-primary-bg)] text-[var(--color-btn-primary-text)] hover:bg-[var(--color-btn-primary-hover)] border border-transparent shadow-subtle transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] focus-visible:ring-offset-2 shrink-0"
+            className="inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 text-xs sm:text-sm font-semibold rounded-[var(--radius-md)] bg-[var(--color-btn-primary-bg)] text-[var(--color-btn-primary-text)] hover:bg-[var(--color-btn-primary-hover)] border border-transparent shadow-subtle transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] focus-visible:ring-offset-2 shrink-0"
           >
             {content.ctaText}
           </a>
