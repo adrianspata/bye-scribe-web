@@ -22,7 +22,7 @@ export function ServiceTermsSection({
       aria-labelledby="villkor-heading"
       className="flex flex-col gap-4 scroll-mt-24"
     >
-      <h2 id="villkor-heading" className="text-base font-semibold text-[var(--color-text)]">
+      <h2 id="villkor-heading" className="text-base font-normal text-[var(--color-text)]">
         Villkor och bekräftelse
       </h2>
 

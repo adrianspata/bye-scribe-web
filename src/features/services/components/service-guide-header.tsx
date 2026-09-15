@@ -36,7 +36,7 @@ export function ServiceGuideHeader({ service, isFixtureMode }: ServiceGuideHeade
 
       {/* Demo / Stale notices */}
       {isFixtureMode && (
-        <div className="py-2.5 px-4 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-md)] text-xs text-[var(--color-text)] leading-relaxed">
+        <div className="py-2.5 px-4 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-md)] text-xs text-[var(--color-text)] leading-relaxed text-left">
           Lokal demo – informationen är inte en verkligt verifierad tjänsteguide.
         </div>
       )}
@@ -47,12 +47,12 @@ export function ServiceGuideHeader({ service, isFixtureMode }: ServiceGuideHeade
         </InlineNotice>
       )}
 
-      {/* Hero Title & Subtle SignalField Container (max 1 signal moment in guide) */}
-      <div className="relative rounded-[var(--radius-lg)] p-6 sm:p-8 bg-[var(--color-surface)] border border-[var(--color-border)] overflow-hidden shadow-subtle">
-        <SignalField variant="editorial" className="rounded-[var(--radius-lg)]" />
+      {/* Hero Title & Subtle SignalField Container */}
+      <div className="relative rounded-[var(--radius-card-visual)] p-6 sm:p-8 bg-[var(--color-surface)] border border-[var(--color-border)] overflow-hidden shadow-subtle">
+        <SignalField variant="editorial" className="rounded-[var(--radius-card-visual)]" />
         
-        <div className="relative z-10 flex flex-col gap-3">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[var(--color-text)] leading-[1.1]">
+        <div className="relative z-10 flex flex-col gap-3 text-left">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[var(--color-text)] leading-[1.1]">
             Säg upp {service.name}
           </h1>
 

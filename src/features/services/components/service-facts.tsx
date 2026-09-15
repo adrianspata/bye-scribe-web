@@ -45,7 +45,7 @@ export function ServiceFacts({ service }: ServiceFactsProps) {
       aria-labelledby="snabbfakta-heading"
       className="flex flex-col gap-4 scroll-mt-24"
     >
-      <h2 id="snabbfakta-heading" className="text-base font-semibold text-[var(--color-text)]">
+      <h2 id="snabbfakta-heading" className="text-base font-normal text-[var(--color-text)]">
         Snabböversikt
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
