@@ -72,7 +72,7 @@ export function EmptyState({
     <div
       className={`p-8 sm:p-12 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] text-center flex flex-col items-center justify-center gap-3 ${className}`.trim()}
     >
-      <h3 className="font-semibold text-base text-[var(--color-text)]">{title}</h3>
+      <h3 className="font-normal text-base text-[var(--color-text)]">{title}</h3>
       {description && (
         <p className="text-xs sm:text-sm text-[var(--color-text-muted)] max-w-md leading-relaxed">
           {description}
