@@ -34,7 +34,7 @@ export function SourceList({ sources }: SourceListProps) {
   return (
     <section id="kallor" aria-labelledby="kallor-heading" className="flex flex-col gap-4 scroll-mt-24">
       <div className="flex flex-col gap-1">
-        <h2 id="kallor-heading" className="text-base font-semibold text-[var(--color-text)]">
+        <h2 id="kallor-heading" className="text-base font-normal text-[var(--color-text)]">
           Källor & underlag
         </h2>
         <p className="text-xs text-[var(--color-text-muted)]">

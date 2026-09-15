@@ -23,7 +23,7 @@ export function CancellationSteps({ steps, serviceName }: CancellationStepsProps
   return (
     <section id="steg" aria-labelledby="steg-heading" className="flex flex-col gap-6 scroll-mt-24">
       <div className="flex flex-col gap-1">
-        <h2 id="steg-heading" className="text-xl sm:text-2xl font-bold tracking-tight text-[var(--color-text)]">
+        <h2 id="steg-heading" className="text-xl sm:text-2xl font-normal tracking-tight text-[var(--color-text)]">
           Uppsägningssteg för {serviceName}
         </h2>
         <p className="text-sm text-[var(--color-text-muted)]">
@@ -33,33 +33,31 @@ export function CancellationSteps({ steps, serviceName }: CancellationStepsProps
 
       {sortedSteps.length > 0 ? (
         <ol className="relative flex flex-col gap-4 list-none p-0 m-0">
-          {sortedSteps.map((step, index) => {
-            const isLast = index === sortedSteps.length - 1;
+          {sortedSteps.map((step) => {
             return (
               <li
                 key={step.id || step.position}
-                className="relative flex gap-4 p-5 sm:p-6 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] shadow-subtle"
+                className="group relative flex items-start gap-4 p-5 sm:p-6 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-xl)] shadow-subtle hover:border-[var(--color-border-strong)] transition-all"
               >
-                {/* Node indicator: 44x44 B&W number circle */}
+                {/* Step number badge (44x44px for clear visual weight) */}
                 <div className="flex flex-col items-center shrink-0">
-                  <span
+                  <div
                     className="w-11 h-11 rounded-full bg-[var(--color-text)] text-[var(--color-page)] font-bold text-sm flex items-center justify-center tabular-nums shrink-0 select-none shadow-sm"
                     aria-hidden="true"
                   >
                     {step.position}
-                  </span>
-                  {!isLast && (
-                    <div
-                      className="w-0.5 bg-[var(--color-border)] flex-1 my-2 hidden sm:block"
-                      aria-hidden="true"
-                    />
-                  )}
+                  </div>
                 </div>
 
-                {/* Content */}
-                <div className="flex flex-col gap-1.5 flex-1 min-w-0">
-                  <h3 className="font-semibold text-base text-[var(--color-text)]">
-                    <span className="sr-only">Steg {step.position}: </span>
+                {/* Step content */}
+                <div className="flex-1 flex flex-col gap-2 min-w-0 pt-0.5 text-left">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-xs font-medium text-[var(--color-text-subtle)]">
+                      Steg {step.position}
+                    </span>
+                  </div>
+
+                  <h3 className="font-normal text-base text-[var(--color-text)]">
                     {step.title}
                   </h3>
                   <p className="text-sm text-[var(--color-text-muted)] leading-relaxed whitespace-pre-line">

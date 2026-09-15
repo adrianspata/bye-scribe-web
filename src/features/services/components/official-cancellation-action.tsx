@@ -39,7 +39,7 @@ export function OfficialCancellationAction({
         className="flex flex-col sm:flex-row sm:items-center justify-between gap-5 p-6 bg-[var(--color-surface)] border border-[var(--color-border-strong)]"
       >
         <div className="flex flex-col gap-1">
-          <h2 id="official-action-heading" className="text-base font-semibold text-[var(--color-text)]">
+          <h2 id="official-action-heading" className="text-base font-normal text-[var(--color-text)]">
             Officiell uppsägningsväg
           </h2>
           <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">
@@ -69,7 +69,7 @@ export function OfficialCancellationAction({
       className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5"
     >
       <div className="flex flex-col gap-1">
-        <h2 id="website-link-heading" className="text-sm font-semibold text-[var(--color-text)]">
+        <h2 id="website-link-heading" className="text-sm font-normal text-[var(--color-text)]">
           Officiell webbplats
         </h2>
         <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">

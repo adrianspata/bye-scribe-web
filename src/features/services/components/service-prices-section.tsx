@@ -19,7 +19,7 @@ export function ServicePricesSection({
   return (
     <section id="priser" aria-labelledby="priser-heading" className="flex flex-col gap-4 scroll-mt-24">
       <div className="flex flex-col gap-1">
-        <h2 id="priser-heading" className="text-base font-semibold text-[var(--color-text)]">
+        <h2 id="priser-heading" className="text-base font-normal text-[var(--color-text)]">
           Kända prisplaner
         </h2>
         {isFixtureMode && (

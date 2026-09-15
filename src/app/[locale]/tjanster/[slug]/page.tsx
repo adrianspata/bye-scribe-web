@@ -105,7 +105,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   activeSections.push({ id: 'verktyg', label: 'Verktyg & sparande' });
 
   return (
-    <div className="flex flex-col gap-6 max-w-5xl">
+    <div className="flex flex-col gap-6 max-w-5xl mx-auto w-full">
       {/* Contextual Back Navigation */}
       <nav aria-label="Tillbaka till sökning">
         <Link
