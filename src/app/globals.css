@@ -1,6 +1,22 @@
 @import "tailwindcss";
 @import "../styles/tokens.css";
 
+@font-face {
+  font-family: "KMR Melange Grotesk";
+  src: url("/fonts/kmrmelangegrotesk-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "General Grotesque Mono";
+  src: url("/fonts/GeneralGrotesqueMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme inline {
   --color-page: var(--color-page);
   --color-page-subtle: var(--color-page-subtle);
@@ -69,6 +85,8 @@
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);
   --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-card-visual: var(--radius-card-visual);
   --radius-pill: var(--radius-pill);
 
   /* Fonts */
@@ -100,15 +118,30 @@ body {
   margin: 0;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+}
+
 /* Tabular Numbers Utility */
 .tabular-nums {
   font-variant-numeric: tabular-nums;
 }
 
-/* Accessible focus ring on all interactive elements when using keyboard navigation */
+/* Accessible focus ring on interactive buttons/links when using keyboard navigation */
 :focus-visible {
   outline: var(--focus-ring-width) solid var(--color-focus);
   outline-offset: var(--focus-ring-offset);
+}
+
+/* Form controls use refined hover-matching border line without blue ring */
+input:focus,
+input:focus-visible,
+textarea:focus,
+textarea:focus-visible,
+select:focus,
+select:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 /* Ambient Motion Keyframes (Lightweight transform & opacity loop on oversized layer) */
