@@ -15,11 +15,11 @@ export const metadata: Metadata = {
 
 export default function CancellationMessagePage() {
   return (
-    <div className="flex flex-col gap-10 max-w-3xl">
+    <div className="flex flex-col gap-10 max-w-3xl mx-auto w-full">
       <ToolPageHeader
-        category="Verktyg & mallar"
+        category="Verktyg och mall"
         title="Skapa uppsägningsmeddelande"
-        description="Generera ett redigerbart textutkast att skicka via e-post, kontaktformulär eller brev till tjänsten du vill avsluta. Texten skapas helt lokalt i din webbläsare och skickas aldrig till ByeScribe."
+        description="Fyll i uppgifterna nedan för att generera ett redigerbart textutkast att skicka till leverantören. Allt skapas lokalt i din webbläsare."
       />
 
       <CancellationMessageGenerator />
