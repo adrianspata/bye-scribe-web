@@ -15,10 +15,9 @@ export function Header() {
   const firstNavLinkRef = useRef<HTMLAnchorElement>(null);
 
   const navItems = [
-    { href: '/', label: tNav('home') },
     { href: '/sok', label: tNav('search') },
-    { href: '/verktyg/besparingskalkylator', label: tNav('calculator') },
     { href: '/verktyg/uppsagningsmeddelande', label: tNav('messageGenerator') },
+    { href: '/verktyg/besparingskalkylator', label: tNav('calculator') },
   ];
 
   // Handle ESC key to close mobile menu & return focus
@@ -57,11 +56,11 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-[var(--color-border)] bg-[var(--color-page)]/95 backdrop-blur-md">
       <div className="max-w-[var(--spacing-container-max)] mx-auto px-4 sm:px-6 h-[var(--spacing-header-height)] flex items-center justify-between gap-2 sm:gap-4">
-        {/* Brand / Temporary Typographic Wordmark */}
+        {/* Brand Wordmark (links to home) */}
         <Link
           href="/"
           onClick={() => setMobileMenuOpen(false)}
-          className="flex items-center text-lg sm:text-xl font-black tracking-tight text-[var(--color-text)] hover:opacity-85 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] rounded-md px-1 py-0.5 shrink-0"
+          className="flex items-center text-lg sm:text-xl font-normal tracking-tight text-[var(--color-text)] hover:opacity-85 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] rounded-md px-1 py-0.5 shrink-0"
         >
           <span>{t('brand')}</span>
         </Link>
@@ -69,7 +68,7 @@ export function Header() {
         {/* Desktop Navigation */}
         <nav
           aria-label="Huvudnavigation"
-          className="hidden lg:flex items-center gap-2 text-sm font-medium h-full"
+          className="hidden sm:flex items-center gap-1 sm:gap-2 text-sm font-medium h-full"
         >
           {navItems.map((item) => {
             const isActive = pathname === item.href;
@@ -80,7 +79,7 @@ export function Header() {
                 aria-current={isActive ? 'page' : undefined}
                 className={`relative h-[var(--spacing-header-height)] px-3 transition-colors select-none flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] ${
                   isActive
-                    ? 'text-[var(--color-text)] font-bold after:absolute after:bottom-0 after:left-2 after:right-2 after:h-[2.5px] after:bg-[var(--color-accent)] after:rounded-t-full'
+                    ? 'text-[var(--color-text)] font-semibold after:absolute after:bottom-0 after:left-2 after:right-2 after:h-[2px] after:bg-[var(--color-text)] after:rounded-t-full'
                     : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]'
                 }`}
               >
@@ -91,7 +90,7 @@ export function Header() {
         </nav>
 
         {/* Mobile Hamburger Button */}
-        <div className="flex lg:hidden items-center gap-2">
+        <div className="flex sm:hidden items-center gap-2">
           <button
             ref={menuButtonRef}
             type="button"
@@ -115,7 +114,7 @@ export function Header() {
         <nav
           id="mobile-navigation"
           aria-label="Mobil huvudnavigation"
-          className="lg:hidden border-b border-[var(--color-border)] bg-[var(--color-page)] px-4 py-3 shadow-md flex flex-col gap-1.5 transition-all"
+          className="sm:hidden border-b border-[var(--color-border)] bg-[var(--color-page)] px-4 py-3 shadow-md flex flex-col gap-1.5 transition-all"
         >
           <div className="flex flex-col gap-1">
             {navItems.map((item, idx) => {
@@ -129,13 +128,13 @@ export function Header() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`min-h-[44px] px-3.5 py-2.5 rounded-[var(--radius-md)] text-sm font-medium transition-colors flex items-center justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] ${
                     isActive
-                      ? 'bg-[var(--color-accent-soft)] text-[var(--color-accent)] font-bold'
+                      ? 'bg-[var(--color-page-subtle)] text-[var(--color-text)] font-bold border border-[var(--color-border)]'
                       : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-page-subtle)]'
                   }`}
                 >
                   <span>{item.label}</span>
                   {isActive && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]" aria-hidden="true" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-text)]" aria-hidden="true" />
                   )}
                 </Link>
               );
