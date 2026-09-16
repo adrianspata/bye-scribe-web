@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   } catch (err) {
     if (err instanceof DatabaseUnconfiguredError) {
       return {
-        title: `Tjänsten kunde inte hittas | ${BRAND.name}`,
+        title: `Service not found | ${BRAND.name}`,
       };
     }
     throw err;
@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
 
   if (!service) {
     return {
-      title: `Tjänsten kunde inte hittas | ${BRAND.name}`,
+      title: `Service not found | ${BRAND.name}`,
     };
   }
 
@@ -52,14 +52,14 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
     service.verificationStatus === 'verified';
 
   return {
-    title: `${service.name} — Säg upp abonnemang & villkor | ${BRAND.name}`,
-    description: `Steg-för-steg-instruktioner, uppsägningstid och kontaktvägar för att avsluta ${service.name}.`,
+    title: `${service.name} — How to Cancel Subscription & Terms | ${BRAND.name}`,
+    description: `Step-by-step instructions, notice periods, and official contact paths to cancel ${service.name}.`,
     robots: {
       index: isIndexable,
       follow: !isFixtureMode,
     },
     alternates: {
-      canonical: `/sv/tjanster/${service.slug}`,
+      canonical: `/en/tjanster/${service.slug}`,
     },
   };
 }
@@ -86,34 +86,34 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
 
   // Build in-page navigation sections dynamically based strictly on non-empty rendered sections
   const activeSections: InPageSection[] = [
-    { id: 'snabbfakta', label: 'Snabböversikt' },
-    { id: 'steg', label: 'Uppsägningssteg' },
+    { id: 'snabbfakta', label: 'Quick Overview' },
+    { id: 'steg', label: 'Cancellation Steps' },
   ];
 
   if (service.bindingNotes || service.confirmationNotes) {
-    activeSections.push({ id: 'villkor', label: 'Villkor & bekräftelse' });
+    activeSections.push({ id: 'villkor', label: 'Terms & Confirmation' });
   }
 
   if (service.prices && service.prices.length > 0) {
-    activeSections.push({ id: 'priser', label: 'Kända prisplaner' });
+    activeSections.push({ id: 'priser', label: 'Pricing Plans' });
   }
 
   if (service.sources && service.sources.length > 0) {
-    activeSections.push({ id: 'kallor', label: 'Källor & underlag' });
+    activeSections.push({ id: 'kallor', label: 'Sources & References' });
   }
 
-  activeSections.push({ id: 'verktyg', label: 'Verktyg & sparande' });
+  activeSections.push({ id: 'verktyg', label: 'Tools & Savings' });
 
   return (
     <div className="flex flex-col gap-6 max-w-5xl mx-auto w-full">
       {/* Contextual Back Navigation */}
-      <nav aria-label="Tillbaka till sökning">
+      <nav aria-label="Back to search">
         <Link
           href="/sok"
           className="inline-flex items-center gap-1.5 text-xs font-medium text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] rounded-[var(--radius-sm)] py-1"
         >
           <ArrowLeft className="w-3.5 h-3.5" aria-hidden="true" />
-          <span>Tillbaka till sökning</span>
+          <span>Back to search</span>
         </Link>
       </nav>
 
@@ -157,10 +157,10 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
           {/* Editorial Disclaimer */}
           <footer className="border-t border-[var(--color-border)] pt-6 text-xs text-[var(--color-text-subtle)] leading-relaxed">
             <p className="font-semibold text-[var(--color-text-muted)] mb-1">
-              Ansvarsbegränsning
+              Disclaimer
             </p>
             <p>
-              ByeScribe är en oberoende konsumentguide och har ingen koppling till leverantören. Uppsägningen sker alltid direkt mellan dig och leverantören enligt era avtalsvillkor.
+              ByeScribe is an independent consumer guide and has no affiliation with the provider. Cancellation is always executed directly between you and the provider under your contract terms.
             </p>
           </footer>
         </article>

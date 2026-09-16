@@ -5,11 +5,11 @@ import { CancellationMessageGenerator } from '@/features/cancellation-message/co
 import { ContextualSummaCta } from '@/features/summa-cta/components/contextual-summa-cta';
 
 export const metadata: Metadata = {
-  title: 'Skapa uppsägningsmeddelande (Mall & Utkast)',
+  title: 'Create a Cancellation Message (Template & Draft)',
   description:
-    'Skapa ett säkert, redigerbart uppsägningsbrev eller e-postmeddelande för att avsluta abonnemang. Helt lokalt i din webbläsare.',
+    'Create a safe, editable cancellation letter or email to end subscriptions. Completely local in your browser.',
   alternates: {
-    canonical: '/sv/verktyg/uppsagningsmeddelande',
+    canonical: '/en/verktyg/uppsagningsmeddelande',
   },
 };
 
@@ -17,9 +17,9 @@ export default function CancellationMessagePage() {
   return (
     <div className="flex flex-col gap-10 max-w-3xl mx-auto w-full">
       <ToolPageHeader
-        category="Verktyg och mall"
-        title="Skapa uppsägningsmeddelande"
-        description="Fyll i uppgifterna nedan för att generera ett redigerbart textutkast att skicka till leverantören. Allt skapas lokalt i din webbläsare."
+        category="Tools & Template"
+        title="Create a Cancellation Message"
+        description="Fill in the details below to generate an editable text draft to send to the provider. Everything is created locally in your browser."
       />
 
       <CancellationMessageGenerator />
@@ -29,10 +29,10 @@ export default function CancellationMessagePage() {
       {/* Editorial Disclaimer */}
       <footer className="border-t border-[var(--color-border)] pt-6 text-xs text-[var(--color-text-subtle)] leading-relaxed">
         <p className="font-semibold text-[var(--color-text-muted)] mb-1">
-          Ansvarsbegränsning
+          Disclaimer
         </p>
         <p>
-          Det genererade meddelandet är ett förslag och utkast. ByeScribe är inte part i ditt avtal och genomför eller bevakar inte uppsägningen åt dig.
+          The generated message is a suggestion and draft. ByeScribe is not a party to your contract and does not execute or monitor cancellations on your behalf.
         </p>
       </footer>
     </div>
