@@ -412,7 +412,7 @@ export function SubscriptionMindmap() {
         <div className="absolute bottom-1 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2">
           <div
             ref={cardRef}
-            className="relative group backdrop-blur-xl bg-white/75 dark:bg-zinc-900/75 text-[var(--color-text)] border border-white/60 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.06),inset_0_1px_1px_0_rgba(255,255,255,0.7)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_1px_0_rgba(255,255,255,0.1)] px-7 py-3 sm:px-8 sm:py-3.5 rounded-2xl flex flex-col items-center gap-0.5 min-w-[280px] sm:min-w-[320px] text-center"
+            className="relative group backdrop-blur-2xl bg-white/35 dark:bg-zinc-900/35 text-[var(--color-text)] border border-white/70 dark:border-white/15 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.08),0_2px_6px_0_rgba(0,0,0,0.04),inset_0_1px_1px_0_rgba(255,255,255,0.9),inset_0_-1px_1px_0_rgba(0,0,0,0.04)] dark:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.6),0_2px_6px_0_rgba(0,0,0,0.3),inset_0_1px_1px_0_rgba(255,255,255,0.2),inset_0_-1px_1px_0_rgba(0,0,0,0.3)] px-7 py-3 sm:px-8 sm:py-3.5 rounded-2xl flex flex-col items-center gap-0.5 min-w-[280px] sm:min-w-[320px] text-center before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-b before:from-white/40 before:to-transparent before:pointer-events-none dark:before:from-white/10"
           >
             {/* Live Staged Counting Dollar Total */}
             <div className="text-2xl sm:text-3xl font-semibold tracking-tight tabular-nums flex items-baseline gap-1 text-[var(--color-text)]">
@@ -485,7 +485,7 @@ export function SubscriptionMindmap() {
 
         {/* Mobile Accumulator Card (Liquid Glass) & CTA Button */}
         <div className="flex flex-col items-center gap-2">
-          <div className="w-full backdrop-blur-xl bg-white/75 dark:bg-zinc-900/75 text-[var(--color-text)] border border-white/60 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.06),inset_0_1px_1px_0_rgba(255,255,255,0.7)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_1px_0_rgba(255,255,255,0.1)] p-4 rounded-2xl flex flex-col items-center gap-0.5 text-center">
+          <div className="w-full backdrop-blur-2xl bg-white/35 dark:bg-zinc-900/35 text-[var(--color-text)] border border-white/70 dark:border-white/15 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.08),0_2px_6px_0_rgba(0,0,0,0.04),inset_0_1px_1px_0_rgba(255,255,255,0.9),inset_0_-1px_1px_0_rgba(0,0,0,0.04)] dark:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.6),0_2px_6px_0_rgba(0,0,0,0.3),inset_0_1px_1px_0_rgba(255,255,255,0.2),inset_0_-1px_1px_0_rgba(0,0,0,0.3)] p-4 rounded-2xl flex flex-col items-center gap-0.5 text-center before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-b before:from-white/40 before:to-transparent before:pointer-events-none dark:before:from-white/10">
             <div className="text-2xl sm:text-3xl font-semibold tracking-tight tabular-nums text-[var(--color-text)]">
               {formattedAccumulator}
               <span className="text-xs font-normal text-[var(--color-text-muted)] ml-1">/yr</span>
