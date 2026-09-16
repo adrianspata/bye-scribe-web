@@ -204,3 +204,16 @@ select:focus-visible {
               var(--gradient-completion-4);
 }
 
+/* Hide Next.js dev indicator overlay buttons & portals */
+nextjs-portal,
+[data-nextjs-dev-tools-button],
+[data-nextjs-toast],
+#nextjs-dev-tools,
+div[data-nextjs-dev-tools] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+
