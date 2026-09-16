@@ -48,6 +48,11 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} className="h-full antialiased">
+      <head>
+        <link rel="icon" href="/byescribeFavicor.png?v=3" type="image/png" />
+        <link rel="apple-touch-icon" href="/byescribeFavicor.png?v=3" />
+        <link rel="shortcut icon" href="/byescribeFavicor.png?v=3" />
+      </head>
       <body className="min-h-full flex flex-col bg-[var(--color-page)] text-[var(--color-text)]">
         <NextIntlClientProvider messages={messages}>
           <SkipLink />
