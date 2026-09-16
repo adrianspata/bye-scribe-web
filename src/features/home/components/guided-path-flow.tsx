@@ -10,26 +10,30 @@ export function GuidedPathFlow() {
     title: string;
     desc: string;
     variant: SignalFieldVariant;
+    imageSrc: string;
   }> = [
-    {
-      num: 1,
-      title: t('howStep1Title'),
-      desc: t('howStep1Desc'),
-      variant: 'guidance',
-    },
-    {
-      num: 2,
-      title: t('howStep2Title'),
-      desc: t('howStep2Desc'),
-      variant: 'release',
-    },
-    {
-      num: 3,
-      title: t('howStep3Title'),
-      desc: t('howStep3Desc'),
-      variant: 'completion',
-    },
-  ];
+      {
+        num: 1,
+        title: t('howStep1Title'),
+        desc: t('howStep1Desc'),
+        variant: 'guidance',
+        imageSrc: '/grad13.webp',
+      },
+      {
+        num: 2,
+        title: t('howStep2Title'),
+        desc: t('howStep2Desc'),
+        variant: 'release',
+        imageSrc: '/grad9.webp',
+      },
+      {
+        num: 3,
+        title: t('howStep3Title'),
+        desc: t('howStep3Desc'),
+        variant: 'completion',
+        imageSrc: '/grad18.webp',
+      },
+    ];
 
   return (
     <div className="w-full">
@@ -41,8 +45,9 @@ export function GuidedPathFlow() {
           >
             {/* 1. Grainy Gradient Visual Surface */}
             <SignalField
+              imageSrc={step.imageSrc}
               variant={step.variant}
-              className="h-28 sm:h-32 w-full p-4 sm:p-5 flex items-end justify-between border-b border-[var(--color-border-subtle)]"
+              className="aspect-[16/9] w-full p-4 sm:p-5 flex items-end justify-between border-b border-[var(--color-border-subtle)]"
             >
               {/* Svartvit nummercirkel 40x40px (tabular-nums, hög kontrast) */}
               <div
