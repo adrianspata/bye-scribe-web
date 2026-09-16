@@ -33,4 +33,11 @@ describe('SignalField component', () => {
     const animatedLayer = container.querySelector('.animate-ambient-signal');
     expect(animatedLayer).toBeInTheDocument();
   });
+
+  it('renders background image when imageSrc is provided', () => {
+    const { container } = render(<SignalField imageSrc="/grad1.webp" />);
+    const img = container.querySelector('img');
+    expect(img).toBeInTheDocument();
+    expect(img).toHaveAttribute('src', expect.stringContaining('grad1.webp'));
+  });
 });

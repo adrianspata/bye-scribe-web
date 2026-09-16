@@ -1,9 +1,11 @@
 import React from 'react';
+import Image from 'next/image';
 
 export type SignalFieldVariant = 'path' | 'tool' | 'editorial' | 'summa' | 'release' | 'guidance' | 'completion';
 
 export interface SignalFieldProps {
   variant?: SignalFieldVariant;
+  imageSrc?: string;
   ambientMotion?: boolean;
   className?: string;
   children?: React.ReactNode;
@@ -12,6 +14,7 @@ export interface SignalFieldProps {
 
 export function SignalField({
   variant = 'path',
+  imageSrc,
   ambientMotion = false,
   className = '',
   children,
@@ -38,18 +41,29 @@ export function SignalField({
       data-variant={variant}
       className={`relative overflow-hidden ${className}`.trim()}
     >
-      {/* 1. Base Gradient Layer (Optionally lightly oversized with ambient drift) */}
-      <div
-        className={`absolute inset-[-4%] pointer-events-none ${variantGradients[variant]} ${
-          ambientMotion ? 'animate-ambient-signal' : ''
-        }`}
-        aria-hidden="true"
-      />
+      {/* 1. Base Gradient / Image Layer */}
+      {imageSrc ? (
+        <Image
+          src={imageSrc}
+          alt=""
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover pointer-events-none select-none"
+          priority={false}
+        />
+      ) : (
+        <div
+          className={`absolute inset-[-4%] pointer-events-none ${variantGradients[variant]} ${
+            ambientMotion ? 'animate-ambient-signal' : ''
+          }`}
+          aria-hidden="true"
+        />
+      )}
 
       {/* 2. Static Grain Texture Layer (Strictly static, zero continuous recomputation) */}
       <div
         className={`absolute inset-0 pointer-events-none select-none bg-repeat mix-blend-overlay ${
-          isPaletteVariant ? 'opacity-25' : 'opacity-[var(--signal-grain-opacity)]'
+          imageSrc || isPaletteVariant ? 'opacity-25' : 'opacity-[var(--signal-grain-opacity)]'
         }`}
         style={{
           backgroundImage: 'var(--signal-grain-url)',
@@ -59,7 +73,7 @@ export function SignalField({
       />
 
       {/* 3. Subtle Vignette / Contrast Overlay for Text Readability */}
-      {!isPaletteVariant && (
+      {!imageSrc && !isPaletteVariant && (
         <div
           className="absolute inset-0 pointer-events-none bg-[var(--color-surface)]/20 dark:bg-[var(--color-surface)]/10"
           aria-hidden="true"
