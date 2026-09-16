@@ -1,7 +1,7 @@
 {
   "common": {
     "brand": "ByeScribe",
-    "tagline": "The easier way to unsubscribe.",
+    "tagline": "The easier way to cancel your payments & subscriptions.",
     "skipToContent": "Skip to content",
     "disclaimer": "ByeScribe helps consumers find instructions to cancel subscriptions. We never cancel services automatically."
   },
@@ -14,8 +14,8 @@
     "closeMenu": "Close menu"
   },
   "home": {
-    "heroH1": "Unsubscribe. Easier.",
-    "heroSubtitle": "Find the right guide, create a cancellation draft, and calculate your savings.",
+    "heroH1": "Unsubscribe.",
+    "heroSubtitle": "Find the right guide. Create a cancellation draft. Calculate your savings.",
     "heroDisclaimer": "You complete the cancellation with your provider.",
     "searchPlaceholder": "Which service do you want to cancel?",
     "searchPrivacyHint": "Search only by service name. Do not enter personal details.",

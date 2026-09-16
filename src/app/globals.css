@@ -216,4 +216,20 @@ div[data-nextjs-dev-tools] {
   pointer-events: none !important;
 }
 
+/* Button Shimmer / Glimmer Reflection */
+@keyframes shimmer-sweep {
+  0% {
+    transform: translateX(-150%) skewX(-20deg);
+  }
+  30%, 100% {
+    transform: translateX(250%) skewX(-20deg);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer-sweep 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform;
+}
+
+
 

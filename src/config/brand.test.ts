@@ -6,7 +6,7 @@ import path from 'node:path';
 describe('Brand Configuration & Integrity', () => {
   it('defines the canonical ByeScribe brand name, description and tagline', () => {
     expect(BRAND.name).toBe('ByeScribe');
-    expect(BRAND.tagline).toBe('The easier way to unsubscribe.');
+    expect(BRAND.tagline).toBe('The easier way to cancel your payments & subscriptions.');
     expect(BRAND.disclaimer).toContain('ByeScribe helps consumers');
   });
 
@@ -25,7 +25,7 @@ describe('Brand Configuration & Integrity', () => {
     const parsed = JSON.parse(enContent);
 
     expect(parsed.common.brand).toBe('ByeScribe');
-    expect(parsed.common.tagline).toBe('The easier way to unsubscribe.');
+    expect(parsed.common.tagline).toBe('The easier way to cancel your payments & subscriptions.');
     expect(parsed.common.disclaimer).toContain('ByeScribe helps consumers');
     expect(enContent).not.toContain('CancelPath');
     expect(enContent).not.toContain('cancelpath');

@@ -7,7 +7,7 @@
 
 export const BRAND = {
   name: 'ByeScribe',
-  tagline: 'The easier way to unsubscribe.',
+  tagline: 'The easier way to cancel your payments & subscriptions.',
   shortDescription:
     'ByeScribe helps consumers find step-by-step instructions, terms, and tools to cancel subscriptions and save money.',
   description:

@@ -17,9 +17,9 @@ export function SearchEmptyState({ type, query }: SearchEmptyStateProps) {
         <p className="font-semibold text-sm text-[var(--color-text)]">
           Type the name of the service you want to cancel in the search box above.
         </p>
-        <p className="text-xs text-[var(--color-text-muted)] max-w-md leading-relaxed">
+        {/* <p className="text-xs text-[var(--color-text-muted)] max-w-md leading-relaxed">
           Search only by service name. Do not enter personal details or ID numbers.
-        </p>
+        </p> */}
       </div>
     );
   }

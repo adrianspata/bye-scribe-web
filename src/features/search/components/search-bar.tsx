@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
@@ -16,6 +16,42 @@ export function SearchBar({ initialQuery = '', autoFocus = false, className = ''
   const t = useTranslations('home');
   const router = useRouter();
   const [query, setQuery] = useState(initialQuery);
+  const fullPlaceholder = t('searchPlaceholder');
+  const [displayedPlaceholder, setDisplayedPlaceholder] = useState('');
+
+  // Typewriter effect on search placeholder
+  useEffect(() => {
+    let currentIdx = 0;
+    let isDeleting = false;
+    let timeoutId: NodeJS.Timeout;
+
+    function tick() {
+      if (!isDeleting) {
+        currentIdx++;
+        setDisplayedPlaceholder(fullPlaceholder.slice(0, currentIdx));
+        if (currentIdx === fullPlaceholder.length) {
+          timeoutId = setTimeout(() => {
+            isDeleting = true;
+            tick();
+          }, 3500);
+          return;
+        }
+        timeoutId = setTimeout(tick, 50);
+      } else {
+        currentIdx--;
+        setDisplayedPlaceholder(fullPlaceholder.slice(0, currentIdx));
+        if (currentIdx === 0) {
+          isDeleting = false;
+          timeoutId = setTimeout(tick, 500);
+          return;
+        }
+        timeoutId = setTimeout(tick, 25);
+      }
+    }
+
+    timeoutId = setTimeout(tick, 400);
+    return () => clearTimeout(timeoutId);
+  }, [fullPlaceholder]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,7 +65,7 @@ export function SearchBar({ initialQuery = '', autoFocus = false, className = ''
       <form onSubmit={handleSubmit} className="w-full flex flex-col min-[420px]:flex-row gap-2">
         <div className="relative flex-1">
           <label htmlFor="search-input" className="sr-only">
-            {t('searchPlaceholder')}
+            {fullPlaceholder}
           </label>
           <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[var(--color-text-subtle)]">
             <Search className="w-4 h-4 text-[#0284c7] dark:text-[#38bdf8]" aria-hidden="true" />
@@ -43,18 +79,25 @@ export function SearchBar({ initialQuery = '', autoFocus = false, className = ''
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             aria-describedby="search-privacy-hint"
-            placeholder={t('searchPlaceholder')}
+            placeholder={displayedPlaceholder || fullPlaceholder}
             className="w-full min-h-[44px] pl-10 pr-4 py-2.5 text-sm bg-[var(--color-surface)] text-[var(--color-text)] border border-[var(--color-border-strong)] hover:border-[var(--color-text-muted)] focus:border-[var(--color-text-muted)] rounded-[var(--radius-md)] placeholder:text-[var(--color-text-subtle)] focus:outline-none focus-visible:outline-none transition-colors shadow-xs"
           />
         </div>
-        <Button type="submit" variant="primary" size="md" className="shrink-0 min-h-[44px]">
-          {t('searchButton')}
+        <Button
+          type="submit"
+          variant="primary"
+          size="md"
+          className="relative overflow-hidden shrink-0 min-h-[44px] group"
+        >
+          <span className="relative z-10">{t('searchButton')}</span>
+          {/* Shimmer / Glimmer light reflection sweep */}
+          <span
+            aria-hidden="true"
+            className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 dark:via-white/20 to-transparent skew-x-[-20deg] animate-shimmer pointer-events-none"
+          />
         </Button>
       </form>
-      <p id="search-privacy-hint" className="text-xs text-[var(--color-text-muted)] mt-2 leading-relaxed text-left">
-        <span>{t('searchPrivacyHint')}</span>{' '}
-        <span className="text-[var(--color-text-subtle)]">{t('searchPrivacyDetail')}</span>
-      </p>
     </div>
   );
 }
+

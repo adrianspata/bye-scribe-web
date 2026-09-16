@@ -6,6 +6,7 @@ import { SearchBar } from '@/features/search/components/search-bar';
 import { FeaturedServices } from '@/features/services/components/featured-services';
 import { GuidedPathFlow } from '@/features/home/components/guided-path-flow';
 import { ContextualSummaCta } from '@/features/summa-cta/components/contextual-summa-cta';
+import { RotatingHeroHeading } from '@/features/home/components/rotating-hero-heading';
 import { BRAND } from '@/config/brand';
 import { SignalField } from '@/components/visual/signal-field';
 import {
@@ -33,15 +34,16 @@ export default async function HomePage() {
       {/* 1. Centered Hero & Primary Search Section */}
       <section className="flex flex-col items-center text-center gap-4 sm:gap-5 pt-4 sm:pt-8 max-w-3xl mx-auto w-full">
         {/* Low-key Brand Tagline (hidden on smallest screens to prioritize task) */}
-        <div className="hidden sm:inline-flex items-center gap-2 text-xs font-medium text-[var(--color-text-muted)] select-none">
-          <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] shrink-0" aria-hidden="true" />
+        <div className="hidden sm:inline-flex items-center gap-2.5 text-xs font-medium text-[var(--color-text-muted)] select-none">
+          <span className="relative flex h-2 w-2 items-center justify-center shrink-0">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-accent)] opacity-75" />
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[var(--color-accent)]" />
+          </span>
           <span>{BRAND.tagline}</span>
         </div>
 
-        {/* H1 Heading */}
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-[-0.02em] text-[var(--color-text)] leading-[1.1] max-w-2xl">
-          {t('heroH1')}
-        </h1>
+        {/* H1 Heading with Rotating Words */}
+        <RotatingHeroHeading />
 
         {/* Ingress */}
         <p className="text-base sm:text-lg text-[var(--color-text-muted)] leading-relaxed max-w-xl">
