@@ -166,19 +166,19 @@ export function SubscriptionMindmap() {
   return (
     <section
       aria-labelledby="subscription-mindmap-heading"
-      className="w-full min-h-[90vh] flex flex-col justify-between gap-6 sm:gap-8 relative overflow-hidden rounded-[var(--radius-card-visual)] bg-[var(--color-surface)] border border-[var(--color-border)] p-6 sm:p-8 lg:p-12 shadow-subtle"
+      className="w-full max-h-[80vh] flex flex-col justify-between gap-3 sm:gap-5 relative overflow-hidden rounded-[var(--radius-card-visual)] bg-[var(--color-surface)] border border-[var(--color-border)] p-4 sm:p-6 lg:p-7 shadow-subtle"
     >
       {/* Background Ambient Radial Glow */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] bg-radial from-[var(--color-accent)]/5 via-transparent to-transparent pointer-events-none blur-3xl"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-radial from-[var(--color-accent)]/5 via-transparent to-transparent pointer-events-none blur-3xl"
         aria-hidden="true"
       />
 
       {/* Top Header & Intro */}
-      <div className="flex flex-col items-center text-center gap-2 max-w-2xl mx-auto z-10 pt-2 sm:pt-4">
+      <div className="flex flex-col items-center text-center gap-1.5 max-w-2xl mx-auto z-10 shrink-0">
         <h2
           id="subscription-mindmap-heading"
-          className="text-2xl sm:text-3xl lg:text-4xl font-normal tracking-tight text-[var(--color-text)] leading-tight"
+          className="text-xl sm:text-2xl lg:text-3xl font-normal tracking-tight text-[var(--color-text)] leading-tight"
         >
           {t('mindmapHeading')}
         </h2>
@@ -188,7 +188,7 @@ export function SubscriptionMindmap() {
       </div>
 
       {/* Interactive Mindmap Visual Container (Desktop / Tablet Splines) */}
-      <div className="relative w-full flex-1 min-h-[480px] sm:min-h-[520px] lg:min-h-[560px] mt-2 hidden md:block select-none">
+      <div className="relative w-full flex-1 min-h-[360px] max-h-[480px] hidden md:block select-none">
         {/* SVG Curved Spline Rays */}
         <svg
           viewBox="0 0 1000 550"
@@ -245,20 +245,19 @@ export function SubscriptionMindmap() {
               className={`absolute z-10 ${sub.animationClass}`}
             >
               <div
-                className={`flex items-center gap-2.5 pl-2 pr-3.5 py-1.5 rounded-full transition-all duration-300 backdrop-blur-xs ${
-                  isCurrent
-                    ? 'bg-[var(--color-surface-raised)] border-2 border-[var(--color-accent)] shadow-lg scale-105 ring-2 ring-[var(--color-accent)]/20'
-                    : isIncluded
+                className={`flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-full transition-all duration-300 backdrop-blur-xs ${isCurrent
+                  ? 'bg-[var(--color-surface-raised)] border-2 border-[var(--color-accent)] shadow-lg scale-105 ring-2 ring-[var(--color-accent)]/20'
+                  : isIncluded
                     ? 'bg-[var(--color-page)] border border-[var(--color-border-strong)] shadow-sm'
                     : 'bg-[var(--color-page)]/60 border border-[var(--color-border-subtle)] opacity-50 shadow-none'
-                }`}
+                  }`}
               >
-                <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 overflow-hidden bg-white dark:bg-zinc-900 border border-[var(--color-border-subtle)] p-1.5 shadow-xs">
+                <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 overflow-hidden bg-white dark:bg-zinc-900 border border-[var(--color-border-subtle)] p-1 shadow-xs">
                   <Image
                     src={sub.logoSrc}
                     alt={`${sub.name} logo`}
-                    width={28}
-                    height={28}
+                    width={24}
+                    height={24}
                     className="w-full h-full object-contain rounded-full"
                     unoptimized
                   />
@@ -277,8 +276,8 @@ export function SubscriptionMindmap() {
         })}
 
         {/* Center Accumulator Focal Point Node */}
-        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
-          <div className="relative group bg-[var(--color-text)] text-[var(--color-page)] dark:bg-[var(--color-surface-raised)] dark:text-[var(--color-text)] border border-[var(--color-border-strong)] px-6 py-4 sm:px-8 sm:py-5 rounded-3xl shadow-xl flex flex-col items-center gap-2 min-w-[320px] text-center">
+        <div className="absolute bottom-1 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
+          <div className="relative group bg-[var(--color-text)] text-[var(--color-page)] dark:bg-[var(--color-surface-raised)] dark:text-[var(--color-text)] border border-[var(--color-border-strong)] px-5 py-3 sm:px-7 sm:py-3.5 rounded-2xl shadow-xl flex flex-col items-center gap-1.5 min-w-[300px] text-center">
             {/* Subtle Top Indicator Pill with current added sub name */}
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 dark:text-emerald-300 text-[11px] font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-micro-pulse shrink-0" />
@@ -288,7 +287,7 @@ export function SubscriptionMindmap() {
             </div>
 
             {/* Live Staged Counting Dollar Total */}
-            <div className="text-3xl sm:text-4xl font-semibold tracking-tight tabular-nums flex items-baseline gap-1">
+            <div className="text-2xl sm:text-3xl font-semibold tracking-tight tabular-nums flex items-baseline gap-1">
               <span key={stepIndex} className="transition-all duration-300 animate-in fade-in">
                 {formattedAccumulator}
               </span>
@@ -305,7 +304,7 @@ export function SubscriptionMindmap() {
             {/* Link to Savings Calculator */}
             <Link
               href="/verktyg/besparingskalkylator"
-              className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--color-accent-soft)] hover:underline pt-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] rounded-sm"
+              className="mt-1 inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--color-accent-soft)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] rounded-sm"
             >
               <span>{t('mindmapCta')}</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -325,13 +324,12 @@ export function SubscriptionMindmap() {
             return (
               <div
                 key={sub.id}
-                className={`flex items-center gap-2 pl-2 pr-3 py-2 rounded-full transition-all duration-300 ${
-                  isCurrent
-                    ? 'bg-[var(--color-surface-raised)] border-2 border-[var(--color-accent)] shadow-md'
-                    : isIncluded
+                className={`flex items-center gap-2 pl-2 pr-3 py-2 rounded-full transition-all duration-300 ${isCurrent
+                  ? 'bg-[var(--color-surface-raised)] border-2 border-[var(--color-accent)] shadow-md'
+                  : isIncluded
                     ? 'bg-[var(--color-page)] border border-[var(--color-border-strong)]'
                     : 'bg-[var(--color-page)]/60 border border-[var(--color-border-subtle)] opacity-50'
-                }`}
+                  }`}
               >
                 <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 overflow-hidden bg-white dark:bg-zinc-900 border border-[var(--color-border-subtle)] p-1 shadow-xs">
                   <Image
