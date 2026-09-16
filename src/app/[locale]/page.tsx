@@ -97,8 +97,8 @@ export default async function HomePage() {
             href="/verktyg/besparingskalkylator"
             className="group bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-card-visual)] overflow-hidden shadow-subtle hover:border-[var(--color-border-strong)] transition-all flex flex-col focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] outline-none"
           >
-            {/* Grainy Gradient Visual Surface (Guidance / Teal Palette) */}
-            <SignalField variant="guidance" className="h-32 sm:h-36 w-full p-5 flex items-end justify-between border-b border-[var(--color-border-subtle)]">
+            {/* Grainy Gradient Visual Surface (Savings Calculator) */}
+            <SignalField imageSrc="/grad11.webp" variant="guidance" className="aspect-[16/9] w-full p-4 sm:p-5 flex items-end justify-between border-b border-[var(--color-border-subtle)]">
               <div className="w-10 h-10 rounded-full bg-[var(--color-text)] text-[var(--color-page)] flex items-center justify-center font-bold text-sm shadow-xs shrink-0 select-none" aria-hidden="true">
                 <Calculator className="w-5 h-5 text-[#2dd4bf] dark:text-[#0d9488]" />
               </div>
@@ -126,8 +126,8 @@ export default async function HomePage() {
             href="/verktyg/uppsagningsmeddelande"
             className="group bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-card-visual)] overflow-hidden shadow-subtle hover:border-[var(--color-border-strong)] transition-all flex flex-col focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] outline-none"
           >
-            {/* Grainy Gradient Visual Surface (Release / Violet Palette) */}
-            <SignalField variant="release" className="h-32 sm:h-36 w-full p-5 flex items-end justify-between border-b border-[var(--color-border-subtle)]">
+            {/* Grainy Gradient Visual Surface (Message Draft) */}
+            <SignalField imageSrc="/grad16.webp" variant="release" className="aspect-[16/9] w-full p-4 sm:p-5 flex items-end justify-between border-b border-[var(--color-border-subtle)]">
               <div className="w-10 h-10 rounded-full bg-[var(--color-text)] text-[var(--color-page)] flex items-center justify-center font-bold text-sm shadow-xs shrink-0 select-none" aria-hidden="true">
                 <FileText className="w-5 h-5 text-[#a78bfa] dark:text-[#7c3aed]" />
               </div>
