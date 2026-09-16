@@ -15,8 +15,8 @@ describe('SavingsCalculator Component', () => {
   it('renders and computes default savings projection with assumption notice', () => {
     render(<SavingsCalculator />);
 
-    expect(screen.getByText(/Beräkningen är en uppskattning baserad på beloppet du anger/i)).toBeInTheDocument();
-    expect(screen.getByRole('textbox', { name: /Kostnad för abonnemanget/i })).toBeInTheDocument();
+    expect(screen.getByText(/This calculation is an estimate based on the amount you provide/i)).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: /Subscription cost/i })).toBeInTheDocument();
     // Default 149 kr/month: 1 year = 1 788 kr, 5 year = 8 940 kr
     expect(screen.getByText('1 788 kr')).toBeInTheDocument();
     expect(screen.getByText('8 940 kr')).toBeInTheDocument();
@@ -25,7 +25,7 @@ describe('SavingsCalculator Component', () => {
   it('updates calculation dynamically on valid input with comma and dot decimals', () => {
     render(<SavingsCalculator />);
 
-    const input = screen.getByRole('textbox', { name: /Kostnad för abonnemanget/i });
+    const input = screen.getByRole('textbox', { name: /Subscription cost/i });
     fireEvent.change(input, { target: { value: '299,50' } });
 
     // 299,50 kr/month: 1 year = 3 594 kr, 5 year = 17 970 kr
@@ -36,14 +36,14 @@ describe('SavingsCalculator Component', () => {
   it('handles yearly billing interval correctly', () => {
     render(<SavingsCalculator />);
 
-    const intervalSelect = screen.getByRole('combobox', { name: /Faktureringsintervall/i });
+    const intervalSelect = screen.getByRole('combobox', { name: /Billing interval/i });
     fireEvent.change(intervalSelect, { target: { value: 'year' } });
 
-    const input = screen.getByRole('textbox', { name: /Kostnad för abonnemanget/i });
+    const input = screen.getByRole('textbox', { name: /Subscription cost/i });
     fireEvent.change(input, { target: { value: '1200' } });
 
-    // 1200 kr/year: monthly ~100 kr/mån, 1 year = 1 200 kr, 5 year = 6 000 kr
-    expect(screen.getByText('100 kr/mån')).toBeInTheDocument();
+    // 1200 kr/year: monthly ~100 kr/mo, 1 year = 1 200 kr, 5 year = 6 000 kr
+    expect(screen.getByText('100 kr/mo')).toBeInTheDocument();
     expect(screen.getByText('1 200 kr')).toBeInTheDocument();
     expect(screen.getByText('6 000 kr')).toBeInTheDocument();
   });
@@ -51,19 +51,19 @@ describe('SavingsCalculator Component', () => {
   it('displays error message on invalid negative or non-numeric input', () => {
     render(<SavingsCalculator />);
 
-    const input = screen.getByRole('textbox', { name: /Kostnad för abonnemanget/i });
+    const input = screen.getByRole('textbox', { name: /Subscription cost/i });
     fireEvent.change(input, { target: { value: '-50' } });
 
-    expect(screen.getByText(/Ange ett giltigt positivt belopp i kronor/i)).toBeInTheDocument();
+    expect(screen.getByText(/Please enter a valid positive amount/i)).toBeInTheDocument();
   });
 
   it('form submit runs local calculation without reload', () => {
     render(<SavingsCalculator />);
 
-    const input = screen.getByRole('textbox', { name: /Kostnad för abonnemanget/i });
+    const input = screen.getByRole('textbox', { name: /Subscription cost/i });
     fireEvent.change(input, { target: { value: '500' } });
 
-    const submitBtn = screen.getByRole('button', { name: /Beräkna besparing/i });
+    const submitBtn = screen.getByRole('button', { name: /Calculate savings/i });
     fireEvent.click(submitBtn);
 
     expect(screen.getByText('6 000 kr')).toBeInTheDocument();
