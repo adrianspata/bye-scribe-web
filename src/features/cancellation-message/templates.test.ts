@@ -11,10 +11,10 @@ describe('generateCancellationMessage', () => {
       messageType: 'standard',
     });
 
-    expect(text).toContain('NordicPlay per den 2026-04-30');
-    expect(text).toContain('Kund-/Medlemsnummer: 123456');
+    expect(text).toContain('NordicPlay effective as of 2026-04-30');
+    expect(text).toContain('Customer / Account Number: 123456');
     expect(text).toContain('Anna Andersson');
-    expect(text).toContain('Vänligen skicka en skriftlig bekräftelse');
+    expect(text).toContain('Please provide a written confirmation');
   });
 
   it('handles standard cancellation when optional fields are omitted', () => {
@@ -24,8 +24,8 @@ describe('generateCancellationMessage', () => {
       messageType: 'standard',
     });
 
-    expect(text).toContain('snarast möjligt eller vid innevarande avtalsperiods utgång');
-    expect(text).not.toContain('Kund-/Medlemsnummer:');
+    expect(text).toContain('as soon as possible or at the end of the current billing cycle');
+    expect(text).not.toContain('Customer / Account Number:');
   });
 
   it('generates trial cancellation template', () => {
@@ -35,8 +35,8 @@ describe('generateCancellationMessage', () => {
       messageType: 'trial',
     });
 
-    expect(text).toContain('avsluta min provperiod för AudioStream');
-    expect(text).toContain('inga framtida debiteringar');
+    expect(text).toContain('cancel my trial subscription for AudioStream');
+    expect(text).toContain('no future charges will occur');
   });
 
   it('generates terms info request template', () => {
@@ -46,8 +46,8 @@ describe('generateCancellationMessage', () => {
       messageType: 'terms_info',
     });
 
-    expect(text).toContain('Eventuell kvarvarande bindningstid');
-    expect(text).toContain('Gällande uppsägningstid');
+    expect(text).toContain('Any remaining contract commitment');
+    expect(text).toContain('The applicable notice period');
   });
 
   it('generates confirmation reminder request template', () => {
@@ -57,6 +57,6 @@ describe('generateCancellationMessage', () => {
       messageType: 'confirmation_request',
     });
 
-    expect(text).toContain('har ännu inte mottagit en formell bekräftelse');
+    expect(text).toContain('have not yet received formal confirmation');
   });
 });

@@ -14,42 +14,42 @@ export interface MessageTemplateData {
 }
 
 export const MESSAGE_TYPE_LABELS: Record<MessageType, string> = {
-  standard: 'Vanlig uppsägning',
-  trial: 'Uppsägning under provperiod',
-  terms_info: 'Begäran om villkor & bindningstid',
-  confirmation_request: 'Begäran om skriftlig bekräftelse',
+  standard: 'Standard Cancellation',
+  trial: 'Trial Cancellation',
+  terms_info: 'Contract Terms & Notice Period Inquiry',
+  confirmation_request: 'Written Confirmation Request',
 };
 
 /**
  * Generates an editable text draft from user inputs in-memory.
  */
 export function generateCancellationMessage(data: MessageTemplateData): string {
-  const name = data.name.trim() || '[Ditt Namn]';
-  const serviceName = data.serviceName.trim() || '[Tjänstens Namn]';
+  const name = data.name.trim() || '[Your Name]';
+  const serviceName = data.serviceName.trim() || '[Service Name]';
   const customerId = data.customerId?.trim();
   const endDate = data.endDate?.trim();
   const customNote = data.customNote?.trim();
 
   const customerIdLine = customerId
-    ? `Kund-/Medlemsnummer: ${customerId}`
+    ? `Customer / Account Number: ${customerId}`
     : null;
 
   switch (data.messageType) {
     case 'standard': {
       const terminationTarget = endDate
-        ? `per den ${endDate}`
-        : 'snarast möjligt eller vid innevarande avtalsperiods utgång';
+        ? `effective as of ${endDate}`
+        : 'as soon as possible or at the end of the current billing cycle';
 
       return [
-        `Hej,`,
+        `Hello,`,
         ``,
-        `Härmed önskar jag säga upp mitt abonnemang/medlemskap hos ${serviceName} ${terminationTarget}.`,
+        `I hereby request the cancellation of my subscription/membership for ${serviceName} ${terminationTarget}.`,
         customerIdLine,
-        customNote ? `Övrig information: ${customNote}` : null,
+        customNote ? `Additional details: ${customNote}` : null,
         ``,
-        `Vänligen skicka en skriftlig bekräftelse på att uppsägningen är mottagen och registrerad, samt vilket datum avtalet och betalningarna slutgiltigt upphör.`,
+        `Please provide a written confirmation that this cancellation has been received and processed, including the final date of service and payment cessation.`,
         ``,
-        `Med vänliga hälsningar,`,
+        `Sincerely,`,
         name,
       ]
         .filter((line) => line !== null)
@@ -58,15 +58,15 @@ export function generateCancellationMessage(data: MessageTemplateData): string {
 
     case 'trial': {
       return [
-        `Hej,`,
+        `Hello,`,
         ``,
-        `Jag vill härmed avsluta min provperiod för ${serviceName} innan den övergår i ett betalt abonnemang.`,
+        `I hereby cancel my trial subscription for ${serviceName} prior to it converting into a recurring paid plan.`,
         customerIdLine,
-        customNote ? `Övrig information: ${customNote}` : null,
+        customNote ? `Additional details: ${customNote}` : null,
         ``,
-        `Vänligen bekräfta att provperioden är avslutad och att inga framtida debiteringar kommer att ske.`,
+        `Please confirm that the trial has been cancelled and that no future charges will occur.`,
         ``,
-        `Med vänliga hälsningar,`,
+        `Sincerely,`,
         name,
       ]
         .filter((line) => line !== null)
@@ -75,18 +75,18 @@ export function generateCancellationMessage(data: MessageTemplateData): string {
 
     case 'terms_info': {
       return [
-        `Hej,`,
+        `Hello,`,
         ``,
-        `Jag kontaktar er gällande mitt abonnemang för ${serviceName}.`,
+        `I am writing regarding my subscription with ${serviceName}.`,
         customerIdLine,
         ``,
-        `Vänligen meddela mig följande information:`,
-        `- Eventuell kvarvarande bindningstid och slutdatum för denna.`,
-        `- Gällande uppsägningstid.`,
-        `- Sista datum jag behöver säga upp avtalet för att undvika förlängning.`,
-        customNote ? `Övrig fråga: ${customNote}` : null,
+        `Please provide me with the following contract details:`,
+        `- Any remaining contract commitment and its expiration date.`,
+        `- The applicable notice period for cancellation.`,
+        `- The deadline by which notice must be submitted to prevent renewal.`,
+        customNote ? `Additional inquiry: ${customNote}` : null,
         ``,
-        `Med vänliga hälsningar,`,
+        `Sincerely,`,
         name,
       ]
         .filter((line) => line !== null)
@@ -95,15 +95,15 @@ export function generateCancellationMessage(data: MessageTemplateData): string {
 
     case 'confirmation_request': {
       return [
-        `Hej,`,
+        `Hello,`,
         ``,
-        `Jag har tidigare skickat en uppsägning av mitt abonnemang hos ${serviceName} men har ännu inte mottagit en formell bekräftelse.`,
+        `I previously submitted a cancellation request for my subscription with ${serviceName} but have not yet received formal confirmation.`,
         customerIdLine,
-        customNote ? `Tidigare information: ${customNote}` : null,
+        customNote ? `Previous submission notes: ${customNote}` : null,
         ``,
-        `Vänligen bekräfta omgående att min uppsägning är registrerad och ange slutdatumet för abonnemanget och dragningarna.`,
+        `Please promptly confirm that my cancellation has been registered and provide the definitive end date for services and billing.`,
         ``,
-        `Med vänliga hälsningar,`,
+        `Sincerely,`,
         name,
       ]
         .filter((line) => line !== null)
