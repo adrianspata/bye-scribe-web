@@ -248,7 +248,7 @@ export function SubscriptionMindmap() {
               className={`absolute z-10 ${sub.animationClass}`}
             >
               <div
-                className={`flex items-center gap-2.5 px-3 py-2 rounded-xl transition-all duration-300 backdrop-blur-xs ${
+                className={`flex items-center gap-2.5 pl-2 pr-3.5 py-1.5 rounded-full transition-all duration-300 backdrop-blur-xs ${
                   isCurrent
                     ? 'bg-[var(--color-surface-raised)] border-2 border-[var(--color-accent)] shadow-lg scale-105 ring-2 ring-[var(--color-accent)]/20'
                     : isIncluded
@@ -256,13 +256,13 @@ export function SubscriptionMindmap() {
                     : 'bg-[var(--color-page)]/60 border border-[var(--color-border-subtle)] opacity-50 shadow-none'
                 }`}
               >
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 overflow-hidden bg-white/10 dark:bg-black/20 p-1 shadow-xs">
+                <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 overflow-hidden bg-white dark:bg-zinc-900 border border-[var(--color-border-subtle)] p-1.5 shadow-xs">
                   <Image
                     src={sub.logoSrc}
                     alt={`${sub.name} logo`}
                     width={28}
                     height={28}
-                    className="w-full h-full object-contain rounded-xs"
+                    className="w-full h-full object-contain rounded-full"
                     unoptimized
                   />
                 </div>
@@ -281,7 +281,7 @@ export function SubscriptionMindmap() {
 
         {/* Center Accumulator Focal Point Node */}
         <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
-          <div className="relative group bg-[var(--color-text)] text-[var(--color-page)] dark:bg-[var(--color-surface-raised)] dark:text-[var(--color-text)] border border-[var(--color-border-strong)] px-6 py-4 sm:px-8 sm:py-5 rounded-2xl shadow-xl flex flex-col items-center gap-2 min-w-[320px] text-center">
+          <div className="relative group bg-[var(--color-text)] text-[var(--color-page)] dark:bg-[var(--color-surface-raised)] dark:text-[var(--color-text)] border border-[var(--color-border-strong)] px-6 py-4 sm:px-8 sm:py-5 rounded-3xl shadow-xl flex flex-col items-center gap-2 min-w-[320px] text-center">
             {/* Subtle Top Indicator Pill with current added sub name */}
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 dark:text-emerald-300 text-[11px] font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-micro-pulse shrink-0" />
@@ -328,7 +328,7 @@ export function SubscriptionMindmap() {
             return (
               <div
                 key={sub.id}
-                className={`flex items-center gap-2 p-2.5 rounded-xl transition-all duration-300 ${
+                className={`flex items-center gap-2 pl-2 pr-3 py-2 rounded-full transition-all duration-300 ${
                   isCurrent
                     ? 'bg-[var(--color-surface-raised)] border-2 border-[var(--color-accent)] shadow-md'
                     : isIncluded
@@ -336,13 +336,13 @@ export function SubscriptionMindmap() {
                     : 'bg-[var(--color-page)]/60 border border-[var(--color-border-subtle)] opacity-50'
                 }`}
               >
-                <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 overflow-hidden bg-white/10 dark:bg-black/20 p-0.5 shadow-xs">
+                <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 overflow-hidden bg-white dark:bg-zinc-900 border border-[var(--color-border-subtle)] p-1 shadow-xs">
                   <Image
                     src={sub.logoSrc}
                     alt={`${sub.name} logo`}
                     width={24}
                     height={24}
-                    className="w-full h-full object-contain rounded-xs"
+                    className="w-full h-full object-contain rounded-full"
                     unoptimized
                   />
                 </div>
