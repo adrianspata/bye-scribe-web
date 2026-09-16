@@ -416,18 +416,18 @@ export function SubscriptionMindmap() {
               background:
                 'radial-gradient(115% 95% at 50% -10%, #ff2585 0%, #ff4b98 28%, #fca5d2 56%, #e0e7ff 82%, #bfdbfe 100%)',
             }}
-            className="relative group text-zinc-950 border border-white/70 shadow-[0_20px_45px_-10px_rgba(255,37,133,0.32),0_8px_20px_-6px_rgba(191,219,254,0.45),inset_0_1px_2px_0_rgba(255,255,255,0.9)] px-7 py-3 sm:px-8 sm:py-3.5 rounded-2xl flex flex-col items-center gap-0.5 min-w-[280px] sm:min-w-[320px] text-center before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-b before:from-white/35 before:via-transparent before:to-white/20 before:pointer-events-none overflow-hidden"
+            className="relative group text-zinc-950 border border-white/70 shadow-[0_22px_50px_-10px_rgba(255,37,133,0.35),0_8px_22px_-6px_rgba(191,219,254,0.5),inset_0_1px_2px_0_rgba(255,255,255,0.9)] px-8 py-5 sm:px-10 sm:py-6 rounded-[32px] sm:rounded-[36px] flex flex-col items-center justify-center gap-1 min-w-[290px] sm:min-w-[340px] text-center before:absolute before:inset-0 before:rounded-[32px] sm:before:rounded-[36px] before:bg-gradient-to-b before:from-white/35 before:via-transparent before:to-white/20 before:pointer-events-none overflow-hidden"
           >
             {/* Live Staged Counting Dollar Total */}
-            <div className="text-2xl sm:text-3xl font-bold tracking-tight tabular-nums flex items-baseline gap-1 text-zinc-950 relative z-10">
+            <div className="text-3xl sm:text-4xl font-bold tracking-tight tabular-nums flex items-baseline gap-1.5 text-zinc-950 relative z-10">
               <span key={stepIndex} className="transition-all duration-300 animate-in fade-in">
                 {formattedAccumulator}
               </span>
-              <span className="text-xs font-semibold text-zinc-900/80">/yr</span>
+              <span className="text-xs sm:text-sm font-semibold text-zinc-900/80">/yr</span>
             </div>
 
             {/* Baseline Context */}
-            <div className="text-xs text-zinc-900/85 font-medium flex items-center gap-2 relative z-10">
+            <div className="text-xs sm:text-[13px] text-zinc-900/85 font-medium flex items-center gap-2 relative z-10">
               <span>{t('mindmapMonthlyBaseline')}: <strong className="text-zinc-950 font-bold">{formattedMonthly}/mo</strong></span>
               <span>•</span>
               <span>8 subscriptions total</span>
@@ -494,9 +494,9 @@ export function SubscriptionMindmap() {
               background:
                 'radial-gradient(115% 95% at 50% -10%, #ff2585 0%, #ff4b98 28%, #fca5d2 56%, #e0e7ff 82%, #bfdbfe 100%)',
             }}
-            className="w-full text-zinc-950 border border-white/70 shadow-[0_20px_45px_-10px_rgba(255,37,133,0.32),0_8px_20px_-6px_rgba(191,219,254,0.45),inset_0_1px_2px_0_rgba(255,255,255,0.9)] p-4 rounded-2xl flex flex-col items-center gap-0.5 text-center before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-b before:from-white/35 before:via-transparent before:to-white/20 before:pointer-events-none relative overflow-hidden"
+            className="w-full text-zinc-950 border border-white/70 shadow-[0_22px_50px_-10px_rgba(255,37,133,0.35),0_8px_22px_-6px_rgba(191,219,254,0.5),inset_0_1px_2px_0_rgba(255,255,255,0.9)] p-5 rounded-[28px] flex flex-col items-center justify-center gap-1 text-center before:absolute before:inset-0 before:rounded-[28px] before:bg-gradient-to-b before:from-white/35 before:via-transparent before:to-white/20 before:pointer-events-none relative overflow-hidden"
           >
-            <div className="text-2xl sm:text-3xl font-bold tracking-tight tabular-nums text-zinc-950 relative z-10">
+            <div className="text-3xl font-bold tracking-tight tabular-nums text-zinc-950 relative z-10">
               {formattedAccumulator}
               <span className="text-xs font-semibold text-zinc-900/80 ml-1">/yr</span>
             </div>
