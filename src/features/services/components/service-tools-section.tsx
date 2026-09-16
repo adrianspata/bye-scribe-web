@@ -13,10 +13,10 @@ export function ServiceToolsSection({ serviceName }: ServiceToolsSectionProps) {
     <section id="verktyg" aria-labelledby="verktyg-heading" className="border-t border-[var(--color-border)] pt-8 flex flex-col gap-4 scroll-mt-24">
       <div className="flex flex-col gap-1 text-left">
         <h2 id="verktyg-heading" className="text-base font-normal text-[var(--color-text)]">
-          Verktyg för {serviceName}
+          Tools for {serviceName}
         </h2>
         <p className="text-xs text-[var(--color-text-muted)]">
-          Använd våra kostnadsfria verktyg för att underlätta uppsägningen och räkna på dina besparingar.
+          Use our free tools to make cancelling easier and calculate your potential savings.
         </p>
       </div>
 
@@ -31,13 +31,13 @@ export function ServiceToolsSection({ serviceName }: ServiceToolsSectionProps) {
                 <FileText className="w-4 h-4" aria-hidden="true" />
               </div>
               <span className="font-semibold text-sm text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
-                Skapa uppsägningsmeddelande
+                Create cancellation draft
               </span>
             </div>
             <ArrowRight className="w-4 h-4 text-[var(--color-text-subtle)] group-hover:text-[var(--color-accent)] group-hover:translate-x-1 transition-all" aria-hidden="true" />
           </div>
           <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">
-            Generera ett färdigt textutkast med {serviceName} förifyllt för e-post eller brev.
+            Generate a pre-filled text draft for {serviceName} to send via email or letter.
           </p>
         </Link>
 
@@ -51,13 +51,13 @@ export function ServiceToolsSection({ serviceName }: ServiceToolsSectionProps) {
                 <Calculator className="w-4 h-4" aria-hidden="true" />
               </div>
               <span className="font-semibold text-sm text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
-                Räkna på besparingen
+                Calculate savings
               </span>
             </div>
             <ArrowRight className="w-4 h-4 text-[var(--color-text-subtle)] group-hover:text-[var(--color-accent)] group-hover:translate-x-1 transition-all" aria-hidden="true" />
           </div>
           <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">
-            Se hur mycket du sparar på 1 år och 5 år om du avslutar prenumerationen.
+            See how much you save over 1 year and 5 years by unsubscribing.
           </p>
         </Link>
       </div>

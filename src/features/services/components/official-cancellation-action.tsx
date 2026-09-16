@@ -40,10 +40,10 @@ export function OfficialCancellationAction({
       >
         <div className="flex flex-col gap-1">
           <h2 id="official-action-heading" className="text-base font-normal text-[var(--color-text)]">
-            Officiell uppsägningsväg
+            Official cancellation path
           </h2>
           <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">
-            Du lämnar ByeScribe och genomför uppsägningen hos leverantören.
+            You will leave ByeScribe and complete cancellation on the provider&apos;s website.
           </p>
         </div>
 
@@ -53,9 +53,9 @@ export function OfficialCancellationAction({
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-2.5 text-sm font-semibold rounded-[var(--radius-md)] bg-[var(--color-btn-primary-bg)] text-[var(--color-btn-primary-text)] hover:bg-[var(--color-btn-primary-hover)] transition-all shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] focus-visible:ring-offset-2"
         >
-          <span>Gå till {serviceName}</span>
+          <span>Go to {serviceName}</span>
           <ExternalLinkIcon className="w-4 h-4" aria-hidden="true" />
-          <span className="sr-only"> (öppnas i en ny flik)</span>
+          <span className="sr-only"> (opens in a new tab)</span>
         </a>
       </Card>
     );
@@ -70,10 +70,10 @@ export function OfficialCancellationAction({
     >
       <div className="flex flex-col gap-1">
         <h2 id="website-link-heading" className="text-sm font-normal text-[var(--color-text)]">
-          Officiell webbplats
+          Official website
         </h2>
         <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">
-          Det finns ingen känd direktlänk till uppsägningssidan. Besök webbplatsen för kundservice och inloggning.
+          No direct cancellation link available. Visit the provider&apos;s website for customer support and account login.
         </p>
       </div>
 
@@ -83,9 +83,9 @@ export function OfficialCancellationAction({
         rel="noopener noreferrer"
         className="inline-flex items-center justify-center gap-2 min-h-[44px] px-5 py-2 text-xs font-semibold rounded-[var(--radius-md)] bg-[var(--color-btn-secondary-bg)] text-[var(--color-btn-secondary-text)] border border-[var(--color-btn-secondary-border)] hover:bg-[var(--color-btn-secondary-hover)] transition-all shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] focus-visible:ring-offset-2"
       >
-        <span>Besök {serviceName}s webbplats</span>
+        <span>Visit {serviceName}&apos;s website</span>
         <ExternalLinkIcon className="w-3.5 h-3.5 text-[var(--color-text-subtle)]" aria-hidden="true" />
-        <span className="sr-only"> (öppnas i en ny flik)</span>
+        <span className="sr-only"> (opens in a new tab)</span>
       </a>
     </Card>
   );

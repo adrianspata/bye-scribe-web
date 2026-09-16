@@ -1,7 +1,7 @@
 import React from 'react';
 import { ServicePrice } from '../types';
 import { formatMoneySEK } from '@/lib/money';
-import { formatSwedishDate } from '@/lib/dates';
+import { formatEnglishDate } from '@/lib/dates';
 
 export interface ServicePricesSectionProps {
   prices: ServicePrice[];
@@ -20,11 +20,11 @@ export function ServicePricesSection({
     <section id="priser" aria-labelledby="priser-heading" className="flex flex-col gap-4 scroll-mt-24">
       <div className="flex flex-col gap-1">
         <h2 id="priser-heading" className="text-base font-normal text-[var(--color-text)]">
-          Kända prisplaner
+          Pricing Plans
         </h2>
         {isFixtureMode && (
           <p className="text-xs text-[var(--color-text-subtle)]">
-            Prisexemplen är fiktiva för demonstrationsändamål.
+            Pricing examples are fictional sample data for demonstration purposes.
           </p>
         )}
       </div>
@@ -54,8 +54,8 @@ export function ServicePricesSection({
 
               {(price.validFrom || price.validTo) && (
                 <span className="text-xs text-[var(--color-text-subtle)]">
-                  {price.validFrom && `Gäller från: ${formatSwedishDate(price.validFrom, 'short')}`}
-                  {price.validTo && ` till ${formatSwedishDate(price.validTo, 'short')}`}
+                  {price.validFrom && `Valid from: ${formatEnglishDate(price.validFrom, 'short')}`}
+                  {price.validTo && ` to ${formatEnglishDate(price.validTo, 'short')}`}
                 </span>
               )}
             </div>

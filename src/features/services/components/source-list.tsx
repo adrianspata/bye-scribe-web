@@ -1,19 +1,19 @@
 import React from 'react';
 import { SourceReference, SourceType } from '../types';
 import { ExternalLink } from '@/components/ui/external-link';
-import { formatSwedishDate } from '@/lib/dates';
+import { formatEnglishDate } from '@/lib/dates';
 
 export interface SourceListProps {
   sources: SourceReference[];
 }
 
 const SOURCE_TYPE_LABELS: Record<SourceType, string> = {
-  official_terms: 'Allmänna avtalsvillkor',
-  official_help: 'Hjälpcenter & FAQ',
-  official_pricing: 'Officiell prislista',
-  official_contact: 'Kontaktinformation',
-  authority: 'Myndighet & Konsumenträtt',
-  other: 'Övrig källa',
+  official_terms: 'Terms of Service',
+  official_help: 'Help Center & FAQ',
+  official_pricing: 'Official Pricing',
+  official_contact: 'Contact Information',
+  authority: 'Consumer Protection Authority',
+  other: 'Other Source',
 };
 
 function isValidExternalUrl(url: string | null | undefined): boolean {
@@ -35,10 +35,10 @@ export function SourceList({ sources }: SourceListProps) {
     <section id="kallor" aria-labelledby="kallor-heading" className="flex flex-col gap-4 scroll-mt-24">
       <div className="flex flex-col gap-1">
         <h2 id="kallor-heading" className="text-base font-normal text-[var(--color-text)]">
-          Källor & underlag
+          Sources & References
         </h2>
         <p className="text-xs text-[var(--color-text-muted)]">
-          Informationen i denna guide baseras på följande officiella och offentliga källor.
+          The information in this guide is based on the following official and public sources.
         </p>
       </div>
 
@@ -68,12 +68,12 @@ export function SourceList({ sources }: SourceListProps) {
                 <div className="flex items-center gap-3 text-xs text-[var(--color-text-subtle)]">
                   {source.retrievedAt && (
                     <span>
-                      Åtkomstdatum: {formatSwedishDate(source.retrievedAt, 'short')}
+                      Accessed: {formatEnglishDate(source.retrievedAt, 'short')}
                     </span>
                   )}
                   {source.verifiedAt && (
                     <span>
-                      Verifierad: {formatSwedishDate(source.verifiedAt, 'short')}
+                      Verified: {formatEnglishDate(source.verifiedAt, 'short')}
                     </span>
                   )}
                 </div>
