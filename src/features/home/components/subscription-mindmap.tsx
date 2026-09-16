@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { ArrowRight } from 'lucide-react';
@@ -10,7 +11,7 @@ interface SubscriptionNode {
   name: string;
   price: number; // in USD per month
   period: string;
-  iconBg: string;
+  logoSrc: string;
   desktopStyle: {
     top?: string;
     bottom?: string;
@@ -19,18 +20,17 @@ interface SubscriptionNode {
   };
   animationClass: string;
   svgPath: string;
-  icon: React.ReactNode;
 }
 
-// 8 Subscriptions with exact monthly fees:
-// 1. ChatGPT Plus: $20.00/mo * 12 = $240.00/yr -> Total: $240.00
-// 2. Spotify: $11.99/mo * 12 = $143.88/yr -> Total: $383.88
-// 3. iCloud+: $9.99/mo * 12 = $119.88/yr -> Total: $503.76
-// 4. Netflix: $15.49/mo * 12 = $185.88/yr -> Total: $689.64
-// 5. Disney+: $13.99/mo * 12 = $167.88/yr -> Total: $857.52
-// 6. Slack Pro: $8.75/mo * 12 = $105.00/yr -> Total: $962.52
-// 7. Notion Plus: $10.00/mo * 12 = $120.00/yr -> Total: $1,082.52
-// 8. Adobe Creative: $54.99/mo * 12 = $659.88/yr -> Total: $1,742.40
+// 8 Subscriptions using exact logos from /public:
+// 1. ChatGPT Plus (/chatgpt-logo.webp): $20.00/mo * 12 = $240.00/yr -> Total: $240.00
+// 2. Spotify (/SpotifyLogo.webp): $11.99/mo * 12 = $143.88/yr -> Total: $383.88
+// 3. iCloud+ (/icloud-logo.webp): $9.99/mo * 12 = $119.88/yr -> Total: $503.76
+// 4. Netflix (/Netflix_logo.webp): $15.49/mo * 12 = $185.88/yr -> Total: $689.64
+// 5. Disney+ (/disneyplusLogo.webp): $13.99/mo * 12 = $167.88/yr -> Total: $857.52
+// 6. Slack Pro (/slack_logo.webp): $8.75/mo * 12 = $105.00/yr -> Total: $962.52
+// 7. Notion Plus (/Notion-logo.webp): $10.00/mo * 12 = $120.00/yr -> Total: $1,082.52
+// 8. Adobe Creative (/adobe-creative-logo.svg): $54.99/mo * 12 = $659.88/yr -> Total: $1,742.40
 
 const SUBSCRIPTIONS: SubscriptionNode[] = [
   {
@@ -38,125 +38,80 @@ const SUBSCRIPTIONS: SubscriptionNode[] = [
     name: 'ChatGPT Plus',
     price: 20.0,
     period: '/mo',
-    iconBg: '#10a37f',
+    logoSrc: '/chatgpt-logo.webp',
     desktopStyle: { top: '72%', left: '7%' },
     animationClass: 'animate-float-3',
     svgPath: 'M 225 422 C 265 422, 295 432, 340 435',
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white" aria-hidden="true">
-        <path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.08 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.493zm-9.22-4.28a4.48 4.48 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-5.7-.799zm-1.38-9.46a4.48 4.48 0 0 1 2.37-1.97v5.671a.79.79 0 0 0 .39.682l5.836 3.37-2.02 1.167a.076.076 0 0 1-.067 0l-4.839-2.793a4.494 4.494 0 0 1-1.67-6.127zm16.71 3.594l-5.84-3.37 2.02-1.166a.076.076 0 0 1 .068 0l4.839 2.793a4.5 4.5 0 0 1-.698 8.12v-5.696a.79.79 0 0 0-.389-.681zm2.01-3.012l-.142-.085-4.779-2.759a.776.776 0 0 0-.785 0L9.9 9.8lV7.466a.08.08 0 0 1 .033-.062L14.7 4.453a4.5 4.5 0 0 1 6.68 4.821zm-9.84-2.857a4.48 4.48 0 0 1 2.875 1.04l-.141.08-4.78 2.758a.795.795 0 0 0-.391.681v6.737L8.47 14.28a.071.071 0 0 1-.038-.052V8.645a4.504 4.504 0 0 1 4.494-4.493zm-3.04 7.608l2.92-1.685 2.92 1.685v3.37l-2.92 1.685-2.92-1.685z" />
-      </svg>
-    ),
   },
   {
     id: 'spotify',
     name: 'Spotify',
     price: 11.99,
     period: '/mo',
-    iconBg: '#121212',
+    logoSrc: '/SpotifyLogo.webp',
     desktopStyle: { top: '38%', left: '0%' },
     animationClass: 'animate-float-2',
     svgPath: 'M 150 235 C 220 270, 300 360, 390 395',
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5 fill-[#1DB954]" aria-hidden="true">
-        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 0 1-.858.207c-2.348-1.434-5.305-1.758-8.788-.962a.625.625 0 0 1-.277-1.22c3.809-.87 7.076-.499 9.716 1.117.31.189.408.59.207.858zm1.223-2.72c-.25.408-.784.536-1.192.285-2.688-1.652-6.785-2.131-9.965-1.166a.78.78 0 0 1-.986-.53.782.782 0 0 1 .53-.986c3.633-1.103 8.147-.57 11.228 1.32.408.25.536.784.285 1.192zm.106-2.833c-3.224-1.914-8.541-2.091-11.621-1.157a.936.936 0 0 1-1.168-.62.936.936 0 0 1 .62-1.168c3.535-1.073 9.403-.865 13.114 1.338a.936.936 0 0 1 .341 1.282.936.936 0 0 1-1.286.325z" />
-      </svg>
-    ),
   },
   {
     id: 'icloud',
     name: 'iCloud+',
     price: 9.99,
     period: '/mo',
-    iconBg: '#0070c9',
+    logoSrc: '/icloud-logo.webp',
     desktopStyle: { top: '20%', left: '22%' },
     animationClass: 'animate-float-1',
     svgPath: 'M 280 155 C 310 230, 400 320, 460 375',
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white" aria-hidden="true">
-        <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z" />
-      </svg>
-    ),
   },
   {
     id: 'netflix',
     name: 'Netflix',
     price: 15.49,
     period: '/mo',
-    iconBg: '#000000',
+    logoSrc: '/Netflix_logo.webp',
     desktopStyle: { top: '8%', left: '3%' },
     animationClass: 'animate-float-1',
     svgPath: 'M 120 85 C 160 210, 340 330, 430 375',
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current" aria-hidden="true">
-        <path fill="#E50914" d="M5.5 2h3.2v20H5.5z" />
-        <path fill="#E50914" d="M15.3 2h3.2v20h-3.2z" />
-        <path fill="#B20710" d="M5.5 2l9.8 20h3.4L8.9 2z" />
-      </svg>
-    ),
   },
   {
     id: 'disney',
     name: 'Disney+',
     price: 13.99,
     period: '/mo',
-    iconBg: '#0F1A30',
+    logoSrc: '/disneyplusLogo.webp',
     desktopStyle: { top: '20%', right: '22%' },
     animationClass: 'animate-float-2',
     svgPath: 'M 720 155 C 690 230, 600 320, 540 375',
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white" aria-hidden="true">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.5h-2v-4H7.5v-2H11v-4h2v4h3.5v2H13v4z" />
-      </svg>
-    ),
   },
   {
     id: 'slack',
     name: 'Slack Pro',
     price: 8.75,
     period: '/mo',
-    iconBg: '#4A154B',
+    logoSrc: '/slack_logo.webp',
     desktopStyle: { top: '38%', right: '0%' },
     animationClass: 'animate-float-3',
     svgPath: 'M 850 235 C 780 270, 700 360, 610 395',
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5" aria-hidden="true">
-        <path fill="#E01E5A" d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313z" />
-        <path fill="#36C5F0" d="M8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312z" />
-        <path fill="#2EB67D" d="M18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312z" />
-        <path fill="#ECB22E" d="M15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z" />
-      </svg>
-    ),
   },
   {
     id: 'notion',
     name: 'Notion Plus',
     price: 10.0,
     period: '/mo',
-    iconBg: '#000000',
+    logoSrc: '/Notion-logo.webp',
     desktopStyle: { top: '72%', right: '7%' },
     animationClass: 'animate-float-1',
     svgPath: 'M 775 422 C 735 422, 705 432, 660 435',
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white" aria-hidden="true">
-        <path d="M4.459 4.208c.746.606 1.026.56 2.428.466l11.442-.816c1.027-.07 1.493.42 1.283 1.423l-2.007 11.232c-.21 1.167-.77 1.493-1.89 1.563l-12.026.747c-1.12.07-1.494-.42-1.354-1.424l1.89-11.89c.14-1.004.56-1.54 1.234-1.301zm2.38 3.523l-1.33 8.353c-.093.583.187.817.793.77l9.73-.606c.607-.047.887-.397.98-.98l1.378-8.284c.093-.583-.163-.84-.77-.793l-9.986.723c-.607.047-.701.234-.794.817zm4.246 1.47l4.06-.28-.35 2.124-1.633.116-.677 4.2-1.517.094.677-4.2-1.493.117.933-2.17z" />
-      </svg>
-    ),
   },
   {
     id: 'adobe',
     name: 'Adobe Creative',
     price: 54.99,
     period: '/mo',
-    iconBg: '#DA1F26',
+    logoSrc: '/adobe-creative-logo.svg',
     desktopStyle: { top: '8%', right: '3%' },
     animationClass: 'animate-float-2',
     svgPath: 'M 880 85 C 840 210, 660 330, 570 375',
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white" aria-hidden="true">
-        <path d="M13.96 3h6.04v18h-4.32l-3.23-7.77h-3.41L6.3 21H2V3h6.04l4.96 11.83L13.96 3z" />
-      </svg>
-    ),
   },
 ];
 
@@ -301,11 +256,15 @@ export function SubscriptionMindmap() {
                     : 'bg-[var(--color-page)]/60 border border-[var(--color-border-subtle)] opacity-50 shadow-none'
                 }`}
               >
-                <div
-                  className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 shadow-xs"
-                  style={{ backgroundColor: sub.iconBg }}
-                >
-                  {sub.icon}
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 overflow-hidden bg-white/10 dark:bg-black/20 p-1 shadow-xs">
+                  <Image
+                    src={sub.logoSrc}
+                    alt={`${sub.name} logo`}
+                    width={28}
+                    height={28}
+                    className="w-full h-full object-contain rounded-xs"
+                    unoptimized
+                  />
                 </div>
                 <div className="flex flex-col text-left">
                   <span className="text-xs font-semibold text-[var(--color-text)] leading-none">
@@ -331,7 +290,7 @@ export function SubscriptionMindmap() {
               </span>
             </div>
 
-            {/* Live Staged Counting Dollar Total with keyframe pop */}
+            {/* Live Staged Counting Dollar Total */}
             <div className="text-3xl sm:text-4xl font-semibold tracking-tight tabular-nums flex items-baseline gap-1">
               <span key={stepIndex} className="transition-all duration-300 animate-in fade-in">
                 {formattedAccumulator}
@@ -377,11 +336,15 @@ export function SubscriptionMindmap() {
                     : 'bg-[var(--color-page)]/60 border border-[var(--color-border-subtle)] opacity-50'
                 }`}
               >
-                <div
-                  className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 shadow-xs"
-                  style={{ backgroundColor: sub.iconBg }}
-                >
-                  {sub.icon}
+                <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 overflow-hidden bg-white/10 dark:bg-black/20 p-0.5 shadow-xs">
+                  <Image
+                    src={sub.logoSrc}
+                    alt={`${sub.name} logo`}
+                    width={24}
+                    height={24}
+                    className="w-full h-full object-contain rounded-xs"
+                    unoptimized
+                  />
                 </div>
                 <div className="flex flex-col text-left min-w-0">
                   <span className="text-xs font-semibold text-[var(--color-text)] truncate">
