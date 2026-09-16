@@ -48,7 +48,15 @@
     "msgCta": "Create cancellation draft",
     "summaCardTitle": "Get full control of your recurring expenses with Summa",
     "summaCardDescription": "Discover unwanted subscriptions and track your spending directly on your phone.",
-    "summaCardCta": "Download Summa"
+    "summaCardCta": "Download Summa",
+    "mindmapBadge": "Cost Accumulation",
+    "mindmapHeading": "See how subscriptions quietly pile up",
+    "mindmapSubheading": "Streaming, storage, software, and memberships. When recurring charges run in the background, small monthly fees compound into a massive yearly total.",
+    "mindmapLiveCounterLabel": "Total recurring expense accumulation",
+    "mindmapMonthlyBaseline": "Monthly baseline",
+    "mindmapMonthlyPerYear": "per year",
+    "mindmapCta": "Calculate your exact savings",
+    "mindmapActiveServices": "8 active subscriptions"
   },
   "search": {
     "pageTitle": "Search Cancellation Guides",

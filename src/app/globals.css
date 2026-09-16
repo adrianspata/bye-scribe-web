@@ -250,6 +250,61 @@ div[data-nextjs-dev-tools] {
   will-change: transform;
 }
 
+/* Subscription Mindmap Floating Badges */
+@keyframes float-badge-1 {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(0.8deg);
+  }
+}
+
+@keyframes float-badge-2 {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-0.8deg);
+  }
+}
+
+@keyframes float-badge-3 {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-float-1 {
+  animation: float-badge-1 5s ease-in-out infinite;
+}
+
+.animate-float-2 {
+  animation: float-badge-2 6.2s ease-in-out infinite 0.6s;
+}
+
+.animate-float-3 {
+  animation: float-badge-3 5.6s ease-in-out infinite 1.2s;
+}
+
+/* Ray Stream Flow Pulse */
+@keyframes ray-flow {
+  from {
+    stroke-dashoffset: 48;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-ray-flow {
+  stroke-dasharray: 6 18;
+  animation: ray-flow 2.2s linear infinite;
+}
+
 
 
 

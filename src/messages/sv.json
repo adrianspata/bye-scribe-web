@@ -48,7 +48,15 @@
     "msgCta": "Skapa uppsägningsutkast",
     "summaCardTitle": "Få full koll på dina fasta utgifter med Summa",
     "summaCardDescription": "Upptäck onödiga prenumerationer och spåra dina kostnader direkt i mobilen.",
-    "summaCardCta": "Ladda ner Summa"
+    "summaCardCta": "Ladda ner Summa",
+    "mindmapBadge": "Kostnadskoll",
+    "mindmapHeading": "Se hur prenumerationerna staplas på hög",
+    "mindmapSubheading": "Streaming, molnlagring, mjukvara och gymkort. När återkommande avgifter tickar i bakgrunden växer små månadsbelopp snabbt till tusentals kronor.",
+    "mindmapLiveCounterLabel": "Ackumulerad totalkostnad för abonnemang",
+    "mindmapMonthlyBaseline": "Månadskostnad",
+    "mindmapMonthlyPerYear": "per år",
+    "mindmapCta": "Räkna på din besparing",
+    "mindmapActiveServices": "8 aktiva prenumerationer"
   },
   "search": {
     "pageTitle": "Sök uppsägningsguide",

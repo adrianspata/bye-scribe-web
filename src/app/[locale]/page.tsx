@@ -7,6 +7,7 @@ import { FeaturedServices } from '@/features/services/components/featured-servic
 import { GuidedPathFlow } from '@/features/home/components/guided-path-flow';
 import { ContextualSummaCta } from '@/features/summa-cta/components/contextual-summa-cta';
 import { RotatingHeroHeading } from '@/features/home/components/rotating-hero-heading';
+import { SubscriptionMindmap } from '@/features/home/components/subscription-mindmap';
 import { BRAND } from '@/config/brand';
 import { SignalField } from '@/components/visual/signal-field';
 import {
@@ -167,7 +168,10 @@ export default async function HomePage() {
         <GuidedPathFlow />
       </section>
 
-      {/* 5. Contextual Summa Section */}
+      {/* 5. Subscription Accumulator Mindmap Section */}
+      <SubscriptionMindmap />
+
+      {/* 6. Contextual Summa Section */}
       <ContextualSummaCta context="homepage" />
     </div>
   );
