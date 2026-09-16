@@ -22,12 +22,13 @@ export const metadata: Metadata = {
   description: BRAND.description,
   icons: {
     icon: [
-      { url: '/byescribeFavicor.png', type: 'image/png' },
+      { url: '/favicon-square.png?v=4', type: 'image/png' },
+      { url: '/icon.png?v=4', type: 'image/png' },
     ],
     apple: [
-      { url: '/byescribeFavicor.png' },
+      { url: '/apple-icon.png?v=4' },
     ],
-    shortcut: ['/byescribeFavicor.png'],
+    shortcut: ['/favicon-square.png?v=4'],
   },
 };
 
@@ -49,9 +50,9 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className="h-full antialiased">
       <head>
-        <link rel="icon" href="/byescribeFavicor.png?v=3" type="image/png" />
-        <link rel="apple-touch-icon" href="/byescribeFavicor.png?v=3" />
-        <link rel="shortcut icon" href="/byescribeFavicor.png?v=3" />
+        <link rel="icon" href="/favicon-square.png?v=4" type="image/png" />
+        <link rel="apple-touch-icon" href="/apple-icon.png?v=4" />
+        <link rel="shortcut icon" href="/favicon-square.png?v=4" />
       </head>
       <body className="min-h-full flex flex-col bg-[var(--color-page)] text-[var(--color-text)]">
         <NextIntlClientProvider messages={messages}>

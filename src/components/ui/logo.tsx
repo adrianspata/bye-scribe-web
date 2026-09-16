@@ -23,9 +23,9 @@ export function Logo({ className = '', size = 'md', showIcon = true }: LogoProps
         <Image
           src="/byescribeFavicor.png"
           alt="ByeScribe icon"
-          width={24}
-          height={24}
-          className="h-[0.95em] w-[0.95em] object-contain shrink-0"
+          width={1993}
+          height={2729}
+          className="h-[0.95em] w-auto object-contain shrink-0"
           priority={size === 'md'}
           unoptimized
         />
