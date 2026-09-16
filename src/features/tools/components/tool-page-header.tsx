@@ -15,11 +15,11 @@ export function ToolPageHeader({
   title,
   description,
   backHref = '/',
-  backLabel = 'Tillbaka till start',
+  backLabel = 'Back to home',
 }: ToolPageHeaderProps) {
   return (
     <header className="flex flex-col gap-4 border-b border-[var(--color-border)] pb-6">
-      <nav aria-label="Tillbaka">
+      <nav aria-label="Back">
         <Link
           href={backHref}
           className="inline-flex items-center gap-1.5 text-xs font-medium text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] rounded-[var(--radius-sm)] py-1"

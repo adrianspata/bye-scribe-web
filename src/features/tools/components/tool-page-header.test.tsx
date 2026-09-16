@@ -26,6 +26,6 @@ describe('ToolPageHeader Component', () => {
     expect(h1Elements).toHaveLength(1);
     expect(h1Elements[0]).toHaveTextContent('Besparingskalkylator för abonnemang');
     expect(screen.getByText('Fyll i dina uppgifter.')).toBeInTheDocument();
-    expect(screen.getByText('Tillbaka till start')).toBeInTheDocument();
+    expect(screen.getByText('Back to home')).toBeInTheDocument();
   });
 });
