@@ -8,8 +8,21 @@ import { Select } from './select';
 import { Badge } from './badge';
 import { InlineNotice } from './inline-notice';
 import { Card } from './card';
+import { Logo } from './logo';
 
 describe('Base UI Components', () => {
+  describe('Logo', () => {
+    it('renders with bold "Bye" and light "Scribe"', () => {
+      render(<Logo />);
+      const logo = screen.getByTestId('brand-logo');
+      expect(logo).toHaveTextContent('ByeScribe');
+      const boldPart = screen.getByText('Bye');
+      const lightPart = screen.getByText('Scribe');
+      expect(boldPart).toHaveClass('font-bold');
+      expect(lightPart).toHaveClass('font-light');
+    });
+  });
+
   describe('Button', () => {
     it('renders with loading spinner and aria-busy when isLoading is true', () => {
       render(<Button isLoading>Laddar...</Button>);

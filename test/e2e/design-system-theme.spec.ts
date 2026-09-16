@@ -58,7 +58,7 @@ test.describe('Design System: Pure System Theme, Navigation & Accessibility', ()
     await page.goto('/en');
 
     // 1. Verify brand wordmark navigates to home
-    const brandLink = page.locator('header a:has-text("ByeScribe")');
+    const brandLink = page.locator('header a[aria-label="ByeScribe"]');
     await expect(brandLink).toBeVisible();
     await expect(brandLink).toHaveAttribute('href', '/en');
 

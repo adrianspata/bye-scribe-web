@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, usePathname } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import { Menu, X } from 'lucide-react';
+import { Logo } from '@/components/ui/logo';
 
 export function Header() {
   const t = useTranslations('common');
@@ -60,9 +61,10 @@ export function Header() {
         <Link
           href="/"
           onClick={() => setMobileMenuOpen(false)}
-          className="flex items-center text-lg sm:text-xl font-normal tracking-tight text-[var(--color-text)] hover:opacity-85 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] rounded-md px-1 py-0.5 shrink-0"
+          className="flex items-center hover:opacity-85 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] rounded-md px-1 py-0.5 shrink-0"
+          aria-label={t('brand')}
         >
-          <span>{t('brand')}</span>
+          <Logo size="md" />
         </Link>
 
         {/* Desktop Navigation */}
