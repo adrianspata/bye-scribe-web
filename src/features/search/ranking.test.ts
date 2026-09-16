@@ -16,7 +16,7 @@ describe('Search Ranking & Scoring Hardening', () => {
     const exactAlias = scoreService(nordicPlay, 'Nordic Play');
     const prefixName = scoreService(nordicPlay, 'NordicP');
     const prefixAlias = scoreService(nordicPlay, 'Nordic Str');
-    const fullText = scoreService(nordicPlay, 'film');
+    const fullText = scoreService(nordicPlay, 'movies');
     const fuzzy = scoreService(fjallGym, 'Fjallgym');
 
     expect(exactName?.score).toBe(RANKING_WEIGHTS.EXACT_NAME);
@@ -33,7 +33,7 @@ describe('Search Ranking & Scoring Hardening', () => {
   });
 
   it('evaluates FTS/token matches in summary before falling back to trigram/fuzzy', () => {
-    const summaryMatch = scoreService(nordicPlay, 'streamingtjänst');
+    const summaryMatch = scoreService(nordicPlay, 'movies');
     expect(summaryMatch?.matchType).toBe('full_text');
     expect(summaryMatch?.score).toBe(RANKING_WEIGHTS.FULL_TEXT);
   });
@@ -88,10 +88,10 @@ describe('Search Ranking & Scoring Hardening', () => {
   });
 
   it('validates query constraints, empty queries and control characters', () => {
-    expect(() => searchQuerySchema.parse({ query: '' })).toThrow('Sökfrasen får inte vara tom');
+    expect(() => searchQuerySchema.parse({ query: '' })).toThrow('Search query cannot be empty');
     expect(() => searchQuerySchema.parse({ query: '   ' })).toThrow();
-    expect(() => searchQuerySchema.parse({ query: 'a'.repeat(101) })).toThrow('Sökfrasen får max vara 100 tecken');
-    expect(() => searchQuerySchema.parse({ query: 'bad\u0007query' })).toThrow('kontrolltecken');
+    expect(() => searchQuerySchema.parse({ query: 'a'.repeat(101) })).toThrow('Search query cannot exceed 100 characters');
+    expect(() => searchQuerySchema.parse({ query: 'bad\u0007query' })).toThrow('control characters');
 
     const valid = searchQuerySchema.parse({ query: 'spotify' });
     expect(valid.query).toBe('spotify');

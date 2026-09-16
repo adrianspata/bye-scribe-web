@@ -4,10 +4,10 @@ export const searchQuerySchema = z.object({
   query: z
     .string()
     .trim()
-    .min(1, { message: 'Sökfrasen får inte vara tom' })
-    .max(100, { message: 'Sökfrasen får max vara 100 tecken' })
+    .min(1, { message: 'Search query cannot be empty' })
+    .max(100, { message: 'Search query cannot exceed 100 characters' })
     .refine((val) => !/[\u0000-\u001F\u007F-\u009F]/.test(val), {
-      message: 'Sökfrasen innehåller ogiltiga kontrolltecken',
+      message: 'Search query contains invalid control characters',
     }),
   limit: z
     .number()
