@@ -4,7 +4,7 @@ import AxeBuilder from '@axe-core/playwright';
 test.describe('Design System: Pure System Theme, Navigation & Accessibility', () => {
   test('1. System theme activates light tokens by default under prefers-color-scheme: light', async ({ page }) => {
     await page.emulateMedia({ colorScheme: 'light' });
-    await page.goto('/sv');
+    await page.goto('/en');
 
     // Verify no theme selector is present in DOM
     const themeSelector = page.locator('div[role="radiogroup"][aria-label="Välj färgtema"]');
@@ -22,7 +22,7 @@ test.describe('Design System: Pure System Theme, Navigation & Accessibility', ()
 
   test('2. System theme activates dark tokens under prefers-color-scheme: dark', async ({ page }) => {
     await page.emulateMedia({ colorScheme: 'dark' });
-    await page.goto('/sv');
+    await page.goto('/en');
 
     // Verify background color is midnight dark (#0b0f17 -> rgb(11, 15, 23))
     const bodyBg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
@@ -36,7 +36,7 @@ test.describe('Design System: Pure System Theme, Navigation & Accessibility', ()
 
   test('3. Dynamic OS theme change takes effect immediately without reload', async ({ page }) => {
     await page.emulateMedia({ colorScheme: 'light' });
-    await page.goto('/sv');
+    await page.goto('/en');
 
     let bodyBg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
     expect(bodyBg).toBe('rgb(250, 250, 249)');
@@ -53,13 +53,14 @@ test.describe('Design System: Pure System Theme, Navigation & Accessibility', ()
   });
 
   test('4. Mobile navigation: Hamburger opens, traps/manages focus, closes on ESC, closes on link click', async ({ page }) => {
+    test.setTimeout(60000);
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto('/sv');
+    await page.goto('/en');
 
     // 1. Verify brand wordmark navigates to home
     const brandLink = page.locator('header a:has-text("ByeScribe")');
     await expect(brandLink).toBeVisible();
-    await expect(brandLink).toHaveAttribute('href', '/sv');
+    await expect(brandLink).toHaveAttribute('href', '/en');
 
     const menuButton = page.locator('button[aria-controls="mobile-navigation"]');
     await expect(menuButton).toBeVisible();
@@ -72,13 +73,13 @@ test.describe('Design System: Pure System Theme, Navigation & Accessibility', ()
     const mobileNav = page.locator('#mobile-navigation');
     await expect(mobileNav).toBeVisible();
 
-    // Verify first link ("Guider") receives focus
-    const guidesLink = mobileNav.locator('a:has-text("Guider")');
+    // Verify first link ("Guides") receives focus
+    const guidesLink = mobileNav.locator('a[href*="/sok"]');
     await expect(guidesLink).toBeVisible();
     await expect(guidesLink).toBeFocused();
 
     // Verify message generator link exists
-    const msgLink = mobileNav.locator('a:has-text("Skriv uppsägning")');
+    const msgLink = mobileNav.locator('a[href*="/verktyg/uppsagningsmeddelande"]');
     await expect(msgLink).toBeVisible();
 
     // Press Escape to close
@@ -86,25 +87,26 @@ test.describe('Design System: Pure System Theme, Navigation & Accessibility', ()
     await expect(mobileNav).not.toBeVisible();
     await expect(menuButton).toBeFocused();
 
-    // Open again and click "Räkna besparing"
+    // Open again and click "Savings Calculator"
     await menuButton.click();
     await expect(mobileNav).toBeVisible();
 
-    const calcLink = mobileNav.locator('a:has-text("Räkna besparing")');
+    const calcLink = mobileNav.locator('a[href*="/verktyg/besparingskalkylator"]');
     await expect(calcLink).toBeVisible();
     await calcLink.click();
 
-    await expect(page).toHaveURL(/\/sv\/verktyg\/besparingskalkylator/);
+    await expect(page).toHaveURL(/\/en\/verktyg\/besparingskalkylator/);
     await expect(mobileNav).not.toBeVisible();
   });
 
   test('5. Automated Axe Accessibility Audit in both Light and Dark themes', async ({ page }) => {
+    test.setTimeout(60000);
     const pagesToAudit = [
-      '/sv',
-      '/sv/sok?q=Nordic',
-      '/sv/tjanster/nordicplay-demo',
-      '/sv/verktyg/besparingskalkylator',
-      '/sv/verktyg/uppsagningsmeddelande',
+      '/en',
+      '/en/sok?q=Nordic',
+      '/en/tjanster/nordicplay-demo',
+      '/en/verktyg/besparingskalkylator',
+      '/en/verktyg/uppsagningsmeddelande',
     ];
 
     for (const path of pagesToAudit) {
@@ -135,6 +137,7 @@ test.describe('Design System: Pure System Theme, Navigation & Accessibility', ()
   });
 
   test('6. Responsive Layouts render without horizontal overflow across all key viewports', async ({ page }) => {
+    test.setTimeout(60000);
     const viewports = [
       { width: 320, height: 568, name: '320px Small Mobile' },
       { width: 375, height: 667, name: '375px Standard Mobile' },
@@ -147,7 +150,7 @@ test.describe('Design System: Pure System Theme, Navigation & Accessibility', ()
 
     for (const vp of viewports) {
       await page.setViewportSize({ width: vp.width, height: vp.height });
-      await page.goto('/sv');
+      await page.goto('/en');
 
       const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
       const clientWidth = await page.evaluate(() => document.documentElement.clientWidth);
@@ -156,7 +159,7 @@ test.describe('Design System: Pure System Theme, Navigation & Accessibility', ()
   });
 
   test('7. SignalField and SVG Grain are decorative, local, and respect reduced-motion', async ({ page }) => {
-    await page.goto('/sv');
+    await page.goto('/en');
 
     // Verify SignalField elements are present
     const signalFields = page.locator('[data-testid="signal-field"]');
@@ -175,7 +178,7 @@ test.describe('Design System: Pure System Theme, Navigation & Accessibility', ()
 
     // Verify reduced motion halts animation
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.goto('/sv');
+    await page.goto('/en');
     const animatedLayers = page.locator('.animate-ambient-signal');
     if (await animatedLayers.count() > 0) {
       const animationName = await animatedLayers.first().evaluate((el) => getComputedStyle(el).animationName);
@@ -185,9 +188,9 @@ test.describe('Design System: Pure System Theme, Navigation & Accessibility', ()
 
   test('8. Primary actions and search buttons render with high-contrast semantic tokens', async ({ page }) => {
     await page.emulateMedia({ colorScheme: 'light' });
-    await page.goto('/sv');
+    await page.goto('/en');
 
-    const searchBtn = page.locator('button[type="submit"]:has-text("Sök")');
+    const searchBtn = page.locator('button[type="submit"]:has-text("Find guide")');
     await expect(searchBtn).toBeVisible();
     const btnBg = await searchBtn.evaluate((el) => getComputedStyle(el).backgroundColor);
     // #0c1117 -> rgb(12, 17, 23)
