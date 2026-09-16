@@ -216,20 +216,40 @@ div[data-nextjs-dev-tools] {
   pointer-events: none !important;
 }
 
-/* Button Shimmer / Glimmer Reflection */
+/* Micro Pulse for Status Dot */
+@keyframes micro-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+}
+
+.animate-micro-pulse {
+  animation: micro-pulse 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Button Shimmer / Glimmer Reflection (Slow, subtle sweep) */
 @keyframes shimmer-sweep {
   0% {
     transform: translateX(-150%) skewX(-20deg);
   }
-  30%, 100% {
+  25% {
+    transform: translateX(250%) skewX(-20deg);
+  }
+  100% {
     transform: translateX(250%) skewX(-20deg);
   }
 }
 
 .animate-shimmer {
-  animation: shimmer-sweep 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation: shimmer-sweep 6.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   will-change: transform;
 }
+
 
 
 

@@ -34,11 +34,8 @@ export default async function HomePage() {
       {/* 1. Centered Hero & Primary Search Section */}
       <section className="flex flex-col items-center text-center gap-4 sm:gap-5 pt-4 sm:pt-8 max-w-3xl mx-auto w-full">
         {/* Low-key Brand Tagline (hidden on smallest screens to prioritize task) */}
-        <div className="hidden sm:inline-flex items-center gap-2.5 text-xs font-medium text-[var(--color-text-muted)] select-none">
-          <span className="relative flex h-2 w-2 items-center justify-center shrink-0">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-accent)] opacity-75" />
-            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[var(--color-accent)]" />
-          </span>
+        <div className="hidden sm:inline-flex items-center gap-2 text-xs font-medium text-[var(--color-text-muted)] select-none">
+          <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] shrink-0 animate-micro-pulse" aria-hidden="true" />
           <span>{BRAND.tagline}</span>
         </div>
 

@@ -19,37 +19,35 @@ export function SearchBar({ initialQuery = '', autoFocus = false, className = ''
   const fullPlaceholder = t('searchPlaceholder');
   const [displayedPlaceholder, setDisplayedPlaceholder] = useState('');
 
-  // Typewriter effect on search placeholder
+  // Typewriter loop effect on search placeholder
   useEffect(() => {
     let currentIdx = 0;
     let isDeleting = false;
     let timeoutId: NodeJS.Timeout;
 
-    function tick() {
+    function step() {
       if (!isDeleting) {
         currentIdx++;
         setDisplayedPlaceholder(fullPlaceholder.slice(0, currentIdx));
-        if (currentIdx === fullPlaceholder.length) {
-          timeoutId = setTimeout(() => {
-            isDeleting = true;
-            tick();
-          }, 3500);
+        if (currentIdx >= fullPlaceholder.length) {
+          isDeleting = true;
+          timeoutId = setTimeout(step, 3200); // pause with full sentence
           return;
         }
-        timeoutId = setTimeout(tick, 50);
+        timeoutId = setTimeout(step, 48); // typing speed
       } else {
         currentIdx--;
         setDisplayedPlaceholder(fullPlaceholder.slice(0, currentIdx));
-        if (currentIdx === 0) {
+        if (currentIdx <= 0) {
           isDeleting = false;
-          timeoutId = setTimeout(tick, 500);
+          timeoutId = setTimeout(step, 800); // pause while completely cleared
           return;
         }
-        timeoutId = setTimeout(tick, 25);
+        timeoutId = setTimeout(step, 22); // deleting speed
       }
     }
 
-    timeoutId = setTimeout(tick, 400);
+    timeoutId = setTimeout(step, 400);
     return () => clearTimeout(timeoutId);
   }, [fullPlaceholder]);
 
@@ -79,7 +77,7 @@ export function SearchBar({ initialQuery = '', autoFocus = false, className = ''
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             aria-describedby="search-privacy-hint"
-            placeholder={displayedPlaceholder || fullPlaceholder}
+            placeholder={displayedPlaceholder}
             className="w-full min-h-[44px] pl-10 pr-4 py-2.5 text-sm bg-[var(--color-surface)] text-[var(--color-text)] border border-[var(--color-border-strong)] hover:border-[var(--color-text-muted)] focus:border-[var(--color-text-muted)] rounded-[var(--radius-md)] placeholder:text-[var(--color-text-subtle)] focus:outline-none focus-visible:outline-none transition-colors shadow-xs"
           />
         </div>
