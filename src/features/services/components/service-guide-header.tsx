@@ -2,7 +2,7 @@ import React from 'react';
 import { ServiceDetail } from '../types';
 import { InlineNotice } from '@/components/ui/inline-notice';
 import { SignalField } from '@/components/visual/signal-field';
-import { formatSwedishDate } from '@/lib/dates';
+import { formatEnglishDate } from '@/lib/dates';
 import { Building2, CheckCircle2 } from 'lucide-react';
 
 export interface ServiceGuideHeaderProps {
@@ -29,7 +29,7 @@ export function ServiceGuideHeader({ service, isFixtureMode }: ServiceGuideHeade
         {!isFixtureMode && service.lastVerifiedAt && !isStale && (
           <span className="text-xs text-[var(--color-text-subtle)] flex items-center gap-1.5">
             <CheckCircle2 className="w-3.5 h-3.5 text-[var(--color-positive)]" aria-hidden="true" />
-            <span>Verifierad {formatSwedishDate(service.lastVerifiedAt, 'long')}</span>
+            <span>Verified {formatEnglishDate(service.lastVerifiedAt, 'long')}</span>
           </span>
         )}
       </div>
@@ -37,13 +37,13 @@ export function ServiceGuideHeader({ service, isFixtureMode }: ServiceGuideHeade
       {/* Demo / Stale notices */}
       {isFixtureMode && (
         <div className="py-2.5 px-4 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-md)] text-xs text-[var(--color-text)] leading-relaxed text-left">
-          Lokal demo – informationen är inte en verkligt verifierad tjänsteguide.
+          Local demo – this information is sample data and not a verified service guide.
         </div>
       )}
 
       {isStale && !isFixtureMode && (
-        <InlineNotice variant="warning" title="Behöver ny granskning">
-          Denna guide är i behov av ny granskning. Villkor och kontaktvägar kan ha ändrats hos leverantören.
+        <InlineNotice variant="warning" title="Needs review">
+          This guide needs review. Terms and contact channels may have changed with the provider.
         </InlineNotice>
       )}
 
@@ -53,7 +53,7 @@ export function ServiceGuideHeader({ service, isFixtureMode }: ServiceGuideHeade
         
         <div className="relative z-10 flex flex-col gap-3 text-left">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[var(--color-text)] leading-[1.1]">
-            Säg upp {service.name}
+            Cancel {service.name}
           </h1>
 
           {service.summary && (
@@ -64,12 +64,12 @@ export function ServiceGuideHeader({ service, isFixtureMode }: ServiceGuideHeade
 
           <div className="flex items-center gap-4 text-xs text-[var(--color-text-subtle)] pt-2 flex-wrap">
             <span className="font-medium text-[var(--color-text-muted)]">
-              Uppsägningen genomförs hos leverantören.
+              Cancellation is completed directly with the provider.
             </span>
             {service.legalName && (
               <span className="flex items-center gap-1">
                 <Building2 className="w-3.5 h-3.5 text-[var(--color-text-subtle)]" aria-hidden="true" />
-                <span>Juridiskt namn: {service.legalName}</span>
+                <span>Legal name: {service.legalName}</span>
               </span>
             )}
           </div>

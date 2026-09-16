@@ -17,11 +17,11 @@ export function ServiceInPageNav({ sections }: ServiceInPageNavProps) {
 
   return (
     <nav
-      aria-label="Innehåll i guiden"
+      aria-label="Guide contents"
       className="hidden lg:flex flex-col gap-3 sticky top-24 p-4 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] shadow-subtle self-start"
     >
       <span className="text-xs font-semibold text-[var(--color-text-subtle)]">
-        Innehåll i guiden
+        Guide contents
       </span>
       <ul className="flex flex-col gap-1.5 list-none p-0 m-0 text-xs">
         {sections.map((section) => (
