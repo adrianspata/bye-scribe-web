@@ -412,19 +412,23 @@ export function SubscriptionMindmap() {
         <div className="absolute bottom-1 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2">
           <div
             ref={cardRef}
-            className="relative group backdrop-blur-2xl bg-white/35 dark:bg-zinc-900/35 text-[var(--color-text)] border border-white/70 dark:border-white/15 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.08),0_2px_6px_0_rgba(0,0,0,0.04),inset_0_1px_1px_0_rgba(255,255,255,0.9),inset_0_-1px_1px_0_rgba(0,0,0,0.04)] dark:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.6),0_2px_6px_0_rgba(0,0,0,0.3),inset_0_1px_1px_0_rgba(255,255,255,0.2),inset_0_-1px_1px_0_rgba(0,0,0,0.3)] px-7 py-3 sm:px-8 sm:py-3.5 rounded-2xl flex flex-col items-center gap-0.5 min-w-[280px] sm:min-w-[320px] text-center before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-b before:from-white/40 before:to-transparent before:pointer-events-none dark:before:from-white/10"
+            style={{
+              background:
+                'radial-gradient(115% 95% at 50% -10%, #ff2585 0%, #ff4b98 28%, #fca5d2 56%, #e0e7ff 82%, #bfdbfe 100%)',
+            }}
+            className="relative group text-zinc-950 border border-white/70 shadow-[0_20px_45px_-10px_rgba(255,37,133,0.32),0_8px_20px_-6px_rgba(191,219,254,0.45),inset_0_1px_2px_0_rgba(255,255,255,0.9)] px-7 py-3 sm:px-8 sm:py-3.5 rounded-2xl flex flex-col items-center gap-0.5 min-w-[280px] sm:min-w-[320px] text-center before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-b before:from-white/35 before:via-transparent before:to-white/20 before:pointer-events-none overflow-hidden"
           >
             {/* Live Staged Counting Dollar Total */}
-            <div className="text-2xl sm:text-3xl font-semibold tracking-tight tabular-nums flex items-baseline gap-1 text-[var(--color-text)]">
+            <div className="text-2xl sm:text-3xl font-bold tracking-tight tabular-nums flex items-baseline gap-1 text-zinc-950 relative z-10">
               <span key={stepIndex} className="transition-all duration-300 animate-in fade-in">
                 {formattedAccumulator}
               </span>
-              <span className="text-xs font-normal text-[var(--color-text-muted)]">/yr</span>
+              <span className="text-xs font-semibold text-zinc-900/80">/yr</span>
             </div>
 
             {/* Baseline Context */}
-            <div className="text-xs text-[var(--color-text-muted)] flex items-center gap-2">
-              <span>{t('mindmapMonthlyBaseline')}: <strong className="text-[var(--color-text)] font-semibold">{formattedMonthly}/mo</strong></span>
+            <div className="text-xs text-zinc-900/85 font-medium flex items-center gap-2 relative z-10">
+              <span>{t('mindmapMonthlyBaseline')}: <strong className="text-zinc-950 font-bold">{formattedMonthly}/mo</strong></span>
               <span>•</span>
               <span>8 subscriptions total</span>
             </div>
@@ -483,16 +487,22 @@ export function SubscriptionMindmap() {
           })}
         </div>
 
-        {/* Mobile Accumulator Card (Liquid Glass) & CTA Button */}
+        {/* Mobile Accumulator Card (Gradient) & CTA Button */}
         <div className="flex flex-col items-center gap-2">
-          <div className="w-full backdrop-blur-2xl bg-white/35 dark:bg-zinc-900/35 text-[var(--color-text)] border border-white/70 dark:border-white/15 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.08),0_2px_6px_0_rgba(0,0,0,0.04),inset_0_1px_1px_0_rgba(255,255,255,0.9),inset_0_-1px_1px_0_rgba(0,0,0,0.04)] dark:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.6),0_2px_6px_0_rgba(0,0,0,0.3),inset_0_1px_1px_0_rgba(255,255,255,0.2),inset_0_-1px_1px_0_rgba(0,0,0,0.3)] p-4 rounded-2xl flex flex-col items-center gap-0.5 text-center before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-b before:from-white/40 before:to-transparent before:pointer-events-none dark:before:from-white/10">
-            <div className="text-2xl sm:text-3xl font-semibold tracking-tight tabular-nums text-[var(--color-text)]">
+          <div
+            style={{
+              background:
+                'radial-gradient(115% 95% at 50% -10%, #ff2585 0%, #ff4b98 28%, #fca5d2 56%, #e0e7ff 82%, #bfdbfe 100%)',
+            }}
+            className="w-full text-zinc-950 border border-white/70 shadow-[0_20px_45px_-10px_rgba(255,37,133,0.32),0_8px_20px_-6px_rgba(191,219,254,0.45),inset_0_1px_2px_0_rgba(255,255,255,0.9)] p-4 rounded-2xl flex flex-col items-center gap-0.5 text-center before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-b before:from-white/35 before:via-transparent before:to-white/20 before:pointer-events-none relative overflow-hidden"
+          >
+            <div className="text-2xl sm:text-3xl font-bold tracking-tight tabular-nums text-zinc-950 relative z-10">
               {formattedAccumulator}
-              <span className="text-xs font-normal text-[var(--color-text-muted)] ml-1">/yr</span>
+              <span className="text-xs font-semibold text-zinc-900/80 ml-1">/yr</span>
             </div>
 
-            <div className="text-xs text-[var(--color-text-muted)]">
-              {t('mindmapMonthlyBaseline')}: <strong className="text-[var(--color-text)] font-semibold">{formattedMonthly}/mo</strong>
+            <div className="text-xs text-zinc-900/85 font-medium relative z-10">
+              {t('mindmapMonthlyBaseline')}: <strong className="text-zinc-950 font-bold">{formattedMonthly}/mo</strong>
             </div>
           </div>
 
