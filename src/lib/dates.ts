@@ -1,20 +1,20 @@
 /**
- * Swedish date formatting utilities.
+ * Date formatting utilities.
  */
 
-const swedishLongDateFormatter = new Intl.DateTimeFormat('sv-SE', {
+const englishLongDateFormatter = new Intl.DateTimeFormat('en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
 });
 
-const swedishShortDateFormatter = new Intl.DateTimeFormat('sv-SE', {
+const englishShortDateFormatter = new Intl.DateTimeFormat('en-US', {
   year: 'numeric',
   month: '2-digit',
   day: '2-digit',
 });
 
-export function formatSwedishDate(
+export function formatDate(
   dateInput: Date | string | number,
   variant: 'long' | 'short' = 'long'
 ): string {
@@ -24,6 +24,9 @@ export function formatSwedishDate(
   }
 
   return variant === 'short'
-    ? swedishShortDateFormatter.format(date)
-    : swedishLongDateFormatter.format(date);
+    ? englishShortDateFormatter.format(date)
+    : englishLongDateFormatter.format(date);
 }
+
+export const formatSwedishDate = formatDate;
+export const formatEnglishDate = formatDate;
