@@ -20,6 +20,15 @@ export const metadata: Metadata = {
     template: `%s | ${BRAND.name}`,
   },
   description: BRAND.description,
+  icons: {
+    icon: [
+      { url: '/byescribeFavicor.png', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/byescribeFavicor.png' },
+    ],
+    shortcut: ['/byescribeFavicor.png'],
+  },
 };
 
 export default async function LocaleLayout({
