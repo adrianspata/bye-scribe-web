@@ -9,9 +9,9 @@ export interface LogoProps {
 
 export function Logo({ className = '', size = 'md', showIcon = true }: LogoProps) {
   const sizeClasses = {
-    sm: 'text-base sm:text-lg gap-1',
-    md: 'text-lg sm:text-xl gap-1',
-    lg: 'text-2xl sm:text-3xl gap-1.5',
+    sm: 'text-base sm:text-lg gap-0.5 sm:gap-1',
+    md: 'text-lg sm:text-xl gap-0.5 sm:gap-1',
+    lg: 'text-2xl sm:text-3xl gap-1',
   };
 
   return (
@@ -23,9 +23,9 @@ export function Logo({ className = '', size = 'md', showIcon = true }: LogoProps
         <Image
           src="/byescribeFavicor.png"
           alt="ByeScribe icon"
-          width={28}
-          height={28}
-          className="h-[1.15em] w-[1.15em] object-contain shrink-0"
+          width={24}
+          height={24}
+          className="h-[0.95em] w-[0.95em] object-contain shrink-0"
           priority={size === 'md'}
           unoptimized
         />
