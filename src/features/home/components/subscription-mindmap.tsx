@@ -409,48 +409,40 @@ export function SubscriptionMindmap() {
         })}
 
         {/* Center Accumulator Focal Point Node */}
-        <div className="absolute bottom-1 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
+        <div className="absolute bottom-1 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2">
           <div
             ref={cardRef}
-            className="relative group bg-[var(--color-text)] text-[var(--color-page)] dark:bg-[var(--color-surface-raised)] dark:text-[var(--color-text)] border border-[var(--color-border-strong)] px-5 py-3 sm:px-7 sm:py-3.5 rounded-2xl shadow-xl flex flex-col items-center gap-1.5 min-w-[300px] text-center"
+            className="relative group backdrop-blur-xl bg-white/75 dark:bg-zinc-900/75 text-[var(--color-text)] border border-white/60 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.06),inset_0_1px_1px_0_rgba(255,255,255,0.7)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_1px_0_rgba(255,255,255,0.1)] px-7 py-3 sm:px-8 sm:py-3.5 rounded-2xl flex flex-col items-center gap-0.5 min-w-[280px] sm:min-w-[320px] text-center"
           >
-            {/* Subtle Top Indicator Pill with current added sub name */}
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 dark:text-emerald-300 text-[11px] font-medium">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-micro-pulse shrink-0" />
-              <span>
-                {stepIndex + 1} of {SUBSCRIPTIONS.length} subscriptions • +${(activeSub.price * 12).toFixed(2)}/yr ({activeSub.name})
-              </span>
-            </div>
-
             {/* Live Staged Counting Dollar Total */}
-            <div className="text-2xl sm:text-3xl font-semibold tracking-tight tabular-nums flex items-baseline gap-1">
+            <div className="text-2xl sm:text-3xl font-semibold tracking-tight tabular-nums flex items-baseline gap-1 text-[var(--color-text)]">
               <span key={stepIndex} className="transition-all duration-300 animate-in fade-in">
                 {formattedAccumulator}
               </span>
-              <span className="text-xs font-normal opacity-75">/yr</span>
+              <span className="text-xs font-normal text-[var(--color-text-muted)]">/yr</span>
             </div>
 
             {/* Baseline Context */}
-            <div className="text-xs opacity-75 flex items-center gap-2">
-              <span>{t('mindmapMonthlyBaseline')}: <strong>{formattedMonthly}/mo</strong></span>
+            <div className="text-xs text-[var(--color-text-muted)] flex items-center gap-2">
+              <span>{t('mindmapMonthlyBaseline')}: <strong className="text-[var(--color-text)] font-semibold">{formattedMonthly}/mo</strong></span>
               <span>•</span>
               <span>8 subscriptions total</span>
             </div>
-
-            {/* Link to Savings Calculator */}
-            <Link
-              href="/verktyg/besparingskalkylator"
-              className="mt-1 inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--color-accent-soft)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] rounded-sm"
-            >
-              <span>{t('mindmapCta')}</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-            </Link>
           </div>
+
+          {/* Separate CTA Link below the badge */}
+          <Link
+            href="/verktyg/besparingskalkylator"
+            className="group inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--color-text)] hover:text-[var(--color-text-muted)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] rounded-sm"
+          >
+            <span>{t('mindmapCta')}</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
       </div>
 
       {/* Mobile Stacked / Compact Layout (< 768px) */}
-      <div className="flex md:hidden flex-col gap-5 z-10">
+      <div className="flex md:hidden flex-col gap-4 z-10">
         {/* Grid of Subscription Badges */}
         <div className="grid grid-cols-2 gap-2.5">
           {SUBSCRIPTIONS.map((sub, index) => {
@@ -491,30 +483,25 @@ export function SubscriptionMindmap() {
           })}
         </div>
 
-        {/* Mobile Accumulator Card */}
-        <div className="bg-[var(--color-text)] text-[var(--color-page)] dark:bg-[var(--color-surface-raised)] dark:text-[var(--color-text)] border border-[var(--color-border-strong)] p-5 rounded-2xl shadow-md flex flex-col items-center gap-2 text-center">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 text-[10px] font-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-micro-pulse shrink-0" />
-            <span>
-              {stepIndex + 1}/8 • +${(activeSub.price * 12).toFixed(2)} ({activeSub.name})
-            </span>
-          </div>
+        {/* Mobile Accumulator Card (Liquid Glass) & CTA Button */}
+        <div className="flex flex-col items-center gap-2">
+          <div className="w-full backdrop-blur-xl bg-white/75 dark:bg-zinc-900/75 text-[var(--color-text)] border border-white/60 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.06),inset_0_1px_1px_0_rgba(255,255,255,0.7)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_1px_0_rgba(255,255,255,0.1)] p-4 rounded-2xl flex flex-col items-center gap-0.5 text-center">
+            <div className="text-2xl sm:text-3xl font-semibold tracking-tight tabular-nums text-[var(--color-text)]">
+              {formattedAccumulator}
+              <span className="text-xs font-normal text-[var(--color-text-muted)] ml-1">/yr</span>
+            </div>
 
-          <div className="text-2xl sm:text-3xl font-semibold tracking-tight tabular-nums">
-            {formattedAccumulator}
-            <span className="text-xs font-normal opacity-75 ml-1">/yr</span>
-          </div>
-
-          <div className="text-xs opacity-75">
-            {t('mindmapMonthlyBaseline')}: <strong>{formattedMonthly}/mo</strong>
+            <div className="text-xs text-[var(--color-text-muted)]">
+              {t('mindmapMonthlyBaseline')}: <strong className="text-[var(--color-text)] font-semibold">{formattedMonthly}/mo</strong>
+            </div>
           </div>
 
           <Link
             href="/verktyg/besparingskalkylator"
-            className="mt-1 inline-flex items-center gap-1 text-xs font-semibold text-[var(--color-accent-soft)] hover:underline"
+            className="group inline-flex items-center gap-1 text-xs font-semibold text-[var(--color-text)] hover:text-[var(--color-text-muted)] transition-colors"
           >
             <span>{t('mindmapCta')}</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
       </div>
