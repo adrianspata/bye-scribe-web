@@ -7,8 +7,8 @@ import { defineRouting } from 'next-intl/routing';
  * Planned future locales: Norwegian ('no'), Danish ('da'), English ('en').
  */
 export const routing = defineRouting({
-  locales: ['sv'] as const,
-  defaultLocale: 'sv',
+  locales: ['en', 'sv'] as const,
+  defaultLocale: 'en',
   localePrefix: 'always',
 });
 
