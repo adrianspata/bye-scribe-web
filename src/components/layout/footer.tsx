@@ -13,8 +13,12 @@ export function Footer() {
       <div className="max-w-[var(--spacing-container-max)] mx-auto px-4 sm:px-6 flex flex-col gap-6 text-xs text-[var(--color-text-muted)]">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex flex-col gap-2 max-w-xl">
-            <Link href="/" className="inline-block hover:opacity-85 transition-opacity w-fit" aria-label={t('brand')}>
-              <Logo size="sm" />
+            <Link
+              href="/"
+              className="inline-flex items-center hover:opacity-85 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] rounded-md shrink-0 w-fit"
+              aria-label={t('brand')}
+            >
+              <Logo size="md" />
             </Link>
             <p className="leading-relaxed font-normal">
               {t('disclaimer')}

@@ -61,7 +61,7 @@ export function Header() {
         <Link
           href="/"
           onClick={() => setMobileMenuOpen(false)}
-          className="flex items-center hover:opacity-85 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] rounded-md px-1 py-0.5 shrink-0"
+          className="flex items-center hover:opacity-85 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] rounded-md shrink-0"
           aria-label={t('brand')}
         >
           <Logo size="md" />
