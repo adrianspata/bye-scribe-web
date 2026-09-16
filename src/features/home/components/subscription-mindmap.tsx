@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
@@ -18,8 +18,8 @@ interface SubscriptionNode {
     left?: string;
     right?: string;
   };
+  side: 'left' | 'right' | 'top-left' | 'top-right';
   animationClass: string;
-  svgPath: string;
 }
 
 // 8 Subscriptions using exact logos from /public:
@@ -39,9 +39,9 @@ const SUBSCRIPTIONS: SubscriptionNode[] = [
     price: 20.0,
     period: '/mo',
     logoSrc: '/chatgpt-logo.webp',
-    desktopStyle: { top: '72%', left: '7%' },
+    desktopStyle: { top: '70%', left: '7%' },
+    side: 'left',
     animationClass: 'animate-float-3',
-    svgPath: 'M 225 422 C 265 422, 295 432, 340 435',
   },
   {
     id: 'spotify',
@@ -49,9 +49,9 @@ const SUBSCRIPTIONS: SubscriptionNode[] = [
     price: 11.99,
     period: '/mo',
     logoSrc: '/SpotifyLogo.webp',
-    desktopStyle: { top: '38%', left: '0%' },
+    desktopStyle: { top: '38%', left: '1%' },
+    side: 'left',
     animationClass: 'animate-float-2',
-    svgPath: 'M 150 235 C 220 270, 300 360, 390 395',
   },
   {
     id: 'icloud',
@@ -59,9 +59,9 @@ const SUBSCRIPTIONS: SubscriptionNode[] = [
     price: 9.99,
     period: '/mo',
     logoSrc: '/icloud-logo.webp',
-    desktopStyle: { top: '20%', left: '22%' },
+    desktopStyle: { top: '14%', left: '22%' },
+    side: 'top-left',
     animationClass: 'animate-float-1',
-    svgPath: 'M 280 155 C 310 230, 400 320, 460 375',
   },
   {
     id: 'netflix',
@@ -69,9 +69,9 @@ const SUBSCRIPTIONS: SubscriptionNode[] = [
     price: 15.49,
     period: '/mo',
     logoSrc: '/Netflix_logo.webp',
-    desktopStyle: { top: '8%', left: '3%' },
+    desktopStyle: { top: '6%', left: '3%' },
+    side: 'top-left',
     animationClass: 'animate-float-1',
-    svgPath: 'M 120 85 C 160 210, 340 330, 430 375',
   },
   {
     id: 'disney',
@@ -79,9 +79,9 @@ const SUBSCRIPTIONS: SubscriptionNode[] = [
     price: 13.99,
     period: '/mo',
     logoSrc: '/disneyplusLogo.webp',
-    desktopStyle: { top: '20%', right: '22%' },
+    desktopStyle: { top: '14%', right: '22%' },
+    side: 'top-right',
     animationClass: 'animate-float-2',
-    svgPath: 'M 720 155 C 690 230, 600 320, 540 375',
   },
   {
     id: 'slack',
@@ -89,9 +89,9 @@ const SUBSCRIPTIONS: SubscriptionNode[] = [
     price: 8.75,
     period: '/mo',
     logoSrc: '/slack_logo.webp',
-    desktopStyle: { top: '38%', right: '0%' },
+    desktopStyle: { top: '38%', right: '1%' },
+    side: 'right',
     animationClass: 'animate-float-3',
-    svgPath: 'M 850 235 C 780 270, 700 360, 610 395',
   },
   {
     id: 'notion',
@@ -99,9 +99,9 @@ const SUBSCRIPTIONS: SubscriptionNode[] = [
     price: 10.0,
     period: '/mo',
     logoSrc: '/Notion-logo.webp',
-    desktopStyle: { top: '72%', right: '7%' },
+    desktopStyle: { top: '70%', right: '7%' },
+    side: 'right',
     animationClass: 'animate-float-1',
-    svgPath: 'M 775 422 C 735 422, 705 432, 660 435',
   },
   {
     id: 'adobe',
@@ -109,9 +109,9 @@ const SUBSCRIPTIONS: SubscriptionNode[] = [
     price: 54.99,
     period: '/mo',
     logoSrc: '/adobe-creative-logo.svg',
-    desktopStyle: { top: '8%', right: '3%' },
+    desktopStyle: { top: '6%', right: '3%' },
+    side: 'top-right',
     animationClass: 'animate-float-2',
-    svgPath: 'M 880 85 C 840 210, 660 330, 570 375',
   },
 ];
 
@@ -120,6 +120,129 @@ const PAUSE_AT_END_MS = 3200;
 
 export function SubscriptionMindmap() {
   const t = useTranslations('home');
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const badgeRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  const [svgDimensions, setSvgDimensions] = useState<{ width: number; height: number }>({ width: 1000, height: 450 });
+  const [computedPaths, setComputedPaths] = useState<Record<string, string>>({});
+
+  // Recalculate exact spline paths whenever layout mounts or resizes
+  const updateSplinePaths = useCallback(() => {
+    if (!containerRef.current || !cardRef.current) return;
+
+    const containerRect = containerRef.current.getBoundingClientRect();
+    const cardRect = cardRef.current.getBoundingClientRect();
+
+    if (containerRect.width === 0 || containerRect.height === 0) return;
+
+    setSvgDimensions({
+      width: containerRect.width,
+      height: containerRect.height,
+    });
+
+    const cardRelLeft = cardRect.left - containerRect.left;
+    const cardRelTop = cardRect.top - containerRect.top;
+    const cardWidth = cardRect.width;
+    const cardHeight = cardRect.height;
+
+    const paths: Record<string, string> = {};
+
+    SUBSCRIPTIONS.forEach((sub) => {
+      const badgeEl = badgeRefs.current[sub.id];
+      if (!badgeEl) return;
+
+      const badgeRect = badgeEl.getBoundingClientRect();
+      const badgeRelLeft = badgeRect.left - containerRect.left;
+      const badgeRelTop = badgeRect.top - containerRect.top;
+      const badgeWidth = badgeRect.width;
+      const badgeHeight = badgeRect.height;
+
+      let startX: number;
+      let startY: number;
+      let targetX: number;
+      let targetY: number;
+      let cp1X: number;
+      let cp1Y: number;
+      let cp2X: number;
+      let cp2Y: number;
+
+      if (sub.side === 'top-left') {
+        startX = badgeRelLeft + badgeWidth * 0.55;
+        startY = badgeRelTop + badgeHeight;
+        targetX = cardRelLeft + (sub.id === 'netflix' ? cardWidth * 0.2 : cardWidth * 0.36);
+        targetY = cardRelTop;
+        cp1X = startX + (targetX - startX) * 0.15;
+        cp1Y = startY + (targetY - startY) * 0.6;
+        cp2X = startX + (targetX - startX) * 0.75;
+        cp2Y = targetY - 10;
+      } else if (sub.side === 'top-right') {
+        startX = badgeRelLeft + badgeWidth * 0.45;
+        startY = badgeRelTop + badgeHeight;
+        targetX = cardRelLeft + (sub.id === 'adobe' ? cardWidth * 0.8 : cardWidth * 0.64);
+        targetY = cardRelTop;
+        cp1X = startX + (targetX - startX) * 0.15;
+        cp1Y = startY + (targetY - startY) * 0.6;
+        cp2X = startX + (targetX - startX) * 0.75;
+        cp2Y = targetY - 10;
+      } else if (sub.side === 'left') {
+        startX = badgeRelLeft + badgeWidth;
+        startY = badgeRelTop + badgeHeight / 2;
+        targetX = cardRelLeft;
+        targetY = sub.id === 'spotify' ? cardRelTop + cardHeight * 0.28 : cardRelTop + cardHeight * 0.68;
+        const dx = targetX - startX;
+        cp1X = startX + dx * 0.45;
+        cp1Y = startY;
+        cp2X = startX + dx * 0.8;
+        cp2Y = targetY;
+      } else {
+        // right side
+        startX = badgeRelLeft;
+        startY = badgeRelTop + badgeHeight / 2;
+        targetX = cardRelLeft + cardWidth;
+        targetY = sub.id === 'slack' ? cardRelTop + cardHeight * 0.28 : cardRelTop + cardHeight * 0.68;
+        const dx = targetX - startX;
+        cp1X = startX + dx * 0.45;
+        cp1Y = startY;
+        cp2X = startX + dx * 0.8;
+        cp2Y = targetY;
+      }
+
+      paths[sub.id] = `M ${startX.toFixed(1)} ${startY.toFixed(1)} C ${cp1X.toFixed(1)} ${cp1Y.toFixed(1)}, ${cp2X.toFixed(1)} ${cp2Y.toFixed(1)}, ${targetX.toFixed(1)} ${targetY.toFixed(1)}`;
+    });
+
+    setComputedPaths(paths);
+  }, []);
+
+  useEffect(() => {
+    updateSplinePaths();
+
+    const handleResize = () => {
+      updateSplinePaths();
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    let resizeObserver: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== 'undefined' && containerRef.current) {
+      resizeObserver = new ResizeObserver(() => {
+        updateSplinePaths();
+      });
+      resizeObserver.observe(containerRef.current);
+    }
+
+    // Small delay to ensure all font / DOM layout elements have settled
+    const timeout = setTimeout(updateSplinePaths, 100);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
+      clearTimeout(timeout);
+    };
+  }, [updateSplinePaths]);
 
   // Exact step cumulative sums calculated by adding each subscription's yearly cost (price * 12)
   const cumulativeSteps = SUBSCRIPTIONS.reduce<number[]>((acc, sub, index) => {
@@ -188,11 +311,14 @@ export function SubscriptionMindmap() {
       </div>
 
       {/* Interactive Mindmap Visual Container (Desktop / Tablet Splines) */}
-      <div className="relative w-full flex-1 min-h-[360px] max-h-[480px] hidden md:block select-none">
+      <div
+        ref={containerRef}
+        className="relative w-full flex-1 min-h-[360px] max-h-[480px] hidden md:block select-none"
+      >
         {/* SVG Curved Spline Rays */}
         <svg
-          viewBox="0 0 1000 550"
-          className="absolute inset-0 w-full h-full pointer-events-none overflow-visible z-0"
+          viewBox={`0 0 ${svgDimensions.width} ${svgDimensions.height}`}
+          className="absolute inset-0 w-full h-full pointer-events-none z-0"
           aria-hidden="true"
         >
           <defs>
@@ -206,12 +332,15 @@ export function SubscriptionMindmap() {
           {SUBSCRIPTIONS.map((sub, index) => {
             const isIncluded = index <= stepIndex;
             const isCurrent = index === stepIndex;
+            const d = computedPaths[sub.id];
+
+            if (!d) return null;
 
             return (
               <g key={`path-${sub.id}`}>
                 {/* Base static faint curve */}
                 <path
-                  d={sub.svgPath}
+                  d={d}
                   fill="none"
                   stroke="var(--color-border)"
                   strokeWidth="1.5"
@@ -221,7 +350,7 @@ export function SubscriptionMindmap() {
                 {/* Energetic flowing pulse stream when active */}
                 {isIncluded && (
                   <path
-                    d={sub.svgPath}
+                    d={d}
                     fill="none"
                     stroke="url(#streamPulseGrad)"
                     strokeWidth={isCurrent ? '2.5' : '1.8'}
@@ -241,16 +370,20 @@ export function SubscriptionMindmap() {
           return (
             <div
               key={sub.id}
+              ref={(el) => {
+                badgeRefs.current[sub.id] = el;
+              }}
               style={sub.desktopStyle}
               className={`absolute z-10 ${sub.animationClass}`}
             >
               <div
-                className={`flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-full transition-all duration-300 backdrop-blur-xs ${isCurrent
-                  ? 'bg-[var(--color-surface-raised)] border-2 border-[var(--color-accent)] shadow-lg scale-105 ring-2 ring-[var(--color-accent)]/20'
-                  : isIncluded
-                    ? 'bg-[var(--color-page)] border border-[var(--color-border-strong)] shadow-sm'
-                    : 'bg-[var(--color-page)]/60 border border-[var(--color-border-subtle)] opacity-50 shadow-none'
-                  }`}
+                className={`flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-full transition-all duration-300 backdrop-blur-xs ${
+                  isCurrent
+                    ? 'bg-[var(--color-surface-raised)] border border-[var(--color-border-strong)] shadow-md scale-105'
+                    : isIncluded
+                      ? 'bg-[var(--color-page)] border border-[var(--color-border-strong)] shadow-xs'
+                      : 'bg-[var(--color-page)]/60 border border-[var(--color-border-subtle)] opacity-50 shadow-none'
+                }`}
               >
                 <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 overflow-hidden bg-white dark:bg-zinc-900 border border-[var(--color-border-subtle)] p-1 shadow-xs">
                   <Image
@@ -277,7 +410,10 @@ export function SubscriptionMindmap() {
 
         {/* Center Accumulator Focal Point Node */}
         <div className="absolute bottom-1 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
-          <div className="relative group bg-[var(--color-text)] text-[var(--color-page)] dark:bg-[var(--color-surface-raised)] dark:text-[var(--color-text)] border border-[var(--color-border-strong)] px-5 py-3 sm:px-7 sm:py-3.5 rounded-2xl shadow-xl flex flex-col items-center gap-1.5 min-w-[300px] text-center">
+          <div
+            ref={cardRef}
+            className="relative group bg-[var(--color-text)] text-[var(--color-page)] dark:bg-[var(--color-surface-raised)] dark:text-[var(--color-text)] border border-[var(--color-border-strong)] px-5 py-3 sm:px-7 sm:py-3.5 rounded-2xl shadow-xl flex flex-col items-center gap-1.5 min-w-[300px] text-center"
+          >
             {/* Subtle Top Indicator Pill with current added sub name */}
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 dark:text-emerald-300 text-[11px] font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-micro-pulse shrink-0" />
@@ -324,12 +460,13 @@ export function SubscriptionMindmap() {
             return (
               <div
                 key={sub.id}
-                className={`flex items-center gap-2 pl-2 pr-3 py-2 rounded-full transition-all duration-300 ${isCurrent
-                  ? 'bg-[var(--color-surface-raised)] border-2 border-[var(--color-accent)] shadow-md'
-                  : isIncluded
-                    ? 'bg-[var(--color-page)] border border-[var(--color-border-strong)]'
-                    : 'bg-[var(--color-page)]/60 border border-[var(--color-border-subtle)] opacity-50'
-                  }`}
+                className={`flex items-center gap-2 pl-2 pr-3 py-2 rounded-full transition-all duration-300 ${
+                  isCurrent
+                    ? 'bg-[var(--color-surface-raised)] border border-[var(--color-border-strong)] shadow-md'
+                    : isIncluded
+                      ? 'bg-[var(--color-page)] border border-[var(--color-border-strong)]'
+                      : 'bg-[var(--color-page)]/60 border border-[var(--color-border-subtle)] opacity-50'
+                }`}
               >
                 <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 overflow-hidden bg-white dark:bg-zinc-900 border border-[var(--color-border-subtle)] p-1 shadow-xs">
                   <Image
