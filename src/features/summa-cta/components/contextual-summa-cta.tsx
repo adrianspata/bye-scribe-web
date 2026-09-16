@@ -18,28 +18,28 @@ const CONTEXT_CONTENT: Record<
   { title: string; description: string; ctaText: string }
 > = {
   homepage: {
-    title: 'Få full koll på dina fasta utgifter med Summa',
+    title: 'Get full control of your recurring expenses with Summa',
     description:
-      'Upptäck onödiga prenumerationer och spåra dina kostnader direkt i mobilen.',
-    ctaText: 'Ladda ner Summa',
+      'Discover unwanted subscriptions and track your spending directly on your phone.',
+    ctaText: 'Download Summa',
   },
   service_detail: {
-    title: 'Håll koll på resten av dina abonnemang med Summa',
+    title: 'Keep track of your remaining subscriptions with Summa',
     description:
-      'När du avslutat denna tjänst hjälper Summa dig att få överblick över kvarvarande fasta utgifter och kommande dragningar.',
-    ctaText: 'Få koll med Summa',
+      'Once you cancel this service, Summa helps you keep an overview of remaining fixed expenses and upcoming charges.',
+    ctaText: 'Track with Summa',
   },
   savings_calculator: {
-    title: 'Samla dina sparade pengar och återkommande kostnader',
+    title: 'Track your saved money and recurring costs',
     description:
-      'Använd Summa för att spåra hur mycket du sparar varje månad genom att rensa bort oanvända abonnemang.',
-    ctaText: 'Optimera ekonomin i Summa',
+      'Use Summa to track how much you save each month by removing unused subscriptions.',
+    ctaText: 'Optimize finances in Summa',
   },
   cancellation_message: {
-    title: 'Lägg till nästa betalning och bevakning i Summa',
+    title: 'Set up reminders and tracking in Summa',
     description:
-      'Sätt en påminnelse i Summa så att du kan verifiera att autogirot eller kortdragningen verkligen har upphört.',
-    ctaText: 'Bevaka i Summa',
+      'Set a reminder in Summa so you can verify that direct debits or card charges have stopped.',
+    ctaText: 'Monitor in Summa',
   },
 };
 
@@ -91,7 +91,7 @@ export function ContextualSummaCta({
           </a>
         ) : (
           <div className="text-xs text-[var(--color-text-muted)] border border-[var(--color-border)] bg-[var(--color-surface-interactive)] px-3.5 py-2 rounded-[var(--radius-md)] shrink-0">
-            Summa finns i App Store
+            Summa is available on the App Store
           </div>
         )}
       </SignalField>
