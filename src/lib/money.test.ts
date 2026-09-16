@@ -18,7 +18,7 @@ describe('formatMoneySEK', () => {
 
   it('handles monthly intervals', () => {
     const formatted = formatMoneySEK(99, { interval: 'month' });
-    expect(formatted.replace(/\u00a0/g, ' ')).toBe('99 kr/mån');
+    expect(formatted.replace(/\u00a0/g, ' ')).toBe('99 kr/mo');
   });
 
   it('formats minor units (öre) properly', () => {

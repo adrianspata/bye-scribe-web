@@ -38,10 +38,10 @@ export function formatMoneySEK(
   const formatted = formatter.format(valueInSEK);
 
   if (options?.interval === 'month') {
-    return `${formatted}/mån`;
+    return `${formatted}/mo`;
   }
   if (options?.interval === 'year') {
-    return `${formatted}/år`;
+    return `${formatted}/yr`;
   }
 
   return formatted;
