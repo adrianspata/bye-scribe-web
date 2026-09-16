@@ -92,18 +92,18 @@ describe('Service Guide Components', () => {
       render(<ServiceGuideHeader service={mockService} isFixtureMode={false} />);
       const h1Elements = screen.getAllByRole('heading', { level: 1 });
       expect(h1Elements).toHaveLength(1);
-      expect(h1Elements[0]).toHaveTextContent('Säg upp Test Service');
+      expect(h1Elements[0]).toHaveTextContent('Cancel Test Service');
       expect(screen.getByText('Streaming')).toBeInTheDocument();
-      expect(screen.getByText('Juridiskt namn: Test Service AB')).toBeInTheDocument();
+      expect(screen.getByText('Legal name: Test Service AB')).toBeInTheDocument();
     });
 
     it('displays demo notice when isFixtureMode is true', () => {
       render(<ServiceGuideHeader service={mockService} isFixtureMode={true} />);
       expect(
-        screen.getByText('Lokal demo – informationen är inte en verkligt verifierad tjänsteguide.')
+        screen.getByText('Local demo – this information is sample data and not a verified service guide.')
       ).toBeInTheDocument();
       // Verified date should NOT be displayed as real verification on fixtures
-      expect(screen.queryByText(/Verifierad 1 mars 2026/)).not.toBeInTheDocument();
+      expect(screen.queryByText(/Verified March 1, 2026/)).not.toBeInTheDocument();
     });
 
     it('displays stale notice when verificationStatus is stale', () => {
@@ -113,7 +113,7 @@ describe('Service Guide Components', () => {
       };
       render(<ServiceGuideHeader service={staleService} isFixtureMode={false} />);
       expect(
-        screen.getByText('Denna guide är i behov av ny granskning. Villkor och kontaktvägar kan ha ändrats hos leverantören.')
+        screen.getByText('This guide needs review. Terms and contact channels may have changed with the provider.')
       ).toBeInTheDocument();
     });
   });
@@ -121,10 +121,10 @@ describe('Service Guide Components', () => {
   describe('ServiceFacts', () => {
     it('renders cancellation channel and notice period correctly', () => {
       render(<ServiceFacts service={mockService} />);
-      expect(screen.getByText('Primär uppsägningskanal')).toBeInTheDocument();
-      expect(screen.getByText('Webbplats / Mina sidor')).toBeInTheDocument();
-      expect(screen.getByText('Uppsägningstid')).toBeInTheDocument();
-      expect(screen.getByText('Ingen uppsägningstid (0 dagar)')).toBeInTheDocument();
+      expect(screen.getByText('Primary cancellation channel')).toBeInTheDocument();
+      expect(screen.getByText('Website / Account Settings')).toBeInTheDocument();
+      expect(screen.getByText('Notice period')).toBeInTheDocument();
+      expect(screen.getByText('No notice period (0 days)')).toBeInTheDocument();
     });
   });
 
@@ -148,9 +148,9 @@ describe('Service Guide Components', () => {
           websiteUrl="https://example.com"
         />
       );
-      expect(screen.getByText('Gå till Test Service')).toBeInTheDocument();
+      expect(screen.getByText('Go to Test Service')).toBeInTheDocument();
       expect(
-        screen.getByText('Du lämnar ByeScribe och genomför uppsägningen hos leverantören.')
+        screen.getByText('You will leave ByeScribe and complete cancellation on the provider\'s website.')
       ).toBeInTheDocument();
     });
 
@@ -162,7 +162,7 @@ describe('Service Guide Components', () => {
           websiteUrl="https://example.com"
         />
       );
-      expect(screen.getByText('Besök Test Services webbplats')).toBeInTheDocument();
+      expect(screen.getByText("Visit Test Service's website")).toBeInTheDocument();
     });
 
     it('renders null when no valid URLs exist', () => {
@@ -185,7 +185,7 @@ describe('Service Guide Components', () => {
           confirmationNotes="Bekräftelse via e-post."
         />
       );
-      expect(screen.getByText('Villkor och bekräftelse')).toBeInTheDocument();
+      expect(screen.getByText('Terms & Confirmation')).toBeInTheDocument();
       expect(screen.getByText('Ingen bindningstid.')).toBeInTheDocument();
       expect(screen.getByText('Bekräftelse via e-post.')).toBeInTheDocument();
     });
@@ -202,7 +202,7 @@ describe('Service Guide Components', () => {
     it('formats price in SEK with billing interval', () => {
       render(<ServicePricesSection prices={mockService.prices} isFixtureMode={false} />);
       expect(screen.getByText('Månadsplan')).toBeInTheDocument();
-      expect(screen.getByText(/99 kr\/mån/)).toBeInTheDocument();
+      expect(screen.getByText(/99 kr\/mo/)).toBeInTheDocument();
     });
   });
 
@@ -210,30 +210,30 @@ describe('Service Guide Components', () => {
     it('renders sources with type and dates without synthetic publishers', () => {
       render(<SourceList sources={mockService.sources} />);
       expect(screen.getByText('Allmänna villkor')).toBeInTheDocument();
-      expect(screen.getByText('Allmänna avtalsvillkor')).toBeInTheDocument();
-      expect(screen.getByText(/Åtkomstdatum:/)).toBeInTheDocument();
-      expect(screen.getByText(/Verifierad:/)).toBeInTheDocument();
+      expect(screen.getByText('Terms of Service')).toBeInTheDocument();
+      expect(screen.getByText(/Accessed:/)).toBeInTheDocument();
+      expect(screen.getByText(/Verified:/)).toBeInTheDocument();
     });
   });
 
   describe('ServiceInPageNav', () => {
     it('renders navigation links when at least 3 sections exist', () => {
       const sections = [
-        { id: 'snabbfakta', label: 'Snabböversikt' },
-        { id: 'steg', label: 'Uppsägningssteg' },
-        { id: 'verktyg', label: 'Verktyg' },
+        { id: 'snabbfakta', label: 'Quick Overview' },
+        { id: 'steg', label: 'Cancellation Steps' },
+        { id: 'verktyg', label: 'Tools' },
       ];
       render(<ServiceInPageNav sections={sections} />);
-      expect(screen.getByText('Innehåll i guiden')).toBeInTheDocument();
-      expect(screen.getByText('Snabböversikt')).toBeInTheDocument();
-      expect(screen.getByText('Uppsägningssteg')).toBeInTheDocument();
-      expect(screen.getByText('Verktyg')).toBeInTheDocument();
+      expect(screen.getByText('Guide contents')).toBeInTheDocument();
+      expect(screen.getByText('Quick Overview')).toBeInTheDocument();
+      expect(screen.getByText('Cancellation Steps')).toBeInTheDocument();
+      expect(screen.getByText('Tools')).toBeInTheDocument();
     });
 
     it('renders null when less than 3 sections exist', () => {
       const sections = [
-        { id: 'snabbfakta', label: 'Snabböversikt' },
-        { id: 'steg', label: 'Uppsägningssteg' },
+        { id: 'snabbfakta', label: 'Quick Overview' },
+        { id: 'steg', label: 'Cancellation Steps' },
       ];
       const { container } = render(<ServiceInPageNav sections={sections} />);
       expect(container.firstChild).toBeNull();

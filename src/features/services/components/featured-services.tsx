@@ -37,7 +37,7 @@ export async function FeaturedServices() {
         </h2>
         {isFixtureMode && (
           <p className="text-xs text-[var(--color-text-muted)]">
-            Tjänsterna nedan är exempeldata i den lokala utvecklingsmiljön.
+            The services below are sample data in the local development environment.
           </p>
         )}
       </div>
