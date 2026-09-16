@@ -63,7 +63,7 @@ async function runSmokeTests() {
   for (let i = 0; i < 30; i++) {
     await sleep(500);
     try {
-      const res = await fetchUrl('/sv');
+      const res = await fetchUrl('/en');
       if (res.status === 200) {
         isReady = true;
         break;
@@ -88,15 +88,15 @@ async function runSmokeTests() {
     if (rootRes.status !== 307 && rootRes.status !== 308) {
       errors.push(`Expected root / to redirect with 307/308, got ${rootRes.status}`);
     } else {
-      console.log('✓ 1. / redirects to /sv successfully');
+      console.log('✓ 1. / redirects to /en successfully');
     }
 
-    // 2. /sv homepage & security headers
-    const homeRes = await fetchUrl('/sv');
+    // 2. /en homepage & security headers
+    const homeRes = await fetchUrl('/en');
     if (homeRes.status !== 200) {
-      errors.push(`Expected /sv to return 200, got ${homeRes.status}`);
+      errors.push(`Expected /en to return 200, got ${homeRes.status}`);
     } else {
-      console.log('✓ 2. /sv returns 200');
+      console.log('✓ 2. /en returns 200');
     }
     if (homeRes.headers['x-content-type-options'] !== 'nosniff') {
       errors.push('Missing X-Content-Type-Options: nosniff header');
@@ -104,9 +104,9 @@ async function runSmokeTests() {
       console.log('✓ 3. Security header X-Content-Type-Options is present');
     }
     if (!homeRes.body.includes('ByeScribe') || !homeRes.body.includes('The easier way to unsubscribe.')) {
-      errors.push('Expected /sv HTML to contain brand name "ByeScribe" and tagline');
+      errors.push('Expected /en HTML to contain brand name "ByeScribe" and tagline');
     } else {
-      console.log('✓ 4. /sv HTML contains canonical ByeScribe brand name and tagline');
+      console.log('✓ 4. /en HTML contains canonical ByeScribe brand name and tagline');
     }
 
     // 3. /robots.txt
@@ -116,10 +116,10 @@ async function runSmokeTests() {
     } else {
       console.log('✓ 5. /robots.txt returns 200');
     }
-    if (robotsRes.body.includes('Disallow: /sv/sok')) {
-      errors.push('robots.txt should NOT disallow /sv/sok');
+    if (robotsRes.body.includes('Disallow: /en/sok')) {
+      errors.push('robots.txt should NOT disallow /en/sok');
     } else {
-      console.log('✓ 6. /robots.txt allows crawling of /sv/sok for noindex discovery');
+      console.log('✓ 6. /robots.txt allows crawling of /en/sok for noindex discovery');
     }
 
     // 4. /sitemap.xml
@@ -144,48 +144,48 @@ async function runSmokeTests() {
     }
 
     // 6. Tools routes
-    const calcRes = await fetchUrl('/sv/verktyg/besparingskalkylator');
+    const calcRes = await fetchUrl('/en/verktyg/besparingskalkylator');
     if (calcRes.status !== 200) {
       errors.push(`Expected calculator to return 200, got ${calcRes.status}`);
     } else {
-      console.log('✓ 10. /sv/verktyg/besparingskalkylator returns 200');
+      console.log('✓ 10. /en/verktyg/besparingskalkylator returns 200');
     }
 
-    const msgRes = await fetchUrl('/sv/verktyg/uppsagningsmeddelande');
+    const msgRes = await fetchUrl('/en/verktyg/uppsagningsmeddelande');
     if (msgRes.status !== 200) {
       errors.push(`Expected message generator to return 200, got ${msgRes.status}`);
     } else {
-      console.log('✓ 11. /sv/verktyg/uppsagningsmeddelande returns 200');
+      console.log('✓ 11. /en/verktyg/uppsagningsmeddelande returns 200');
     }
 
     // 7. Search page & query
-    const sokRes = await fetchUrl('/sv/sok');
+    const sokRes = await fetchUrl('/en/sok');
     if (sokRes.status !== 200) {
-      errors.push(`Expected /sv/sok to return 200, got ${sokRes.status}`);
+      errors.push(`Expected /en/sok to return 200, got ${sokRes.status}`);
     } else {
-      console.log('✓ 12. /sv/sok returns 200');
+      console.log('✓ 12. /en/sok returns 200');
     }
 
-    const sokQueryRes = await fetchUrl('/sv/sok?q=nordicplay');
+    const sokQueryRes = await fetchUrl('/en/sok?q=nordicplay');
     if (sokQueryRes.status !== 200) {
-      errors.push(`Expected /sv/sok?q=nordicplay to return 200, got ${sokQueryRes.status}`);
+      errors.push(`Expected /en/sok?q=nordicplay to return 200, got ${sokQueryRes.status}`);
     } else {
-      console.log('✓ 13. /sv/sok?q=nordicplay returns 200 with valid search response');
+      console.log('✓ 13. /en/sok?q=nordicplay returns 200 with valid search response');
     }
 
     // 8. Service Detail & Unknown slug
-    const serviceRes = await fetchUrl('/sv/tjanster/nordicplay-demo');
+    const serviceRes = await fetchUrl('/en/tjanster/nordicplay-demo');
     if (serviceRes.status !== 200 && serviceRes.status !== 404) {
-      errors.push(`Expected /sv/tjanster/nordicplay-demo to return 200 or 404, got ${serviceRes.status}`);
+      errors.push(`Expected /en/tjanster/nordicplay-demo to return 200 or 404, got ${serviceRes.status}`);
     } else {
-      console.log(`✓ 14. /sv/tjanster/nordicplay-demo returns valid HTTP ${serviceRes.status}`);
+      console.log(`✓ 14. /en/tjanster/nordicplay-demo returns valid HTTP ${serviceRes.status}`);
     }
 
-    const unknownServiceRes = await fetchUrl('/sv/tjanster/okand-slug-som-inte-finns');
+    const unknownServiceRes = await fetchUrl('/en/tjanster/okand-slug-som-inte-finns');
     if (unknownServiceRes.status !== 404) {
       errors.push(`Expected unknown service to return 404, got ${unknownServiceRes.status}`);
     } else {
-      console.log('✓ 15. /sv/tjanster/okand-slug-som-inte-finns returns 404');
+      console.log('✓ 15. /en/tjanster/okand-slug-som-inte-finns returns 404');
     }
   } catch (err) {
     errors.push(`Unexpected smoke test error: ${err.message}`);
