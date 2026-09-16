@@ -6,7 +6,7 @@ interface SkipLinkProps {
 }
 
 export function SkipLink({
-  children = 'Hoppa till huvudinnehåll',
+  children = 'Skip to main content',
   targetId = 'main-content',
 }: SkipLinkProps) {
   return (
