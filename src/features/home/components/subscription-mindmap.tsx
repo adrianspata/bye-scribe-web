@@ -166,19 +166,16 @@ export function SubscriptionMindmap() {
   return (
     <section
       aria-labelledby="subscription-mindmap-heading"
-      className="w-full flex flex-col gap-6 sm:gap-8 relative overflow-hidden rounded-[var(--radius-card-visual)] bg-[var(--color-surface)] border border-[var(--color-border)] p-6 sm:p-8 lg:p-10 shadow-subtle"
+      className="w-full min-h-[90vh] flex flex-col justify-between gap-6 sm:gap-8 relative overflow-hidden rounded-[var(--radius-card-visual)] bg-[var(--color-surface)] border border-[var(--color-border)] p-6 sm:p-8 lg:p-12 shadow-subtle"
     >
       {/* Background Ambient Radial Glow */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-radial from-[var(--color-accent)]/5 via-transparent to-transparent pointer-events-none blur-3xl"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] bg-radial from-[var(--color-accent)]/5 via-transparent to-transparent pointer-events-none blur-3xl"
         aria-hidden="true"
       />
 
       {/* Top Header & Intro */}
-      <div className="flex flex-col items-center text-center gap-2 max-w-2xl mx-auto z-10">
-        <span className="text-xs font-semibold text-[var(--color-accent)] uppercase tracking-wider">
-          {t('mindmapBadge')}
-        </span>
+      <div className="flex flex-col items-center text-center gap-2 max-w-2xl mx-auto z-10 pt-2 sm:pt-4">
         <h2
           id="subscription-mindmap-heading"
           className="text-2xl sm:text-3xl lg:text-4xl font-normal tracking-tight text-[var(--color-text)] leading-tight"
@@ -191,7 +188,7 @@ export function SubscriptionMindmap() {
       </div>
 
       {/* Interactive Mindmap Visual Container (Desktop / Tablet Splines) */}
-      <div className="relative w-full h-[460px] sm:h-[500px] lg:h-[520px] mt-2 hidden md:block select-none">
+      <div className="relative w-full flex-1 min-h-[480px] sm:min-h-[520px] lg:min-h-[560px] mt-2 hidden md:block select-none">
         {/* SVG Curved Spline Rays */}
         <svg
           viewBox="0 0 1000 550"
