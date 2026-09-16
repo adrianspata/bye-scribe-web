@@ -9,11 +9,11 @@ export const BRAND = {
   name: 'ByeScribe',
   tagline: 'The easier way to unsubscribe.',
   shortDescription:
-    'ByeScribe hjälper konsumenter att hitta instruktioner, villkor och verktyg för att säga upp abonnemang och spara pengar.',
+    'ByeScribe helps consumers find step-by-step instructions, terms, and tools to cancel subscriptions and save money.',
   description:
-    'ByeScribe hjälper dig att hitta steg-för-steg-instruktioner, villkor och kontaktvägar för att säga upp abonnemang i Sverige.',
+    'ByeScribe helps you find step-by-step instructions, terms, and contact paths to cancel subscriptions.',
   disclaimer:
-    'ByeScribe hjälper konsumenter att hitta instruktioner för att säga upp abonnemang. Vi säger aldrig upp tjänster automatiskt.',
+    'ByeScribe helps consumers find instructions to cancel subscriptions. We never cancel services automatically.',
   futureArchitecture: [
     'ByeScribe Guides',
     'ByeScribe Assistant',

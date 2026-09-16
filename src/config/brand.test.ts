@@ -7,7 +7,7 @@ describe('Brand Configuration & Integrity', () => {
   it('defines the canonical ByeScribe brand name, description and tagline', () => {
     expect(BRAND.name).toBe('ByeScribe');
     expect(BRAND.tagline).toBe('The easier way to unsubscribe.');
-    expect(BRAND.disclaimer).toContain('ByeScribe hjälper konsumenter');
+    expect(BRAND.disclaimer).toContain('ByeScribe helps consumers');
   });
 
   it('defines future product family architecture without creating premature features', () => {
@@ -20,15 +20,15 @@ describe('Brand Configuration & Integrity', () => {
   });
 
   it('ensures user-facing localization copy does not contain legacy name "CancelPath"', () => {
-    const svPath = path.resolve(__dirname, '../messages/sv.json');
-    const svContent = fs.readFileSync(svPath, 'utf-8');
-    const parsed = JSON.parse(svContent);
+    const enPath = path.resolve(__dirname, '../messages/en.json');
+    const enContent = fs.readFileSync(enPath, 'utf-8');
+    const parsed = JSON.parse(enContent);
 
     expect(parsed.common.brand).toBe('ByeScribe');
     expect(parsed.common.tagline).toBe('The easier way to unsubscribe.');
-    expect(parsed.common.disclaimer).toContain('ByeScribe hjälper konsumenter');
-    expect(svContent).not.toContain('CancelPath');
-    expect(svContent).not.toContain('cancelpath');
+    expect(parsed.common.disclaimer).toContain('ByeScribe helps consumers');
+    expect(enContent).not.toContain('CancelPath');
+    expect(enContent).not.toContain('cancelpath');
   });
 
   it('ensures layout and page metadata files do not hardcode legacy product name in visible titles', () => {
