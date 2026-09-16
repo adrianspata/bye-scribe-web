@@ -110,25 +110,25 @@ export function CancellationMessageGenerator() {
       {/* Calm Neutral Privacy Boundary (Visible before entering personal info) */}
       <InlineNotice
         variant="information"
-        title="Integritetsinformation"
-        aria-label="Integritetsinformation"
+        title="Privacy Notice"
+        aria-label="Privacy Notice"
       >
-        Det du skriver stannar i din webbläsare och skickas inte till ByeScribe. Uppgifterna sparas inte när du lämnar sidan.
+        What you type stays in your browser and is never sent to ByeScribe. Data is not saved when you leave the page.
       </InlineNotice>
 
       <Card variant="raised" as="section" aria-labelledby="form-heading" className="flex flex-col gap-8">
         <form onSubmit={handleFormSubmit} className="flex flex-col gap-8">
-          {/* Group 1: Om tjänsten */}
+          {/* Group 1: Service Details */}
           <fieldset className="flex flex-col gap-4 border-0 p-0 m-0">
             <legend id="form-heading" className="text-base font-semibold text-[var(--color-text)] pb-2 border-b border-[var(--color-border)] w-full">
-              1. Om tjänsten
+              1. Service Details
             </legend>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {/* Service Name */}
               <div className="flex flex-col gap-1.5 sm:col-span-2">
                 <FieldLabel htmlFor="msg-service" required>
-                  Tjänstens namn
+                  Service name
                 </FieldLabel>
                 <Input
                   id="msg-service"
@@ -140,14 +140,14 @@ export function CancellationMessageGenerator() {
                     setServiceName(e.target.value);
                     setManualText(null);
                   }}
-                  placeholder="T.ex. Spotify eller Readly"
+                  placeholder="e.g. Spotify or Netflix"
                 />
               </div>
 
               {/* Message Type */}
               <div className="flex flex-col gap-1.5">
                 <FieldLabel htmlFor="msg-type">
-                  Typ av meddelande
+                  Type of message
                 </FieldLabel>
                 <Select
                   id="msg-type"
@@ -168,7 +168,7 @@ export function CancellationMessageGenerator() {
               {/* Desired End Date */}
               <div className="flex flex-col gap-1.5">
                 <FieldLabel htmlFor="msg-end-date">
-                  Önskat avslutsdatum (valfritt)
+                  Desired end date (optional)
                 </FieldLabel>
                 <Input
                   id="msg-end-date"
@@ -180,23 +180,23 @@ export function CancellationMessageGenerator() {
                   }}
                 />
                 <FieldHint>
-                  Lämna tomt om du vill avsluta snarast möjligt.
+                  Leave blank to cancel as soon as possible.
                 </FieldHint>
               </div>
             </div>
           </fieldset>
 
-          {/* Group 2: Dina uppgifter */}
+          {/* Group 2: Your Information */}
           <fieldset className="flex flex-col gap-4 border-0 p-0 m-0">
             <legend className="text-base font-semibold text-[var(--color-text)] pb-2 border-b border-[var(--color-border)] w-full">
-              2. Dina uppgifter
+              2. Your Information
             </legend>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {/* User Name */}
               <div className="flex flex-col gap-1.5">
                 <FieldLabel htmlFor="msg-name" required>
-                  Ditt för- och efternamn
+                  Your full name
                 </FieldLabel>
                 <Input
                   id="msg-name"
@@ -208,14 +208,14 @@ export function CancellationMessageGenerator() {
                     setName(e.target.value);
                     setManualText(null);
                   }}
-                  placeholder="Förnamn Efternamn"
+                  placeholder="First Last"
                 />
               </div>
 
               {/* Customer / Membership ID */}
               <div className="flex flex-col gap-1.5">
                 <FieldLabel htmlFor="msg-customer-id">
-                  Kundnummer eller medlemsnummer (valfritt)
+                  Customer or membership ID (optional)
                 </FieldLabel>
                 <Input
                   id="msg-customer-id"
@@ -227,22 +227,22 @@ export function CancellationMessageGenerator() {
                     setCustomerId(e.target.value);
                     setManualText(null);
                   }}
-                  placeholder="T.ex. 123456 eller e-postadress"
+                  placeholder="e.g. 123456 or email address"
                 />
               </div>
             </div>
           </fieldset>
 
-          {/* Group 3: Kompletterande information */}
+          {/* Group 3: Additional Details */}
           <fieldset className="flex flex-col gap-4 border-0 p-0 m-0">
             <legend className="text-base font-semibold text-[var(--color-text)] pb-2 border-b border-[var(--color-border)] w-full">
-              3. Kompletterande information
+              3. Additional Details
             </legend>
 
             <div className="flex flex-col gap-1.5">
               <div className="flex items-center justify-between">
                 <FieldLabel htmlFor="msg-note">
-                  Övriga önskemål eller orsak (valfritt)
+                  Additional notes or reason (optional)
                 </FieldLabel>
                 <FieldHint>
                   {customNote.length}/300
@@ -258,14 +258,14 @@ export function CancellationMessageGenerator() {
                   setCustomNote(e.target.value);
                   setManualText(null);
                 }}
-                placeholder="T.ex. flytt utomlands, ändrade avtalsvillkor etc."
+                placeholder="e.g. relocating, changed contract terms, etc."
               />
             </div>
           </fieldset>
 
           <div className="flex items-center gap-3">
             <Button type="submit" variant="secondary" size="md">
-              Uppdatera utkast
+              Update draft
             </Button>
           </div>
         </form>
@@ -274,7 +274,7 @@ export function CancellationMessageGenerator() {
         <section aria-labelledby="draft-heading" className="border-t border-[var(--color-border)] pt-8 flex flex-col gap-4">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <h2 id="draft-heading" className="text-base font-normal text-[var(--color-text)]">
-              Genererat utkast (redigerbart)
+              Generated draft (editable)
             </h2>
             {manualText !== null && (
               <button
@@ -283,7 +283,7 @@ export function CancellationMessageGenerator() {
                 className="inline-flex items-center gap-1.5 text-xs font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)] underline focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] rounded-[var(--radius-sm)] outline-none py-1"
               >
                 <RotateCcw className="w-3.5 h-3.5" aria-hidden="true" />
-                <span>Återställ till mall</span>
+                <span>Reset to template</span>
               </button>
             )}
           </div>
@@ -296,7 +296,7 @@ export function CancellationMessageGenerator() {
               onChange={(e) => {
                 setManualText(e.target.value);
               }}
-              aria-label="Genererat uppsägningsmeddelande"
+              aria-label="Generated cancellation message"
               className="w-full font-mono text-xs sm:text-sm p-4 bg-[var(--color-page)] text-[var(--color-text)] border border-[var(--color-border-strong)] hover:border-[var(--color-text-muted)] focus:border-[var(--color-text-muted)] rounded-[var(--radius-md)] focus:outline-none focus-visible:outline-none leading-relaxed transition-colors resize-y"
             />
           </div>
@@ -312,12 +312,12 @@ export function CancellationMessageGenerator() {
               {copyStatus === 'copied' ? (
                 <>
                   <Check className="w-4 h-4 text-[var(--color-positive)]" aria-hidden="true" />
-                  <span>Kopierat till urklipp!</span>
+                  <span>Copied to clipboard!</span>
                 </>
               ) : (
                 <>
                   <Copy className="w-4 h-4" aria-hidden="true" />
-                  <span>Kopiera meddelandetext</span>
+                  <span>Copy message text</span>
                 </>
               )}
             </Button>
@@ -329,16 +329,16 @@ export function CancellationMessageGenerator() {
             >
               {copyStatus === 'copied' && (
                 <span className="text-[var(--color-positive)] font-medium">
-                  Texten har kopierats till urklipp. Klistra in den i ditt e-postprogram.
+                  Text copied to clipboard. Paste it into your email client.
                 </span>
               )}
               {copyStatus === 'manual' && (
                 <span className="text-[var(--color-warning)] font-medium">
-                  Markera texten och kopiera manuellt (Ctrl+C / Cmd+C).
+                  Select the text and copy manually (Ctrl+C / Cmd+C).
                 </span>
               )}
               {copyStatus === 'idle' && (
-                <span>Utkastet är inte juridiskt bindande förrän du själv skickar det.</span>
+                <span>The draft is not legally binding until you send it directly to the provider.</span>
               )}
             </div>
           </div>
@@ -349,10 +349,10 @@ export function CancellationMessageGenerator() {
       <section aria-labelledby="msg-next-steps" className="border-t border-[var(--color-border)] pt-8 flex flex-col gap-4">
         <div className="flex flex-col gap-1">
           <h2 id="msg-next-steps" className="text-base font-normal text-[var(--color-text)]">
-            Viktigt om att skicka meddelandet
+            Important instructions for sending
           </h2>
           <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
-            ByeScribe skickar inte meddelandet åt dig. Du måste själv skicka texten via leverantörens officiella kanal (e-post, kontaktformulär eller brev). Spara alltid en kopia på meddelandet och leverantörens skriftliga bekräftelse.
+            ByeScribe does not send messages for you. You must send the text yourself via the provider&apos;s official channel (email, web form, or letter). Always save a copy of the sent message and the provider&apos;s written confirmation.
           </p>
         </div>
 
@@ -367,13 +367,13 @@ export function CancellationMessageGenerator() {
                   <Search className="w-4 h-4" aria-hidden="true" />
                 </div>
                 <span className="font-semibold text-sm text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
-                  {trimmedServiceName ? `Sök guide för ${trimmedServiceName}` : 'Hitta uppsägningsguide'}
+                  {trimmedServiceName ? `Search guide for ${trimmedServiceName}` : 'Find cancellation guide'}
                 </span>
               </div>
               <ArrowRight className="w-4 h-4 text-[var(--color-text-subtle)] group-hover:text-[var(--color-accent)] group-hover:translate-x-1 transition-all" aria-hidden="true" />
             </div>
             <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">
-              Hitta officiell uppsägningskanal, kontaktuppgifter och verifierade villkor.
+              Find official cancellation channels, contact details, and verified terms.
             </p>
           </Link>
 
@@ -387,13 +387,13 @@ export function CancellationMessageGenerator() {
                   <Calculator className="w-4 h-4" aria-hidden="true" />
                 </div>
                 <span className="font-semibold text-sm text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
-                  Räkna på besparingen
+                  Calculate savings
                 </span>
               </div>
               <ArrowRight className="w-4 h-4 text-[var(--color-text-subtle)] group-hover:text-[var(--color-accent)] group-hover:translate-x-1 transition-all" aria-hidden="true" />
             </div>
             <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">
-              Se hur mycket du kan spara på 1 år och 5 år om du avslutar prenumerationen.
+              See how much you save over 1 year and 5 years by unsubscribing.
             </p>
           </Link>
         </div>

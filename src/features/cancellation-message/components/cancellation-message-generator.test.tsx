@@ -23,31 +23,31 @@ describe('CancellationMessageGenerator Component', () => {
   it('renders privacy banner and pre-fills service name from query param', () => {
     render(<CancellationMessageGenerator />);
 
-    expect(screen.getByRole('region', { name: /Integritetsinformation/i })).toBeInTheDocument();
-    expect(screen.getByText(/Det du skriver stannar i din webbläsare och skickas inte till ByeScribe/i)).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: /Privacy Notice/i })).toBeInTheDocument();
+    expect(screen.getByText(/What you type stays in your browser and is never sent to ByeScribe/i)).toBeInTheDocument();
 
-    const serviceInput = screen.getByLabelText(/Tjänstens namn/i) as HTMLInputElement;
+    const serviceInput = screen.getByLabelText(/Service name/i) as HTMLInputElement;
     expect(serviceInput.value).toBe('NordicPlay');
   });
 
   it('renders all three semantic field groups', () => {
     render(<CancellationMessageGenerator />);
 
-    expect(screen.getByText('1. Om tjänsten')).toBeInTheDocument();
-    expect(screen.getByText('2. Dina uppgifter')).toBeInTheDocument();
-    expect(screen.getByText('3. Kompletterande information')).toBeInTheDocument();
+    expect(screen.getByText('1. Service Details')).toBeInTheDocument();
+    expect(screen.getByText('2. Your Information')).toBeInTheDocument();
+    expect(screen.getByText('3. Additional Details')).toBeInTheDocument();
   });
 
   it('updates draft in-memory when user types synthetic test values', () => {
     render(<CancellationMessageGenerator />);
 
-    const nameInput = screen.getByLabelText(/Ditt för- och efternamn/i);
+    const nameInput = screen.getByLabelText(/Your full name/i);
     fireEvent.change(nameInput, { target: { value: 'Testperson Testsson' } });
 
-    const customerInput = screen.getByLabelText(/Kundnummer eller medlemsnummer/i);
+    const customerInput = screen.getByLabelText(/Customer or membership ID/i);
     fireEvent.change(customerInput, { target: { value: 'KUND-9999' } });
 
-    const output = screen.getByLabelText(/Genererat uppsägningsmeddelande/i) as HTMLTextAreaElement;
+    const output = screen.getByLabelText(/Generated cancellation message/i) as HTMLTextAreaElement;
     expect(output.value).toContain('Testperson Testsson');
     expect(output.value).toContain('NordicPlay');
     expect(output.value).toContain('KUND-9999');
@@ -56,17 +56,17 @@ describe('CancellationMessageGenerator Component', () => {
   it('allows manual editing of output and reset to template', () => {
     render(<CancellationMessageGenerator />);
 
-    const output = screen.getByLabelText(/Genererat uppsägningsmeddelande/i) as HTMLTextAreaElement;
-    fireEvent.change(output, { target: { value: 'Helt egentillverkad meddelandetext' } });
+    const output = screen.getByLabelText(/Generated cancellation message/i) as HTMLTextAreaElement;
+    fireEvent.change(output, { target: { value: 'Completely custom message text' } });
 
-    expect(output.value).toBe('Helt egentillverkad meddelandetext');
-    expect(screen.getByText('Återställ till mall')).toBeInTheDocument();
+    expect(output.value).toBe('Completely custom message text');
+    expect(screen.getByText('Reset to template')).toBeInTheDocument();
 
-    const resetBtn = screen.getByRole('button', { name: /Återställ till mall/i });
+    const resetBtn = screen.getByRole('button', { name: /Reset to template/i });
     fireEvent.click(resetBtn);
 
     expect(output.value).toContain('NordicPlay');
-    expect(screen.queryByText('Återställ till mall')).not.toBeInTheDocument();
+    expect(screen.queryByText('Reset to template')).not.toBeInTheDocument();
   });
 
   it('copies text to clipboard with success feedback', async () => {
@@ -79,13 +79,13 @@ describe('CancellationMessageGenerator Component', () => {
 
     render(<CancellationMessageGenerator />);
 
-    const copyBtn = screen.getByRole('button', { name: /Kopiera meddelandetext/i });
+    const copyBtn = screen.getByRole('button', { name: /Copy message text/i });
     fireEvent.click(copyBtn);
 
     await waitFor(() => {
       expect(writeTextMock).toHaveBeenCalled();
-      expect(screen.getByText(/Kopierat till urklipp!/i)).toBeInTheDocument();
-      expect(screen.getByText(/Texten har kopierats till urklipp/i)).toBeInTheDocument();
+      expect(screen.getByText(/Copied to clipboard!/i)).toBeInTheDocument();
+      expect(screen.getByText(/Text copied to clipboard/i)).toBeInTheDocument();
     });
   });
 
@@ -99,11 +99,11 @@ describe('CancellationMessageGenerator Component', () => {
 
     render(<CancellationMessageGenerator />);
 
-    const copyBtn = screen.getByRole('button', { name: /Kopiera meddelandetext/i });
+    const copyBtn = screen.getByRole('button', { name: /Copy message text/i });
     fireEvent.click(copyBtn);
 
     await waitFor(() => {
-      expect(screen.getByText(/Markera texten och kopiera manuellt/i)).toBeInTheDocument();
+      expect(screen.getByText(/Select the text and copy manually/i)).toBeInTheDocument();
     });
   });
 });
