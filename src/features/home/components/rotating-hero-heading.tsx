@@ -11,6 +11,8 @@ const WORDS = [
   'Simpler.',
 ];
 
+const LONGEST_WORD = 'Smarter.';
+
 export function RotatingHeroHeading() {
   const [index, setIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -33,9 +35,17 @@ export function RotatingHeroHeading() {
       aria-label="Unsubscribe. Easier."
     >
       <span className="whitespace-nowrap">Unsubscribe.&nbsp;</span>
-      <span className="inline-block relative overflow-hidden text-left w-[4.6ch] sm:w-[4.8ch] shrink-0 h-[1.15em] align-top">
+      <span className="inline-grid grid-cols-1 grid-rows-1 text-left shrink-0 overflow-hidden align-top h-[1.15em]">
+        {/* Natural invisible sizer: locks width to longest word so "Unsubscribe." never moves and no word is clipped */}
         <span
-          className={`inline-block whitespace-nowrap transition-all duration-300 ease-out text-[var(--color-text)] ${
+          className="invisible row-start-1 col-start-1 select-none pointer-events-none whitespace-nowrap"
+          aria-hidden="true"
+        >
+          {LONGEST_WORD}
+        </span>
+        {/* Animated active word in the same grid cell */}
+        <span
+          className={`row-start-1 col-start-1 whitespace-nowrap transition-all duration-300 ease-out text-[var(--color-text)] ${
             isAnimating
               ? 'opacity-0 -translate-y-3'
               : 'opacity-100 translate-y-0'
