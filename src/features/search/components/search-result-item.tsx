@@ -27,7 +27,7 @@ export function SearchResultItem({ result }: SearchResultItemProps) {
           </div>
         </div>
         <div className="flex items-center gap-1.5 text-xs font-medium text-[var(--color-text-muted)] group-hover:text-[var(--color-accent)] transition-colors shrink-0 mt-0.5">
-          <span className="hidden sm:inline">Visa uppsägningsguiden</span>
+          <span className="hidden sm:inline">View guide</span>
           <ChevronRight className="w-4 h-4 text-[var(--color-text-subtle)] group-hover:text-[var(--color-accent)] group-hover:translate-x-0.5 transition-transform" aria-hidden="true" />
         </div>
       </div>
@@ -40,7 +40,7 @@ export function SearchResultItem({ result }: SearchResultItemProps) {
 
       {result.matchedAlias && (
         <div className="text-xs text-[var(--color-text-subtle)] flex items-center gap-1">
-          <span>Matchat alias:</span>
+          <span>Matched alias:</span>
           <span className="font-medium italic text-[var(--color-text-muted)]">{result.matchedAlias}</span>
         </div>
       )}

@@ -22,7 +22,7 @@ describe('Search Components', () => {
       slug: 'netflix-demo',
       name: 'Netflix Demo',
       nameNormalized: 'netflix demo',
-      summary: 'Filmer och serier.',
+      summary: 'Movies and shows.',
       categoryName: 'Streaming',
       matchType: 'exact_name',
       score: 100,
@@ -32,22 +32,22 @@ describe('Search Components', () => {
       render(<SearchResultItem result={mockResult} />);
       expect(screen.getByText('Netflix Demo')).toBeInTheDocument();
       expect(screen.getByText('Streaming')).toBeInTheDocument();
-      expect(screen.getByText('Filmer och serier.')).toBeInTheDocument();
-      expect(screen.getByText('Visa uppsägningsguiden')).toBeInTheDocument();
+      expect(screen.getByText('Movies and shows.')).toBeInTheDocument();
+      expect(screen.getByText('View guide')).toBeInTheDocument();
       // Ranking score should NOT be displayed
       expect(screen.queryByText(/100/)).not.toBeInTheDocument();
     });
 
     it('renders matchedAlias only when explicitly present in the result', () => {
       const { rerender } = render(<SearchResultItem result={mockResult} />);
-      expect(screen.queryByText(/Matchat alias:/)).not.toBeInTheDocument();
+      expect(screen.queryByText(/Matched alias:/)).not.toBeInTheDocument();
 
       const resultWithAlias: SearchResult = {
         ...mockResult,
         matchedAlias: 'Nflx',
       };
       rerender(<SearchResultItem result={resultWithAlias} />);
-      expect(screen.getByText(/Matchat alias:/)).toBeInTheDocument();
+      expect(screen.getByText(/Matched alias:/)).toBeInTheDocument();
       expect(screen.getByText('Nflx')).toBeInTheDocument();
     });
   });
@@ -56,22 +56,22 @@ describe('Search Components', () => {
     it('renders empty prompt when type is empty', () => {
       render(<SearchEmptyState type="empty" />);
       expect(
-        screen.getByText('Skriv in namnet på tjänsten du vill säga upp i sökfältet ovan.')
+        screen.getByText('Type the name of the service you want to cancel in the search box above.')
       ).toBeInTheDocument();
     });
 
     it('renders no_results with tool links when type is no_results', () => {
-      render(<SearchEmptyState type="no_results" query="OkändTjänst" />);
+      render(<SearchEmptyState type="no_results" query="UnknownService" />);
       expect(
-        screen.getByText(/Inga guider hittades för “OkändTjänst”/)
+        screen.getByText(/No guides found for “UnknownService”/)
       ).toBeInTheDocument();
-      expect(screen.getByText('Skapa eget meddelande')).toBeInTheDocument();
-      expect(screen.getByText('Räkna på besparingen')).toBeInTheDocument();
+      expect(screen.getByText('Create own message')).toBeInTheDocument();
+      expect(screen.getByText('Calculate savings')).toBeInTheDocument();
     });
 
     it('renders invalid_query message when type is invalid_query', () => {
       render(<SearchEmptyState type="invalid_query" />);
-      expect(screen.getByText('Ogiltig sökfras')).toBeInTheDocument();
+      expect(screen.getByText('Invalid search query')).toBeInTheDocument();
     });
   });
 });
