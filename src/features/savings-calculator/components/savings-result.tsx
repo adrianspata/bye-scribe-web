@@ -1,12 +1,13 @@
 import React from 'react';
-import { SavingsProjection, formatMoneySEK } from '@/lib/money';
+import { CurrencyCode, SavingsProjection, formatMoney } from '@/lib/money';
 import { SignalField } from '@/components/visual/signal-field';
 
 export interface SavingsResultProps {
   projection: SavingsProjection;
+  currency?: CurrencyCode;
 }
 
-export function SavingsResult({ projection }: SavingsResultProps) {
+export function SavingsResult({ projection, currency = 'SEK' }: SavingsResultProps) {
   return (
     <div
       aria-live="polite"
@@ -27,7 +28,7 @@ export function SavingsResult({ projection }: SavingsResultProps) {
               Potential monthly savings
             </span>
             <span className="text-xl sm:text-2xl font-bold text-[var(--color-text)] tabular-nums">
-              {formatMoneySEK(projection.monthlyMinor, { inMinor: true, interval: 'month' })}
+              {formatMoney(projection.monthlyMinor, { inMinor: true, currency, interval: 'month' })}
             </span>
           </div>
 
@@ -37,7 +38,7 @@ export function SavingsResult({ projection }: SavingsResultProps) {
               1-year projection
             </span>
             <span className="text-xl sm:text-2xl font-bold text-[var(--color-text)] tabular-nums">
-              {formatMoneySEK(projection.yearlyMinor, { inMinor: true })}
+              {formatMoney(projection.yearlyMinor, { inMinor: true, currency })}
             </span>
           </div>
 
@@ -47,7 +48,7 @@ export function SavingsResult({ projection }: SavingsResultProps) {
               5-year projection
             </span>
             <span className="text-xl sm:text-2xl font-bold text-[var(--color-text)] tabular-nums">
-              {formatMoneySEK(projection.fiveYearMinor, { inMinor: true })}
+              {formatMoney(projection.fiveYearMinor, { inMinor: true, currency })}
             </span>
           </div>
         </div>

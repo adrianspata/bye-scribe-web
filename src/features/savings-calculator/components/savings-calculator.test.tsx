@@ -15,8 +15,9 @@ describe('SavingsCalculator Component', () => {
   it('renders and computes default savings projection with assumption notice', () => {
     render(<SavingsCalculator />);
 
-    expect(screen.getByText(/This calculation is an estimate based on the amount you provide/i)).toBeInTheDocument();
+    expect(screen.getByText(/This calculation is an estimate based on the amount and currency you provide/i)).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: /Subscription cost/i })).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: /Currency/i })).toBeInTheDocument();
     // Default 149 kr/month: 1 year = 1 788 kr, 5 year = 8 940 kr
     expect(screen.getByText('1 788 kr')).toBeInTheDocument();
     expect(screen.getByText('8 940 kr')).toBeInTheDocument();
@@ -31,6 +32,21 @@ describe('SavingsCalculator Component', () => {
     // 299,50 kr/month: 1 year = 3 594 kr, 5 year = 17 970 kr
     expect(screen.getByText('3 594 kr')).toBeInTheDocument();
     expect(screen.getByText('17 970 kr')).toBeInTheDocument();
+  });
+
+  it('switches currency and automatically updates projection formatting', () => {
+    render(<SavingsCalculator />);
+
+    const currencySelect = screen.getByRole('combobox', { name: /Currency/i });
+    fireEvent.change(currencySelect, { target: { value: 'USD' } });
+
+    const input = screen.getByRole('textbox', { name: /Subscription cost/i });
+    fireEvent.change(input, { target: { value: '15' } });
+
+    // 15 USD/month: 1 year = $180, 5 year = $900
+    expect(screen.getByText('$15/mo')).toBeInTheDocument();
+    expect(screen.getByText('$180')).toBeInTheDocument();
+    expect(screen.getByText('$900')).toBeInTheDocument();
   });
 
   it('handles yearly billing interval correctly', () => {
@@ -70,3 +86,4 @@ describe('SavingsCalculator Component', () => {
     expect(screen.getByText('30 000 kr')).toBeInTheDocument();
   });
 });
+

@@ -1,7 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import { parseSEKToMinor, calculateSavings } from '@/lib/money';
+import {
+  CurrencyCode,
+  SUPPORTED_CURRENCIES,
+  parseAmountToMinor,
+  calculateSavings,
+} from '@/lib/money';
 import { FieldLabel, FieldHint } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
@@ -14,9 +19,10 @@ import { ArrowRight, FileText, Search } from 'lucide-react';
 
 export function SavingsCalculator() {
   const [costInput, setCostInput] = useState('149');
+  const [currency, setCurrency] = useState<CurrencyCode>('SEK');
   const [interval, setInterval] = useState<'month' | 'year'>('month');
 
-  const amountMinor = parseSEKToMinor(costInput);
+  const amountMinor = parseAmountToMinor(costInput);
   const isInputEmpty = costInput.trim() === '';
   const isInvalid = !isInputEmpty && amountMinor === null;
   const isValid = amountMinor !== null && amountMinor > 0;
@@ -34,16 +40,16 @@ export function SavingsCalculator() {
     <div className="flex flex-col gap-8">
       {/* Transparent Calculation Boundary Notice */}
       <InlineNotice variant="information" title="Calculation Assumption">
-        This calculation is an estimate based on the amount you provide.
+        This calculation is an estimate based on the amount and currency you provide.
       </InlineNotice>
 
       <Card variant="raised" as="section" aria-labelledby="calc-form-heading" className="flex flex-col gap-6">
         <h2 id="calc-form-heading" className="text-base font-normal text-[var(--color-text)]">
-          1. Enter subscription cost
+          1. Enter subscription cost & currency
         </h2>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             {/* Cost input */}
             <div className="flex flex-col gap-1.5">
               <FieldLabel htmlFor="cost-input" required>
@@ -61,13 +67,13 @@ export function SavingsCalculator() {
                   aria-describedby={isInvalid ? 'cost-error' : 'cost-help'}
                   aria-invalid={isInvalid ? 'true' : 'false'}
                   hasError={isInvalid}
-                  className="pr-12"
+                  className="pr-14"
                 />
                 <span
                   className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-xs font-semibold text-[var(--color-text-subtle)]"
                   aria-hidden="true"
                 >
-                  SEK
+                  {currency}
                 </span>
               </div>
 
@@ -77,9 +83,30 @@ export function SavingsCalculator() {
                 </span>
               ) : (
                 <FieldHint id="cost-help">
-                  Enter amount with a dot or comma as decimal separator.
+                  Enter amount with dot or comma as decimal separator.
                 </FieldHint>
               )}
+            </div>
+
+            {/* Currency selector */}
+            <div className="flex flex-col gap-1.5">
+              <FieldLabel htmlFor="currency-select">
+                Currency
+              </FieldLabel>
+              <Select
+                id="currency-select"
+                value={currency}
+                onChange={(e) => setCurrency(e.target.value as CurrencyCode)}
+              >
+                {SUPPORTED_CURRENCIES.map((c) => (
+                  <option key={c.code} value={c.code}>
+                    {c.label} – {c.name}
+                  </option>
+                ))}
+              </Select>
+              <FieldHint>
+                Select your preferred currency.
+              </FieldHint>
             </div>
 
             {/* Interval selector */}
@@ -111,7 +138,7 @@ export function SavingsCalculator() {
         {/* Calculation Result */}
         {isValid && (
           <div className="border-t border-[var(--color-border)] pt-6">
-            <SavingsResult projection={projection} />
+            <SavingsResult projection={projection} currency={currency} />
           </div>
         )}
       </Card>
