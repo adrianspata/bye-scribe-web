@@ -8,7 +8,6 @@ const WORDS = [
   'Safer.',
   'Better.',
   'Smarter.',
-  'Simpler.',
 ];
 
 const LONGEST_WORD = 'Smarter.';
@@ -45,11 +44,10 @@ export function RotatingHeroHeading() {
         </span>
         {/* Animated active word in the same grid cell */}
         <span
-          className={`row-start-1 col-start-1 whitespace-nowrap transition-all duration-300 ease-out text-[var(--color-text)] ${
-            isAnimating
-              ? 'opacity-0 -translate-y-3'
-              : 'opacity-100 translate-y-0'
-          }`}
+          className={`row-start-1 col-start-1 whitespace-nowrap transition-all duration-300 ease-out text-[var(--color-text)] ${isAnimating
+            ? 'opacity-0 -translate-y-3'
+            : 'opacity-100 translate-y-0'
+            }`}
         >
           {WORDS[index]}
         </span>
