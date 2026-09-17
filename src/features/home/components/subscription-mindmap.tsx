@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { ArrowRight } from 'lucide-react';
+import { TypingSectionHeading } from '@/components/ui/typing-section-heading';
 
 interface SubscriptionNode {
   id: string;
@@ -299,12 +300,11 @@ export function SubscriptionMindmap() {
 
       {/* Top Header & Intro */}
       <div className="flex flex-col items-center text-center gap-1.5 max-w-2xl mx-auto z-10 shrink-0">
-        <h2
+        <TypingSectionHeading
           id="subscription-mindmap-heading"
+          text={t('mindmapHeading')}
           className="text-xl sm:text-2xl lg:text-3xl font-normal tracking-tight text-[var(--color-text)] leading-tight"
-        >
-          {t('mindmapHeading')}
-        </h2>
+        />
         <p className="text-xs sm:text-sm text-[var(--color-text-muted)] leading-relaxed max-w-lg">
           {t('mindmapSubheading')}
         </p>

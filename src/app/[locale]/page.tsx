@@ -10,6 +10,7 @@ import { RotatingHeroHeading } from '@/features/home/components/rotating-hero-he
 import { SubscriptionMindmap } from '@/features/home/components/subscription-mindmap';
 import { BRAND } from '@/config/brand';
 import { SignalField } from '@/components/visual/signal-field';
+import { TypingSectionHeading } from '@/components/ui/typing-section-heading';
 import {
   Info,
   ArrowRight,
@@ -87,9 +88,11 @@ export default async function HomePage() {
       {/* 3. Quick Tools Section */}
       <section aria-labelledby="tools-heading" className="w-full flex flex-col gap-4 sm:gap-6">
         <div className="flex flex-col gap-1">
-          <h2 id="tools-heading" className="text-lg sm:text-xl font-normal tracking-tight text-[var(--color-text)]">
-            {t('toolsHeading')}
-          </h2>
+          <TypingSectionHeading
+            id="tools-heading"
+            text={t('toolsHeading')}
+            className="text-lg sm:text-xl font-normal tracking-tight text-[var(--color-text)]"
+          />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
           {/* Tool 1: Savings Calculator */}
@@ -158,12 +161,11 @@ export default async function HomePage() {
           <span className="text-xs font-semibold text-[var(--color-text-subtle)]">
             {t('howBadge')}
           </span>
-          <h2
+          <TypingSectionHeading
             id="how-it-works-heading"
+            text={t('howHeading')}
             className="text-lg sm:text-xl font-normal tracking-tight text-[var(--color-text)]"
-          >
-            {t('howHeading')}
-          </h2>
+          />
         </div>
         <GuidedPathFlow />
       </section>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { clientEnv } from '@/lib/env';
 import { SignalField } from '@/components/visual/signal-field';
+import { TypingSectionHeading } from '@/components/ui/typing-section-heading';
 
 export type SummaCtaContext =
   | 'homepage'
@@ -70,12 +71,11 @@ export function ContextualSummaCta({
     >
       <SignalField variant="summa" className="p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
         <div className="flex flex-col gap-1.5 max-w-xl text-left">
-          <h2
+          <TypingSectionHeading
             id={`summa-heading-${context}`}
+            text={content.title}
             className="text-base sm:text-lg font-normal text-[var(--color-text)]"
-          >
-            {content.title}
-          </h2>
+          />
           <p className="text-xs sm:text-sm text-[var(--color-text-muted)] leading-relaxed">
             {content.description}
           </p>

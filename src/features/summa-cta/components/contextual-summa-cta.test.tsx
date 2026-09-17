@@ -13,7 +13,7 @@ describe('ContextualSummaCta Component', () => {
 
     render(<ContextualSummaCta context="service_detail" />);
 
-    expect(screen.getByText('Keep track of your remaining subscriptions with Summa')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Keep track of your remaining subscriptions with Summa/i })).toBeInTheDocument();
     const link = screen.getByRole('link', { name: 'Track with Summa' });
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
@@ -25,7 +25,7 @@ describe('ContextualSummaCta Component', () => {
 
     render(<ContextualSummaCta context="savings_calculator" />);
 
-    expect(screen.getByText('Track your saved money and recurring costs')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Track your saved money and recurring costs/i })).toBeInTheDocument();
     expect(screen.queryByRole('link')).not.toBeInTheDocument();
     expect(screen.getByText(/Summa is available on the App Store/i)).toBeInTheDocument();
   });

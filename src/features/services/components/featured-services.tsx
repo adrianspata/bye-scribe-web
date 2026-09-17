@@ -6,6 +6,7 @@ import { ServiceSummary } from '../types';
 import { DatabaseUnconfiguredError } from '@/lib/errors';
 import { getDataSourceMode } from '@/lib/env';
 import { ChevronRight } from 'lucide-react';
+import { TypingSectionHeading } from '@/components/ui/typing-section-heading';
 
 export async function FeaturedServices() {
   const t = await getTranslations('home');
@@ -29,12 +30,11 @@ export async function FeaturedServices() {
       className="w-full flex flex-col gap-4"
     >
       <div className="flex flex-col gap-1">
-        <h2
+        <TypingSectionHeading
           id="featured-services-heading"
+          text={t('guidesHeading')}
           className="text-lg sm:text-xl font-normal tracking-tight text-[var(--color-text)]"
-        >
-          {t('guidesHeading')}
-        </h2>
+        />
         {isFixtureMode && (
           <p className="text-xs text-[var(--color-text-muted)]">
             The services below are sample data in the local development environment.
