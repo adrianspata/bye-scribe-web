@@ -256,12 +256,10 @@ export function SubscriptionMindmap() {
   const [stepIndex, setStepIndex] = useState(0);
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-
     const isLastStep = stepIndex === cumulativeSteps.length - 1;
     const delay = isLastStep ? PAUSE_AT_END_MS : STEP_INTERVAL_MS;
 
-    timeoutId = setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setStepIndex((prev) => (prev + 1) % cumulativeSteps.length);
     }, delay);
 
@@ -269,7 +267,6 @@ export function SubscriptionMindmap() {
   }, [stepIndex, cumulativeSteps.length]);
 
   const currentAnnualAmount = cumulativeSteps[stepIndex];
-  const activeSub = SUBSCRIPTIONS[stepIndex];
 
   // Total baseline of all 8 subscriptions
   const fullMonthlyTotal = SUBSCRIPTIONS.reduce((acc, curr) => acc + curr.price, 0);
