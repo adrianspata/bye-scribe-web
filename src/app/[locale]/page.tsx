@@ -6,7 +6,6 @@ import { SearchBar } from '@/features/search/components/search-bar';
 import { FeaturedServices } from '@/features/services/components/featured-services';
 import { GuidedPathFlow } from '@/features/home/components/guided-path-flow';
 import { ContextualSummaCta } from '@/features/summa-cta/components/contextual-summa-cta';
-import { RotatingHeroHeading } from '@/features/home/components/rotating-hero-heading';
 import { SubscriptionMindmap } from '@/features/home/components/subscription-mindmap';
 import { BRAND } from '@/config/brand';
 import { SignalField } from '@/components/visual/signal-field';
@@ -41,8 +40,10 @@ export default async function HomePage() {
           <span>{BRAND.tagline}</span>
         </div>
 
-        {/* H1 Heading with Rotating Words */}
-        <RotatingHeroHeading />
+        {/* Static H1 Heading */}
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-[-0.02em] text-[var(--color-text)] leading-[1.1] max-w-2xl text-center">
+          {t('heroH1')}
+        </h1>
 
         {/* Ingress */}
         <p className="text-base sm:text-lg text-[var(--color-text-muted)] leading-relaxed max-w-xl">
