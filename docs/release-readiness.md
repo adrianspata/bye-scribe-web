@@ -94,16 +94,25 @@ pnpm test:smoke        # Produktions-smoke test godkänt
 
 ---
 
-## 9. Riktlinjer för Framtida Designfas
+## 9. Design Freeze efter Designfas 5
 
-### Vad designfasen FÅR ändra:
-- Färger, typografi, spacing och komponentstyling via `src/styles/tokens.css` och Tailwind-klasser.
-- Logotyp, illustrationer, ikoner och layouter.
-- Visuell förfining av desktop/mobilvyer och sökgränssnitt.
+Med Designfas 5 avslutad är gränssnittet, designsystemet, tokens, navigationsstrukturen och integritetsmönstren frysta.
 
-### Vad som INTE får ändras:
-- Server Component / Client Boundary-arkitekturen.
-- Integritetsgarantierna (inga nätverksanrop från textgeneratorn).
+### Vad kommande Supabase- och innehållsfaser FÅR ändra:
+- Verkliga tjänsteguider, texter, steg och metadata i databasen.
+- Verifierade källor, länkar, priser och villkor.
+- Tjänstespecifika fält och slug-definitioner.
+- Volym av publicerade tjänster.
+- Den slutgiltiga logotypen (som ersätter det temporära typografiska ordmärket utan att ändra navigationsstrukturen).
+
+### Vad kommande faser INTE får ändra utan ett nytt designbeslut:
+- Globala design tokens (`src/styles/tokens.css`).
+- Typografisk skala, grotesque-styling och casing-regler.
+- Global navigation och layout-containrar.
+- Formulärarkitektur och in-memory integritetsgarantier (inga nätverksanrop från textgeneratorn).
 - Sökalgoritmens deterministiska ranking och säkerhetsfiltrering.
-- Heltalsberäkningar för valuta i minor units (öre).
-- Locale routing (`/sv`) och säker canonical/robots-hantering.
+- Heltalsberäkningar för valuta i minor units (stöd för SEK, EUR, USD, GBP, NOK, DKK utan extern växelkurskonvertering).
+- Signal Color- och grain-regler.
+- Svartvit knapphierarki.
+- Locale routing (`/sv` som primär svensk locale) och säker canonical/robots-hantering.
+

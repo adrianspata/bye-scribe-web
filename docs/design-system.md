@@ -123,11 +123,35 @@ Signal surfaces use controlled grain gradients with a local SVG texture (`/textu
 
 ---
 
-## 9. Privacy & Network Security
+## 10. Multi-Currency Support in Savings Calculator
 
-- **Zero network traffic for form inputs:** User inputs never leave the browser.
-- **Zero persistent storage:** No personal data is stored in cookies, localStorage, or sessionStorage.
-- **CSS-native system theme:** Themed 100% via CSS `prefers-color-scheme`.
-- **Strict sanitization:** Query parameters and inputs are stripped of control characters.
-- **External links:** Always include `rel="noopener noreferrer"`.
+The Savings Calculator includes an explicit, privacy-preserving multi-currency selector:
+- **Supported Currencies:** `SEK`, `EUR`, `USD`, `GBP`, `NOK`, `DKK`.
+- **Zero Foreign Exchange Conversion:** Amounts are treated strictly in the user's selected currency. No exchange rate APIs, network requests, or comparative assumptions are made.
+- **Integer Minor Units:** All computations execute deterministically in integer minor units (cents/öre/pence).
+- **Accessible & Transparent:** The selector features a visible label, accessible name, `>= 44px` touch target, and displays unambiguous currency codes in calculation projections.
+
+---
+
+## 11. Design Freeze efter Designfas 5
+
+With the completion of Design Phase 5, the visual design system, token architecture, component geometry, typography, and interaction patterns are locked.
+
+### What upcoming Supabase and content phases MAY modify:
+- Real guide copy, steps, and provider data.
+- Sources, citations, and retrieved/verified dates.
+- Subscription price plans and notice periods.
+- Service-specific metadata and slug definitions.
+- Volume of published services in PostgreSQL.
+- Final brand logo asset replacing the temporary typographic wordmark (without altering navigation layout).
+
+### What upcoming phases MUST NOT modify without an explicit design decision:
+- Global design tokens (`src/styles/tokens.css`).
+- Typographic scale, grotesk styling, and sentence-case rules.
+- Navigation structure (Wordmark, Guides, Draft Cancellation, Savings Calculator).
+- Form architecture, in-memory privacy boundaries, and validation rules.
+- Signal Color rules (SignalField restricted to hero cards, guide visual headers, process steps, Summa CTA).
+- Monochrome button hierarchy (`--color-btn-primary-*`).
+- Base page templates and container widths.
+
 
