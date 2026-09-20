@@ -22,18 +22,29 @@ describe('TypingSectionHeading', () => {
 
   it('splits words correctly and types target characters', async () => {
     // Mock IntersectionObserver
-    let observerCallback: (entries: Array<{ isIntersecting: boolean }>) => void = () => {};
-    window.IntersectionObserver = vi.fn().mockImplementation(function (this: any, cb: any) {
-      observerCallback = cb;
-      this.observe = vi.fn();
-      this.disconnect = vi.fn();
-    }) as any;
+    let observerCallback: IntersectionObserverCallback = () => {};
+    class MockIntersectionObserver implements IntersectionObserver {
+      readonly root: Element | Document | null = null;
+      readonly rootMargin: string = '';
+      readonly thresholds: ReadonlyArray<number> = [];
+      constructor(cb: IntersectionObserverCallback) {
+        observerCallback = cb;
+      }
+      observe = vi.fn();
+      disconnect = vi.fn();
+      unobserve = vi.fn();
+      takeRecords = vi.fn(() => []);
+    }
+    window.IntersectionObserver = MockIntersectionObserver as unknown as typeof window.IntersectionObserver;
 
     render(<TypingSectionHeading text="Available Cancellation Guides" />);
 
     // Trigger intersection
     act(() => {
-      observerCallback([{ isIntersecting: true }]);
+      observerCallback(
+        [{ isIntersecting: true } as IntersectionObserverEntry],
+        {} as IntersectionObserver
+      );
     });
 
     // Advance past delay
