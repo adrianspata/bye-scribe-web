@@ -40,7 +40,12 @@ export function TypingSectionHeading({
   }
 
   const containerRef = useRef<HTMLElement>(null);
-  const [hasIntersected, setHasIntersected] = useState(false);
+  const [hasIntersected, setHasIntersected] = useState(() => {
+    if (typeof window !== 'undefined' && typeof window.IntersectionObserver === 'undefined') {
+      return true;
+    }
+    return false;
+  });
   const [charIndex, setCharIndex] = useState(() => {
     // In JSDOM / Test environments, start fully typed so unit tests pass seamlessly
     if (typeof window !== 'undefined' && typeof window.IntersectionObserver === 'undefined') {
@@ -61,9 +66,6 @@ export function TypingSectionHeading({
     if (hasIntersected) return;
 
     if (typeof window === 'undefined' || typeof window.IntersectionObserver === 'undefined') {
-      setHasIntersected(true);
-      setCharIndex(target.length);
-      setIsComplete(true);
       return;
     }
 
@@ -87,16 +89,15 @@ export function TypingSectionHeading({
     }
 
     return () => observer.disconnect();
-  }, [hasIntersected, target.length]);
+  }, [hasIntersected]);
 
   // Typing animation loop once intersected
   useEffect(() => {
     if (!hasIntersected || isComplete) return;
 
-    let timeoutId: NodeJS.Timeout;
     let intervalId: NodeJS.Timeout;
 
-    timeoutId = setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setIsTyping(true);
       let current = 0;
 
@@ -123,7 +124,7 @@ export function TypingSectionHeading({
   return (
     <Component
       id={id}
-      ref={containerRef as any}
+      ref={containerRef as unknown as React.RefObject<HTMLHeadingElement>}
       aria-label={text}
       className={className}
     >
