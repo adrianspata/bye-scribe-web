@@ -9,10 +9,10 @@ import {
 } from './money';
 
 describe('SUPPORTED_CURRENCIES', () => {
-  it('contains the 8 most common currencies', () => {
-    expect(SUPPORTED_CURRENCIES).toHaveLength(8);
+  it('contains exactly the 6 approved currencies', () => {
+    expect(SUPPORTED_CURRENCIES).toHaveLength(6);
     const codes = SUPPORTED_CURRENCIES.map((c) => c.code);
-    expect(codes).toEqual(['SEK', 'USD', 'EUR', 'GBP', 'NOK', 'DKK', 'CAD', 'AUD']);
+    expect(codes).toEqual(['SEK', 'USD', 'EUR', 'GBP', 'NOK', 'DKK']);
   });
 });
 
@@ -54,6 +54,18 @@ describe('formatMoney & formatMoneySEK', () => {
     const formatted = formatMoney(5000, { currency: 'GBP', inMinor: true, interval: 'month' });
     expect(formatted).toBe('£50/mo');
   });
+
+  it('formats NOK correctly', () => {
+    const formatted = formatMoney(29900, { currency: 'NOK', inMinor: true });
+    expect(formatted.replace(/\u00a0/g, ' ')).toContain('299');
+    expect(formatted).toContain('kr');
+  });
+
+  it('formats DKK correctly', () => {
+    const formatted = formatMoney(19900, { currency: 'DKK', inMinor: true });
+    expect(formatted.replace(/\u00a0/g, ' ')).toContain('199');
+    expect(formatted).toContain('kr');
+  });
 });
 
 describe('parseAmountToMinor & parseSEKToMinor', () => {
@@ -84,13 +96,26 @@ describe('parseAmountToMinor & parseSEKToMinor', () => {
     expect(parseAmountToMinor('100000000')).toBeNull();
   });
 
+  it('rejects exponent notation, hex, NaN, and Infinity', () => {
+    expect(parseAmountToMinor('1e5')).toBeNull();
+    expect(parseAmountToMinor('0x1f')).toBeNull();
+    expect(parseAmountToMinor('NaN')).toBeNull();
+    expect(parseAmountToMinor('Infinity')).toBeNull();
+    expect(parseAmountToMinor('-Infinity')).toBeNull();
+  });
+
+  it('rejects values with more than 2 decimals', () => {
+    expect(parseAmountToMinor('149.999')).toBeNull();
+    expect(parseAmountToMinor('149,1234')).toBeNull();
+  });
+
   it('maintains backwards compatibility with parseSEKToMinor', () => {
     expect(parseSEKToMinor('149 kr')).toBe(14900);
   });
 });
 
 describe('calculateSavings', () => {
-  it('calculates monthly to 1-year and 5-year savings deterministically in minor units', () => {
+  it('calculates monthly to 1-year and 5-year savings deterministically in minor units without currency conversion', () => {
     // 149 kr/month = 14900 öre/cents
     const savings = calculateSavings(14900, 'month');
     expect(savings.monthlyMinor).toBe(14900);
