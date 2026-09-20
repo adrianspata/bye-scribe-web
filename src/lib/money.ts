@@ -8,9 +8,7 @@ export type CurrencyCode =
   | 'EUR'
   | 'GBP'
   | 'NOK'
-  | 'DKK'
-  | 'CAD'
-  | 'AUD';
+  | 'DKK';
 
 export interface CurrencyConfig {
   code: CurrencyCode;
@@ -27,8 +25,6 @@ export const SUPPORTED_CURRENCIES: CurrencyConfig[] = [
   { code: 'GBP', symbol: '£', label: 'GBP (£)', name: 'British Pound', locale: 'en-GB' },
   { code: 'NOK', symbol: 'kr', label: 'NOK (kr)', name: 'Norsk krone', locale: 'nb-NO' },
   { code: 'DKK', symbol: 'kr', label: 'DKK (kr)', name: 'Dansk krone', locale: 'da-DK' },
-  { code: 'CAD', symbol: '$', label: 'CAD ($)', name: 'Canadian Dollar', locale: 'en-CA' },
-  { code: 'AUD', symbol: '$', label: 'AUD ($)', name: 'Australian Dollar', locale: 'en-AU' },
 ];
 
 export interface FormatMoneyOptions {
@@ -113,11 +109,11 @@ export function parseAmountToMinor(input: string): number | null {
   const cleaned = input
     .trim()
     .replace(/\s+/g, '')
-    .replace(/kr|sek|eur|usd|gbp|nok|dkk|cad|aud|:-|[$€£]/gi, '');
+    .replace(/kr|sek|eur|usd|gbp|nok|dkk|:-|[$€£]/gi, '');
 
   if (!cleaned) return null;
 
-  // Match optional sign and numbers with optional decimal part
+  // Match positive integer or decimal numbers with 1 or 2 decimal digits only
   const match = /^(\d+)(?:[.,](\d{1,2}))?$/.exec(cleaned);
   if (!match) return null;
 
