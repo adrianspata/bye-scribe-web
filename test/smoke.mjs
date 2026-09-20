@@ -103,7 +103,7 @@ async function runSmokeTests() {
     } else {
       console.log('✓ 3. Security header X-Content-Type-Options is present');
     }
-    if (!homeRes.body.includes('ByeScribe') || !homeRes.body.includes('The easier way to unsubscribe.')) {
+    if (!homeRes.body.includes('ByeScribe') || !homeRes.body.includes('The easier way to cancel your payments')) {
       errors.push('Expected /en HTML to contain brand name "ByeScribe" and tagline');
     } else {
       console.log('✓ 4. /en HTML contains canonical ByeScribe brand name and tagline');
