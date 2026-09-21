@@ -20,16 +20,18 @@ import { ArrowLeft } from 'lucide-react';
 
 interface ServicePageProps {
   params: Promise<{ locale: string; slug: string }>;
+  searchParams?: Promise<{ preview?: string }>;
 }
 
-export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: ServicePageProps): Promise<Metadata> {
   const { slug } = await params;
+  const isPreview = (await searchParams)?.preview === 'draft' || (await searchParams)?.preview === 'true';
   const isFixtureMode = getDataSourceMode() === 'fixtures';
 
   let service: import('@/features/services/types').ServiceDetail | null = null;
   try {
     const repo = getServiceRepository();
-    service = await repo.getServiceBySlug(slug);
+    service = await repo.getServiceBySlug(slug, { includeDrafts: isPreview });
   } catch (err) {
     if (err instanceof DatabaseUnconfiguredError) {
       return {
@@ -47,6 +49,7 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
 
   // Only published + verified PostgreSQL services are indexable
   const isIndexable =
+    !isPreview &&
     !isFixtureMode &&
     service.publicationStatus === 'published' &&
     service.verificationStatus === 'verified';
@@ -56,7 +59,7 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
     description: `Step-by-step instructions, notice periods, and official contact paths to cancel ${service.name}.`,
     robots: {
       index: isIndexable,
-      follow: !isFixtureMode,
+      follow: !isFixtureMode && !isPreview,
     },
     alternates: {
       canonical: `/en/tjanster/${service.slug}`,
@@ -64,14 +67,15 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   };
 }
 
-export default async function ServiceDetailPage({ params }: ServicePageProps) {
+export default async function ServiceDetailPage({ params, searchParams }: ServicePageProps) {
   const { slug } = await params;
+  const isPreview = (await searchParams)?.preview === 'draft' || (await searchParams)?.preview === 'true';
   const isFixtureMode = getDataSourceMode() === 'fixtures';
 
   let service: import('@/features/services/types').ServiceDetail | null = null;
   try {
     const repo = getServiceRepository();
-    service = await repo.getServiceBySlug(slug);
+    service = await repo.getServiceBySlug(slug, { includeDrafts: isPreview });
   } catch (err) {
     if (err instanceof DatabaseUnconfiguredError) {
       notFound();
@@ -104,6 +108,10 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
 
   activeSections.push({ id: 'verktyg', label: 'Tools & Savings' });
 
+  const isDraftReview =
+    isPreview &&
+    (service.publicationStatus !== 'published' || service.verificationStatus !== 'verified');
+
   return (
     <div className="flex flex-col gap-6 max-w-5xl mx-auto w-full">
       {/* Contextual Back Navigation */}
@@ -116,6 +124,13 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
           <span>Back to search</span>
         </Link>
       </nav>
+
+      {/* Draft review mode banner */}
+      {isDraftReview && (
+        <div className="py-2.5 px-4 bg-amber-500/10 border border-amber-500/30 rounded-[var(--radius-md)] text-xs text-amber-900 dark:text-amber-200 leading-relaxed font-medium">
+          Granskningsläge (Utkast) – Denna guide är inte publicerad för allmänheten.
+        </div>
+      )}
 
       {/* Main Grid with Content & Desktop In-Page Navigation */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_220px] gap-8 lg:gap-12 items-start">
