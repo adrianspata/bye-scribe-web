@@ -25,8 +25,8 @@ export function ServiceGuideHeader({ service, isFixtureMode }: ServiceGuideHeade
           )}
         </div>
 
-        {/* Verification date: only display as verified if real PostgreSQL data (not fixtures) */}
-        {!isFixtureMode && service.lastVerifiedAt && !isStale && (
+        {/* Verification date: only display as verified if real PostgreSQL data (not fixtures) and verified status */}
+        {!isFixtureMode && service.lastVerifiedAt && !isStale && service.verificationStatus === 'verified' && (
           <span className="text-xs text-[var(--color-text-subtle)] flex items-center gap-1.5">
             <CheckCircle2 className="w-3.5 h-3.5 text-[var(--color-positive)]" aria-hidden="true" />
             <span>Verified {formatEnglishDate(service.lastVerifiedAt, 'long')}</span>
