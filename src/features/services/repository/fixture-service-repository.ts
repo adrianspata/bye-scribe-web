@@ -65,9 +65,12 @@ export class FixtureServiceRepository implements ServiceRepository {
     return sorted.slice(0, limit);
   }
 
-  async getServiceBySlug(slug: string): Promise<ServiceDetail | null> {
+  async getServiceBySlug(
+    slug: string,
+    options?: import('./service-repository').GetServiceOptions
+  ): Promise<ServiceDetail | null> {
     const service = this.services.find(
-      (s) => s.slug === slug && this.isPublic(s)
+      (s) => s.slug === slug && (options?.includeDrafts || this.isPublic(s))
     );
     if (!service) return null;
 
