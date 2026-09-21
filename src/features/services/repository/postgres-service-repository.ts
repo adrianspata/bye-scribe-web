@@ -127,8 +127,19 @@ export class PostgresServiceRepository implements ServiceRepository {
     return sorted.slice(0, limit);
   }
 
-  async getServiceBySlug(slug: string): Promise<ServiceDetail | null> {
+  async getServiceBySlug(
+    slug: string,
+    options?: import('./service-repository').GetServiceOptions
+  ): Promise<ServiceDetail | null> {
     const db = getDb();
+
+    const conditions = [eq(schema.services.slug, slug)];
+    if (!options?.includeDrafts) {
+      conditions.push(
+        eq(schema.services.publicationStatus, 'published'),
+        eq(schema.services.verificationStatus, 'verified')
+      );
+    }
 
     const [row] = await db
       .select({
@@ -140,13 +151,7 @@ export class PostgresServiceRepository implements ServiceRepository {
         schema.categories,
         eq(schema.services.categoryId, schema.categories.id)
       )
-      .where(
-        and(
-          eq(schema.services.slug, slug),
-          eq(schema.services.publicationStatus, 'published'),
-          eq(schema.services.verificationStatus, 'verified')
-        )
-      )
+      .where(and(...conditions))
       .limit(1);
 
     if (!row) {
