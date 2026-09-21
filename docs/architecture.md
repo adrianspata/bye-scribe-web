@@ -63,6 +63,20 @@ Sökningen sker med deterministisk ranking i följande prioriteringsordning:
 
 ---
 
-## 6. Summa-CTA Konfiguration
+## 6. Databas- & Anslutningsarkitektur (Supabase Staging / Prod)
+
+ByeScribe skiljer strikt mellan runtime och migrationer:
+- **Runtime (`DATABASE_URL`)**: Port 6543 mot Supabase Transaction Pooler (Supavisor). Använder `max: 1`, `prepare: false`, och `ssl: 'require'`.
+- **Migrationer (`DATABASE_MIGRATION_URL`)**: Port 5432 mot Direct Connection eller Session Pooler (`postgres.[PROJECT-REF]`). Krävs vid `pnpm db:migrate`.
+- **Fulltext-sökning & Trigram**:
+  - `pg_trgm` och `unaccent` aktiverade.
+  - `services.search_document` tsvector genereras automatiskt via `services_search_document_trigger` på svenska (`swedish`).
+  - GIN-index på `search_document`, `services.name_normalized`, och `service_aliases.alias_normalized`.
+
+Se fullständig runbook i [docs/runbook-migrations.md](runbook-migrations.md).
+
+---
+
+## 7. Summa-CTA Konfiguration
 - Kontextuella varianter: `homepage`, `service_detail`, `savings_calculator`, `cancellation_message`.
 - Läser och validerar `NEXT_PUBLIC_SUMMA_APP_STORE_URL`. Vid ogiltig/saknad URL renderas ett neutralt textblock utan trasiga länkar.
