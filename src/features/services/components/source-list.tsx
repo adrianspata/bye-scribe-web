@@ -1,20 +1,12 @@
 import React from 'react';
-import { SourceReference, SourceType } from '../types';
+import { useTranslations } from 'next-intl';
+import { SourceReference } from '../types';
 import { ExternalLink } from '@/components/ui/external-link';
 import { formatEnglishDate } from '@/lib/dates';
 
 export interface SourceListProps {
   sources: SourceReference[];
 }
-
-const SOURCE_TYPE_LABELS: Record<SourceType, string> = {
-  official_terms: 'Terms of Service',
-  official_help: 'Help Center & FAQ',
-  official_pricing: 'Official Pricing',
-  official_contact: 'Contact Information',
-  authority: 'Consumer Protection Authority',
-  other: 'Other Source',
-};
 
 function isValidExternalUrl(url: string | null | undefined): boolean {
   if (!url || typeof url !== 'string') return false;
@@ -27,6 +19,9 @@ function isValidExternalUrl(url: string | null | undefined): boolean {
 }
 
 export function SourceList({ sources }: SourceListProps) {
+  const t = useTranslations('serviceGuide');
+  const tSourceTypes = useTranslations('sourceTypes');
+
   if (!sources || sources.length === 0) {
     return null;
   }
@@ -35,16 +30,15 @@ export function SourceList({ sources }: SourceListProps) {
     <section id="kallor" aria-labelledby="kallor-heading" className="flex flex-col gap-4 scroll-mt-24">
       <div className="flex flex-col gap-1">
         <h2 id="kallor-heading" className="text-base font-normal text-[var(--color-text)]">
-          Sources & References
+          {t('sourcesHeading')}
         </h2>
-        <p className="text-xs text-[var(--color-text-muted)]">
-          The information in this guide is based on the following official and public sources.
-        </p>
       </div>
 
       <div className="flex flex-col divide-y divide-[var(--color-border)] bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] shadow-subtle">
         {sources.map((source) => {
-          const typeLabel = SOURCE_TYPE_LABELS[source.sourceType] || source.sourceType;
+          const typeLabel = tSourceTypes.has(source.sourceType)
+            ? tSourceTypes(source.sourceType)
+            : source.sourceType;
           const hasValidUrl = isValidExternalUrl(source.url);
 
           return (
@@ -68,12 +62,12 @@ export function SourceList({ sources }: SourceListProps) {
                 <div className="flex items-center gap-3 text-xs text-[var(--color-text-subtle)]">
                   {source.retrievedAt && (
                     <span>
-                      Accessed: {formatEnglishDate(source.retrievedAt, 'short')}
+                      {t('retrievedAt')} {formatEnglishDate(source.retrievedAt, 'short')}
                     </span>
                   )}
                   {source.verifiedAt && (
                     <span>
-                      Verified: {formatEnglishDate(source.verifiedAt, 'short')}
+                      {t('verifiedAt')} {formatEnglishDate(source.verifiedAt, 'short')}
                     </span>
                   )}
                 </div>
