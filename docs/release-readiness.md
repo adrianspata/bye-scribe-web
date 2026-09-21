@@ -87,10 +87,12 @@ pnpm test:smoke        # Produktions-smoke test godkänt
 
 ---
 
-## 8. Kända Begränsningar & Ej Verifierad Integration
+## 8. Databasstatus & Verifierad Staging-Miljö (Designfas 6)
 
-- **PostgreSQL i Drift**: Databasschemat och migrationerna (0000–0001) är verifierade via Drizzle Kit och typkontroll, men har medvetet ännu inte applicerats mot en extern live Supabase/PostgreSQL-instans.
-- **Innehåll**: Inga verkliga konsumentuppgifter finns inlagda; databasen förblir tom och väntar på verifierad datainmatning.
+- **PostgreSQL i Drift (Staging)**: Databasschemat och migrationerna (`0000_clammy_lockheed.sql` och `0001_thin_leader.sql`) är framgångsrikt applicerade och verifierade mot Supabase staging (`PostgreSQL 17.6`).
+- **Anslutningar**: Supabase Session Pooler (port 5432) för DDL/migreringar och Transaction Pooler (port 6543, `prepare: false`) för serverless runtime är fullständigt testade och verifierade.
+- **Innehåll**: Databasen är ren/tom och redo för framtida verifierad datainmatning (inga verkliga konsumentuppgifter inlagda ännu).
+- **Separata Miljöer**: Stagingdatabasen är strikt isolerad; produktion kommer att konfigureras i ett separat projekt.
 
 ---
 
