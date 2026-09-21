@@ -35,7 +35,13 @@ function formatNoticePeriod(unit: NoticePeriodUnit, val?: number | null): string
 
 export function ServiceFacts({ service }: ServiceFactsProps) {
   const channelText = CHANNEL_LABELS[service.cancellationChannel] || 'Information unavailable';
-  const noticeText = formatNoticePeriod(service.noticePeriodUnit, service.noticePeriodValue);
+  const hasNoticePeriod =
+    service.noticePeriodUnit !== 'unknown' &&
+    service.noticePeriodValue !== null &&
+    service.noticePeriodValue !== undefined;
+  const noticeText = hasNoticePeriod
+    ? formatNoticePeriod(service.noticePeriodUnit, service.noticePeriodValue)
+    : null;
 
   return (
     <Card
@@ -48,7 +54,7 @@ export function ServiceFacts({ service }: ServiceFactsProps) {
       <h2 id="snabbfakta-heading" className="text-base font-normal text-[var(--color-text)]">
         Quick Overview
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+      <div className={`grid grid-cols-1 ${hasNoticePeriod ? 'sm:grid-cols-2' : ''} gap-4 text-sm`}>
         <div className="flex flex-col gap-1 p-3.5 bg-[var(--color-page)] border border-[var(--color-border)] rounded-[var(--radius-md)]">
           <span className="text-xs text-[var(--color-text-muted)]">Primary cancellation channel</span>
           <span className="font-semibold text-[var(--color-text)]">
@@ -56,12 +62,14 @@ export function ServiceFacts({ service }: ServiceFactsProps) {
           </span>
         </div>
 
-        <div className="flex flex-col gap-1 p-3.5 bg-[var(--color-page)] border border-[var(--color-border)] rounded-[var(--radius-md)]">
-          <span className="text-xs text-[var(--color-text-muted)]">Notice period</span>
-          <span className="font-semibold text-[var(--color-text)]">
-            {noticeText}
-          </span>
-        </div>
+        {hasNoticePeriod && (
+          <div className="flex flex-col gap-1 p-3.5 bg-[var(--color-page)] border border-[var(--color-border)] rounded-[var(--radius-md)]">
+            <span className="text-xs text-[var(--color-text-muted)]">Notice period</span>
+            <span className="font-semibold text-[var(--color-text)]">
+              {noticeText}
+            </span>
+          </div>
+        )}
       </div>
     </Card>
   );
