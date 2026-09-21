@@ -36,3 +36,10 @@ export class InvalidSourceReferenceError extends ByeScribeError {
     this.name = 'InvalidSourceReferenceError';
   }
 }
+
+export class CategoryConfigurationError extends ByeScribeError {
+  constructor(categorySlug: string, locale: string) {
+    super(`Missing localized category configuration for slug "${categorySlug}" in locale "${locale}".`);
+    this.name = 'CategoryConfigurationError';
+  }
+}
