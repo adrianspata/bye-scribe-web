@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { ArrowRight, Calculator, FileText } from 'lucide-react';
 
@@ -7,17 +8,15 @@ export interface ServiceToolsSectionProps {
 }
 
 export function ServiceToolsSection({ serviceName }: ServiceToolsSectionProps) {
+  const t = useTranslations('serviceGuide');
   const sanitizedServiceName = serviceName.trim().slice(0, 100);
 
   return (
     <section id="verktyg" aria-labelledby="verktyg-heading" className="border-t border-[var(--color-border)] pt-8 flex flex-col gap-4 scroll-mt-24">
       <div className="flex flex-col gap-1 text-left">
         <h2 id="verktyg-heading" className="text-base font-normal text-[var(--color-text)]">
-          Tools for {serviceName}
+          {t('toolsHeading', { name: serviceName })}
         </h2>
-        <p className="text-xs text-[var(--color-text-muted)]">
-          Use our free tools to make cancelling easier and calculate your potential savings.
-        </p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -31,13 +30,13 @@ export function ServiceToolsSection({ serviceName }: ServiceToolsSectionProps) {
                 <FileText className="w-4 h-4" aria-hidden="true" />
               </div>
               <span className="font-semibold text-sm text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
-                Create cancellation draft
+                {t('toolsMessageTitle')}
               </span>
             </div>
             <ArrowRight className="w-4 h-4 text-[var(--color-text-subtle)] group-hover:text-[var(--color-accent)] group-hover:translate-x-1 transition-all" aria-hidden="true" />
           </div>
           <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">
-            Generate a pre-filled text draft for {serviceName} to send via email or letter.
+            {t('toolsMessageDesc', { name: serviceName })}
           </p>
         </Link>
 
@@ -51,13 +50,13 @@ export function ServiceToolsSection({ serviceName }: ServiceToolsSectionProps) {
                 <Calculator className="w-4 h-4" aria-hidden="true" />
               </div>
               <span className="font-semibold text-sm text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
-                Calculate savings
+                {t('toolsCalcTitle')}
               </span>
             </div>
             <ArrowRight className="w-4 h-4 text-[var(--color-text-subtle)] group-hover:text-[var(--color-accent)] group-hover:translate-x-1 transition-all" aria-hidden="true" />
           </div>
           <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">
-            See how much you save over 1 year and 5 years by unsubscribing.
+            {t('toolsCalcDesc')}
           </p>
         </Link>
       </div>
