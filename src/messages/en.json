@@ -5,6 +5,15 @@
     "skipToContent": "Skip to content",
     "disclaimer": "ByeScribe helps consumers find instructions to cancel subscriptions. We never cancel services automatically."
   },
+  "categories": {
+    "streaming": "Streaming & Video",
+    "traning-halsa": "Fitness & Health",
+    "ljudbocker": "Audiobooks",
+    "tidningar-magasin": "News & Magazines",
+    "software": "Software & Cloud",
+    "telecom": "Telecom & Broadband",
+    "other": "Other Subscriptions"
+  },
   "nav": {
     "home": "Home",
     "search": "Guides",
@@ -77,6 +86,7 @@
     "toolsCalcLink": "Calculate your savings with the calculator"
   },
   "serviceGuide": {
+    "cancelHeading": "Cancel {name}",
     "demoBadge": "Local demo",
     "demoNotice": "Local demo – this information is sample data and not a verified service guide.",
     "staleNotice": "This guide needs review. Terms and contact channels may have changed.",
@@ -86,6 +96,9 @@
     "quickFactsHeading": "Quick overview",
     "cancellationChannel": "Primary cancellation channel",
     "noticePeriod": "Notice period",
+    "noticeDays": "{count, plural, =0 {0 days} one {1 day} other {# days}}",
+    "noticeMonths": "{count, plural, one {1 month} other {# months}}",
+    "noticeCycles": "{count, plural, one {1 billing cycle} other {# billing cycles}}",
     "missingInfo": "Information unavailable",
     "stepsHeading": "Cancellation steps",
     "noSteps": "No detailed steps published for this service yet.",
