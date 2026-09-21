@@ -11,6 +11,10 @@ export interface ListPublishedServicesParams {
   limit?: number;
 }
 
+export interface GetServiceOptions {
+  includeDrafts?: boolean;
+}
+
 export interface ServiceRepository {
   /**
    * Performs ranked Swedish search on published, verified services.
@@ -19,9 +23,12 @@ export interface ServiceRepository {
 
   /**
    * Retrieves full details for a service by slug.
-   * Returns null if not found, not published, or not verified.
+   * Returns null if not found, not published, or not verified unless includeDrafts is true.
    */
-  getServiceBySlug(slug: string): Promise<ServiceDetail | null>;
+  getServiceBySlug(
+    slug: string,
+    options?: GetServiceOptions
+  ): Promise<ServiceDetail | null>;
 
   /**
    * Lists published, verified services with category summaries.
