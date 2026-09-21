@@ -62,6 +62,8 @@ Applikationen använder ett repository-mönster (`ServiceRepository`) med två a
 
 För detaljerad arkitekturbeskrivning och designsystem, se:
 - [docs/architecture.md](docs/architecture.md)
+- [docs/runbook-migrations.md](docs/runbook-migrations.md)
 - [docs/design-system.md](docs/design-system.md)
 - [docs/release-readiness.md](docs/release-readiness.md)
 - [docs/adr/](docs/adr/)
+
