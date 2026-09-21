@@ -174,6 +174,7 @@ export const serviceAliases = pgTable(
       .references(() => services.id, { onDelete: 'cascade' }),
     alias: varchar('alias', { length: 255 }).notNull(),
     aliasNormalized: varchar('alias_normalized', { length: 255 }).notNull(),
+    locale: varchar('locale', { length: 10 }).default('sv'),
     createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   },
   (table) => [
@@ -183,6 +184,7 @@ export const serviceAliases = pgTable(
     ),
     index('service_aliases_service_id_idx').on(table.serviceId),
     index('service_aliases_alias_norm_idx').on(table.aliasNormalized),
+    index('service_aliases_locale_idx').on(table.locale),
   ]
 );
 
