@@ -7,6 +7,7 @@ import {
 const serverEnvSchema = z
   .object({
     DATABASE_URL: z.string().url().optional(),
+    DATABASE_MIGRATION_URL: z.string().url().optional(),
     BYESCRIBE_DATA_SOURCE: z.enum(['fixtures', 'postgres']).optional(),
     NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   })
