@@ -5,6 +5,15 @@
     "skipToContent": "Hoppa till innehåll",
     "disclaimer": "ByeScribe hjälper konsumenter att hitta instruktioner för att säga upp abonnemang. Vi säger aldrig upp tjänster automatiskt."
   },
+  "categories": {
+    "streaming": "Streaming & Video",
+    "traning-halsa": "Träning & Hälsa",
+    "ljudbocker": "Ljudböcker",
+    "tidningar-magasin": "Tidningar & Magasin",
+    "software": "Mjukvara & Molntjänster",
+    "telecom": "Telefoni & Bredband",
+    "other": "Övriga abonnemang"
+  },
   "nav": {
     "home": "Start",
     "search": "Guider",
@@ -77,6 +86,7 @@
     "toolsCalcLink": "Räkna på din besparing i kalkylatorn"
   },
   "serviceGuide": {
+    "cancelHeading": "Avsluta {name}",
     "demoBadge": "Lokal demo",
     "demoNotice": "Lokal demo – informationen är inte en verkligt verifierad tjänsteguide.",
     "staleNotice": "Denna guide är i behov av ny granskning. Villkor och kontaktvägar kan ha ändrats hos leverantören.",
@@ -86,6 +96,9 @@
     "quickFactsHeading": "Snabböversikt",
     "cancellationChannel": "Primär uppsägningskanal",
     "noticePeriod": "Uppsägningstid",
+    "noticeDays": "{count, plural, =0 {0 dagar} one {1 dag} other {# dagar}}",
+    "noticeMonths": "{count, plural, one {1 månad} other {# månader}}",
+    "noticeCycles": "{count, plural, one {1 faktureringsperiod} other {# faktureringsperioder}}",
     "missingInfo": "Uppgift saknas",
     "stepsHeading": "Uppsägningssteg",
     "noSteps": "Inga detaljerade steg publicerade för denna tjänst ännu.",
