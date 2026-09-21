@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import { ServicePrice } from '../types';
 import { formatMoneySEK } from '@/lib/money';
 import { formatEnglishDate } from '@/lib/dates';
@@ -12,6 +13,8 @@ export function ServicePricesSection({
   prices,
   isFixtureMode,
 }: ServicePricesSectionProps) {
+  const t = useTranslations('serviceGuide');
+
   if (!prices || prices.length === 0) {
     return null;
   }
@@ -20,11 +23,11 @@ export function ServicePricesSection({
     <section id="priser" aria-labelledby="priser-heading" className="flex flex-col gap-4 scroll-mt-24">
       <div className="flex flex-col gap-1">
         <h2 id="priser-heading" className="text-base font-normal text-[var(--color-text)]">
-          Pricing Plans
+          {t('pricesHeading')}
         </h2>
         {isFixtureMode && (
           <p className="text-xs text-[var(--color-text-subtle)]">
-            Pricing examples are fictional sample data for demonstration purposes.
+            {t('demoNotice')}
           </p>
         )}
       </div>
