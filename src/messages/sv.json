@@ -94,7 +94,7 @@
     "officialActionNotice": "Du lämnar ByeScribe och genomför uppsägningen hos leverantören.",
     "officialActionButton": "Gå till {name}",
     "websiteHeading": "Officiell webbplats",
-    "websiteNotice": "Det finns ingen direktlänk till uppsägning. Besök leverantörens webbplats för mer information.",
+    "websiteNotice": "Vi har ingen verifierad direktlänk till uppsägningen. Besök leverantörens webbplats för mer information.",
     "websiteButton": "Besök {name}s webbplats",
     "opensInNewTab": "öppnas i ny flik",
     "termsHeading": "Villkor och bekräftelse",
