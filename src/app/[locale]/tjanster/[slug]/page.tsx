@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { getServiceRepository } from '@/features/services/repository';
 import { ServiceGuideHeader } from '@/features/services/components/service-guide-header';
@@ -25,7 +26,8 @@ interface ServicePageProps {
 
 export async function generateMetadata({ params, searchParams }: ServicePageProps): Promise<Metadata> {
   const { slug } = await params;
-  const isPreview = (await searchParams)?.preview === 'draft' || (await searchParams)?.preview === 'true';
+  const isLocalDev = process.env.NODE_ENV === 'development';
+  const isPreview = isLocalDev && ((await searchParams)?.preview === 'draft' || (await searchParams)?.preview === 'true');
   const isFixtureMode = getDataSourceMode() === 'fixtures';
 
   let service: import('@/features/services/types').ServiceDetail | null = null;
@@ -68,9 +70,12 @@ export async function generateMetadata({ params, searchParams }: ServicePageProp
 }
 
 export default async function ServiceDetailPage({ params, searchParams }: ServicePageProps) {
-  const { slug } = await params;
-  const isPreview = (await searchParams)?.preview === 'draft' || (await searchParams)?.preview === 'true';
+  const { slug, locale } = await params;
+  const isLocalDev = process.env.NODE_ENV === 'development';
+  const isPreview = isLocalDev && ((await searchParams)?.preview === 'draft' || (await searchParams)?.preview === 'true');
   const isFixtureMode = getDataSourceMode() === 'fixtures';
+
+  const t = await getTranslations('serviceGuide');
 
   let service: import('@/features/services/types').ServiceDetail | null = null;
   try {
@@ -90,23 +95,23 @@ export default async function ServiceDetailPage({ params, searchParams }: Servic
 
   // Build in-page navigation sections dynamically based strictly on non-empty rendered sections
   const activeSections: InPageSection[] = [
-    { id: 'snabbfakta', label: 'Quick Overview' },
-    { id: 'steg', label: 'Cancellation Steps' },
+    { id: 'snabbfakta', label: t('quickFactsHeading') },
+    { id: 'steg', label: t('stepsHeading') },
   ];
 
   if (service.bindingNotes || service.confirmationNotes) {
-    activeSections.push({ id: 'villkor', label: 'Terms & Confirmation' });
+    activeSections.push({ id: 'villkor', label: t('termsHeading') });
   }
 
   if (service.prices && service.prices.length > 0) {
-    activeSections.push({ id: 'priser', label: 'Pricing Plans' });
+    activeSections.push({ id: 'priser', label: t('pricesHeading') });
   }
 
   if (service.sources && service.sources.length > 0) {
-    activeSections.push({ id: 'kallor', label: 'Sources & References' });
+    activeSections.push({ id: 'kallor', label: t('sourcesHeading') });
   }
 
-  activeSections.push({ id: 'verktyg', label: 'Tools & Savings' });
+  activeSections.push({ id: 'verktyg', label: t('toolsHeading', { name: service.name }) });
 
   const isDraftReview =
     isPreview &&
@@ -115,20 +120,22 @@ export default async function ServiceDetailPage({ params, searchParams }: Servic
   return (
     <div className="flex flex-col gap-6 max-w-5xl mx-auto w-full">
       {/* Contextual Back Navigation */}
-      <nav aria-label="Back to search">
+      <nav aria-label={t('backToSearch')}>
         <Link
           href="/sok"
           className="inline-flex items-center gap-1.5 text-xs font-medium text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] rounded-[var(--radius-sm)] py-1"
         >
           <ArrowLeft className="w-3.5 h-3.5" aria-hidden="true" />
-          <span>Back to search</span>
+          <span>{t('backToSearch')}</span>
         </Link>
       </nav>
 
       {/* Draft review mode banner */}
       {isDraftReview && (
         <div className="py-2.5 px-4 bg-amber-500/10 border border-amber-500/30 rounded-[var(--radius-md)] text-xs text-amber-900 dark:text-amber-200 leading-relaxed font-medium">
-          Granskningsläge (Utkast) – Denna guide är inte publicerad för allmänheten.
+          {locale === 'sv'
+            ? 'Granskningsläge (Utkast) – Denna guide är inte publicerad för allmänheten.'
+            : 'Preview Mode (Draft) – This guide is not published for the public.'}
         </div>
       )}
 
@@ -172,10 +179,10 @@ export default async function ServiceDetailPage({ params, searchParams }: Servic
           {/* Editorial Disclaimer */}
           <footer className="border-t border-[var(--color-border)] pt-6 text-xs text-[var(--color-text-subtle)] leading-relaxed">
             <p className="font-semibold text-[var(--color-text-muted)] mb-1">
-              Disclaimer
+              {t('disclaimerTitle')}
             </p>
             <p>
-              ByeScribe is an independent consumer guide and has no affiliation with the provider. Cancellation is always executed directly between you and the provider under your contract terms.
+              {t('disclaimerText')}
             </p>
           </footer>
         </article>
