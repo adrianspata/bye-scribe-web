@@ -1,6 +1,8 @@
 import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import { NextIntlClientProvider } from 'next-intl';
+import enMessages from '@/messages/en.json';
 import { ServiceGuideHeader } from './service-guide-header';
 import { ServiceFacts } from './service-facts';
 import { CancellationSteps } from './cancellation-steps';
@@ -18,6 +20,14 @@ vi.mock('@/i18n/navigation', () => ({
     </a>
   ),
 }));
+
+function renderWithIntl(ui: React.ReactElement) {
+  return render(
+    <NextIntlClientProvider locale="en" messages={enMessages}>
+      {ui}
+    </NextIntlClientProvider>
+  );
+}
 
 const mockService: ServiceDetail = {
   id: 'srv-test-1',
@@ -89,16 +99,17 @@ const mockService: ServiceDetail = {
 describe('Service Guide Components', () => {
   describe('ServiceGuideHeader', () => {
     it('renders single H1 with service name and category', () => {
-      render(<ServiceGuideHeader service={mockService} isFixtureMode={false} />);
+      renderWithIntl(<ServiceGuideHeader service={mockService} isFixtureMode={false} />);
       const h1Elements = screen.getAllByRole('heading', { level: 1 });
       expect(h1Elements).toHaveLength(1);
       expect(h1Elements[0]).toHaveTextContent('Cancel Test Service');
-      expect(screen.getByText('Streaming')).toBeInTheDocument();
-      expect(screen.getByText('Legal name: Test Service AB')).toBeInTheDocument();
+      expect(screen.getByText('Streaming & Video')).toBeInTheDocument();
+      expect(screen.getByText(/Legal entity name:/)).toBeInTheDocument();
+      expect(screen.getByText(/Test Service AB/)).toBeInTheDocument();
     });
 
     it('displays demo notice when isFixtureMode is true', () => {
-      render(<ServiceGuideHeader service={mockService} isFixtureMode={true} />);
+      renderWithIntl(<ServiceGuideHeader service={mockService} isFixtureMode={true} />);
       expect(
         screen.getByText('Local demo – this information is sample data and not a verified service guide.')
       ).toBeInTheDocument();
@@ -111,26 +122,26 @@ describe('Service Guide Components', () => {
         ...mockService,
         verificationStatus: 'stale',
       };
-      render(<ServiceGuideHeader service={staleService} isFixtureMode={false} />);
+      renderWithIntl(<ServiceGuideHeader service={staleService} isFixtureMode={false} />);
       expect(
-        screen.getByText('This guide needs review. Terms and contact channels may have changed with the provider.')
+        screen.getByText('This guide needs review. Terms and contact channels may have changed.')
       ).toBeInTheDocument();
     });
   });
 
   describe('ServiceFacts', () => {
     it('renders cancellation channel and notice period correctly', () => {
-      render(<ServiceFacts service={mockService} />);
+      renderWithIntl(<ServiceFacts service={mockService} />);
       expect(screen.getByText('Primary cancellation channel')).toBeInTheDocument();
       expect(screen.getByText('Website / Account Settings')).toBeInTheDocument();
       expect(screen.getByText('Notice period')).toBeInTheDocument();
-      expect(screen.getByText('No notice period (0 days)')).toBeInTheDocument();
+      expect(screen.getByText('0 days')).toBeInTheDocument();
     });
   });
 
   describe('CancellationSteps', () => {
     it('sorts steps by position and renders semantic ordered list', () => {
-      render(<CancellationSteps steps={mockService.steps} serviceName="Test Service" />);
+      renderWithIntl(<CancellationSteps steps={mockService.steps} serviceName="Test Service" />);
       const stepHeadings = screen.getAllByRole('heading', { level: 3 });
       expect(stepHeadings).toHaveLength(2);
       expect(stepHeadings[0]).toHaveTextContent('Logga in');
@@ -141,7 +152,7 @@ describe('Service Guide Components', () => {
 
   describe('OfficialCancellationAction', () => {
     it('renders primary CTA when officialCancellationUrl exists', () => {
-      render(
+      renderWithIntl(
         <OfficialCancellationAction
           serviceName="Test Service"
           officialCancellationUrl="https://example.com/cancel"
@@ -154,8 +165,8 @@ describe('Service Guide Components', () => {
       ).toBeInTheDocument();
     });
 
-    it('renders secondary website link when only websiteUrl exists', () => {
-      render(
+  it('renders secondary website link when only websiteUrl exists', () => {
+      renderWithIntl(
         <OfficialCancellationAction
           serviceName="Test Service"
           officialCancellationUrl={null}
@@ -166,7 +177,7 @@ describe('Service Guide Components', () => {
     });
 
     it('renders null when no valid URLs exist', () => {
-      const { container } = render(
+      const { container } = renderWithIntl(
         <OfficialCancellationAction
           serviceName="Test Service"
           officialCancellationUrl={null}
@@ -179,19 +190,19 @@ describe('Service Guide Components', () => {
 
   describe('ServiceTermsSection', () => {
     it('renders binding and confirmation notes', () => {
-      render(
+      renderWithIntl(
         <ServiceTermsSection
           bindingNotes="Ingen bindningstid."
           confirmationNotes="Bekräftelse via e-post."
         />
       );
-      expect(screen.getByText('Terms & Confirmation')).toBeInTheDocument();
+      expect(screen.getByText('Terms and confirmation')).toBeInTheDocument();
       expect(screen.getByText('Ingen bindningstid.')).toBeInTheDocument();
       expect(screen.getByText('Bekräftelse via e-post.')).toBeInTheDocument();
     });
 
     it('renders null if no notes exist', () => {
-      const { container } = render(
+      const { container } = renderWithIntl(
         <ServiceTermsSection bindingNotes={null} confirmationNotes={null} />
       );
       expect(container.firstChild).toBeNull();
@@ -200,7 +211,7 @@ describe('Service Guide Components', () => {
 
   describe('ServicePricesSection', () => {
     it('formats price in SEK with billing interval', () => {
-      render(<ServicePricesSection prices={mockService.prices} isFixtureMode={false} />);
+      renderWithIntl(<ServicePricesSection prices={mockService.prices} isFixtureMode={false} />);
       expect(screen.getByText('Månadsplan')).toBeInTheDocument();
       expect(screen.getByText(/99 kr\/mo/)).toBeInTheDocument();
     });
@@ -208,10 +219,10 @@ describe('Service Guide Components', () => {
 
   describe('SourceList', () => {
     it('renders sources with type and dates without synthetic publishers', () => {
-      render(<SourceList sources={mockService.sources} />);
+      renderWithIntl(<SourceList sources={mockService.sources} />);
       expect(screen.getByText('Allmänna villkor')).toBeInTheDocument();
       expect(screen.getByText('Terms of Service')).toBeInTheDocument();
-      expect(screen.getByText(/Accessed:/)).toBeInTheDocument();
+      expect(screen.getByText(/Accessed/)).toBeInTheDocument();
       expect(screen.getByText(/Verified:/)).toBeInTheDocument();
     });
   });
@@ -223,7 +234,7 @@ describe('Service Guide Components', () => {
         { id: 'steg', label: 'Cancellation Steps' },
         { id: 'verktyg', label: 'Tools' },
       ];
-      render(<ServiceInPageNav sections={sections} />);
+      renderWithIntl(<ServiceInPageNav sections={sections} />);
       expect(screen.getByText('Guide contents')).toBeInTheDocument();
       expect(screen.getByText('Quick Overview')).toBeInTheDocument();
       expect(screen.getByText('Cancellation Steps')).toBeInTheDocument();
@@ -235,7 +246,7 @@ describe('Service Guide Components', () => {
         { id: 'snabbfakta', label: 'Quick Overview' },
         { id: 'steg', label: 'Cancellation Steps' },
       ];
-      const { container } = render(<ServiceInPageNav sections={sections} />);
+      const { container } = renderWithIntl(<ServiceInPageNav sections={sections} />);
       expect(container.firstChild).toBeNull();
     });
   });
