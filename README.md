@@ -1,4 +1,4 @@
-## ByeScribe
+## ByeScribe - The easier way to cancel your payments and subscriptions.
 
 ### 1. Install dependencies
 ```bash
